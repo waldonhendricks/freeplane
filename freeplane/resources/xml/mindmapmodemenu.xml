@@ -136,6 +136,7 @@
 				<menu_action action="CopyNodeURIAction" />
 			</menu_submenu>
 				<menu_action action="PasteAction" accelerator="control V" />
+                <menu_action action="PasteCloneAction" accelerator="control shift V" />
 				<menu_action action="SelectedPasteAction" />
 			<menu_separator />
 			<menu_submenu name="menu_moveNode" name_ref="menu_moveNode">
@@ -475,6 +476,7 @@
 		<menu_action action="CopyIDAction" />
 		<menu_action action="CopyNodeURIAction" />
 		<menu_action action="PasteAction" accelerator="control V" />
+        <menu_action action="PasteCloneAction" accelerator="control shift V" />
 		<menu_action action="SortNodes" />
 		<menu_action action="UndoAction" />
 		<menu_action action="RedoAction" />
