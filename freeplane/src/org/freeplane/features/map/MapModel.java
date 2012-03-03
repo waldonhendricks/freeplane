@@ -52,6 +52,7 @@ public class MapModel {
 	final private IconRegistry iconRegistry;
 	final private List<IMapChangeListener> listeners;
 	final private Map<String, NodeModel> nodes;
+	final private Map<String, ContentModel> nodeContents;
 	private boolean readOnly = false;
 	private NodeModel root;
 	private URL url;
@@ -61,6 +62,7 @@ public class MapModel {
 		this.root = null;
 		listeners = new LinkedList<IMapChangeListener>();
 		nodes = new HashMap<String, NodeModel>();
+		nodeContents = new HashMap<String, ContentModel>();
 		final FilterController filterController = FilterController.getCurrentFilterController();
 		if (filterController != null) {
 			filter = filterController.createTransparentFilter();
@@ -104,6 +106,18 @@ public class MapModel {
 		for (final IMapChangeListener listener : listeners) {
 			listener.mapChanged(event);
 		}
+	}
+
+	public String generateContentID(final String proposedID) {
+		if (proposedID != null && !"".equals(proposedID) && getContentForID(proposedID) == null) {
+			return proposedID;
+		}
+		String returnValue;
+		do {
+			final String prefix = "ID_";
+			returnValue = prefix + Integer.toString(ran.nextInt(UNDEFINED_NODE_ID));
+		} while (nodeContents.containsKey(returnValue));
+		return returnValue;
 	}
 
 	public String generateNodeID(final String proposedID) {
@@ -159,6 +173,11 @@ public class MapModel {
 		return node;
 	}
 
+	public ContentModel getContentForID(final String contentID) {
+		final ContentModel cm = nodeContents.get(contentID);
+		return cm;
+	}
+
 	public int getNumberOfChangesSinceLastSave() {
 		return changesPerformedSinceLastSave;
 	}
@@ -204,6 +223,13 @@ public class MapModel {
 		}
 	}
 
+	void registryID(final String value, final ContentModel contentModel) {
+		final ContentModel old = nodeContents.put(value, contentModel);
+		if (null != old && contentModel != old) {
+			throw new RuntimeException("id " + value + " already registered");
+		}
+	}
+
 	/**
 	 * @param nodeModel
 	 * @return
@@ -211,6 +237,12 @@ public class MapModel {
 	public String registryNode(final NodeModel nodeModel) {
 		final String id = generateNodeID(nodeModel.getID());
 		registryID(id, nodeModel);
+		return id;
+	}
+
+	public String registryContent(final ContentModel contentModel) {
+		final String id = generateContentID(contentModel.getID());
+		registryID(id, contentModel);
 		return id;
 	}
 

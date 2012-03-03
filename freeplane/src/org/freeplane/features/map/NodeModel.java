@@ -28,14 +28,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-import org.freeplane.core.extension.ExtensionContainer;
 import org.freeplane.core.extension.IExtension;
-import org.freeplane.core.extension.SmallExtensionMap;
 import org.freeplane.core.util.HtmlUtils;
-import org.freeplane.core.util.XmlUtils;
 import org.freeplane.features.filter.Filter;
 import org.freeplane.features.filter.FilterInfo;
 import org.freeplane.features.icon.MindIcon;
@@ -64,20 +62,15 @@ public class NodeModel implements MutableTreeNode {
 	static public final Object UNKNOWN_PROPERTY = new Object();
 	public static final String NODE_ICON = "icon";
 	protected final List<NodeModel> children = new ArrayList<NodeModel>();
-	private final ExtensionContainer extensionContainer;
-	final private FilterInfo filterInfo = new FilterInfo();
 	private boolean folded;
-	private HistoryInformationModel historyInformation = null;
-	final private NodeIconSetModel icons;
 	private String id;
-	private MapModel map = null;
 	private NodeModel parent;
 	private int position = NodeModel.UNKNOWN_POSITION;
 	private NodeModel preferredChild;
-	private Object userObject = null;
+	private ContentModel content;
 
 	public Object getUserObject() {
-		return userObject;
+		return content.getUserObject();
 	}
 
 	private Collection<INodeView> views = null;
@@ -88,11 +81,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public NodeModel(final Object userObject, final MapModel map) {
-		extensionContainer = new ExtensionContainer(new SmallExtensionMap());
-		setUserObject(userObject);
-		setHistoryInformation(new HistoryInformationModel());
-		this.map = map;
-		icons = new NodeIconSetModel();
+		content = new ContentModel(userObject, map);
 	}
 
 	public void acceptViewVisitor(final INodeViewVisitor visitor) {
@@ -105,23 +94,19 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public void addExtension(final IExtension extension) {
-		extensionContainer.addExtension(extension);
+		content.addExtension(extension);
 	}
 
 	public IExtension putExtension(final IExtension extension) {
-		return extensionContainer.putExtension(extension);
+		return content.putExtension(extension);
 	}
 
 	public void addIcon(final MindIcon icon) {
-		icons.addIcon(icon);
-		if (map != null) {
-			map.getIconRegistry().addIcon(icon);
-		}
+		content.addIcon(icon);
 	}
 
 	public void addIcon(final MindIcon icon, final int position) {
-		icons.addIcon(icon, position);
-		getMap().getIconRegistry().addIcon(icon);
+		content.addIcon(icon, position);
 	}
 
 	public void addViewer(final INodeView viewer) {
@@ -146,7 +131,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public boolean containsExtension(final Class<? extends IExtension> clazz) {
-		return extensionContainer.containsExtension(clazz);
+		return content.containsExtension(clazz);
 	}
 
 	public String createID() {
@@ -224,27 +209,27 @@ public class NodeModel implements MutableTreeNode {
 	}
 
     public <T extends IExtension> T getExtension(final Class<T> clazz) {
-		return (T) extensionContainer.getExtension(clazz);
+		return content.getExtension(clazz);
 	}
 
 	public Map<Class<? extends IExtension>, IExtension> getExtensions() {
-		return extensionContainer.getExtensions();
-	};
+		return content.getExtensions();
+	}
 
 	public FilterInfo getFilterInfo() {
-		return filterInfo;
+		return content.getFilterInfo();
 	}
 
 	public HistoryInformationModel getHistoryInformation() {
-		return historyInformation;
+		return content.getHistoryInformation();
 	}
 
 	public MindIcon getIcon(final int position) {
-		return icons.getIcon(position);
+		return content.getIcon(position);
 	}
 
 	public List<MindIcon> getIcons() {
-		return icons.getIcons();
+		return content.getIcons();
 	}
 
 	public String getID() {
@@ -256,7 +241,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public MapModel getMap() {
-		return map;
+		return content.getMap();
 	}
 
 	public int getNodeLevel(final boolean countHidden) {
@@ -290,11 +275,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public String getText() {
-		String string = "";
-		if (userObject != null) {
-			string = userObject.toString();
-		}
-		return string;
+		return content.getText();
 	}
 
 	public Collection<INodeView> getViewers() {
@@ -419,11 +400,11 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public <T extends IExtension> T removeExtension(final Class<T> clazz){
-		return extensionContainer.removeExtension(clazz);
+		return content.removeExtension(clazz);
 	}
 
 	public boolean removeExtension(final IExtension extension) {
-		return extensionContainer.removeExtension(extension);
+		return content.removeExtension(extension);
 	}
 
 	public void removeFromParent() {
@@ -436,7 +417,7 @@ public class NodeModel implements MutableTreeNode {
 	 * @return the number of remaining icons.
 	 */
 	public int removeIcon() {
-		return icons.removeIcon();
+		return content.removeIcon();
 	}
 
 	/**
@@ -445,7 +426,7 @@ public class NodeModel implements MutableTreeNode {
 	 * @return the number of remaining icons
 	 */
 	public int removeIcon(final int position) {
-		return icons.removeIcon(position);
+		return content.removeIcon(position);
 	}
 
 	public void removeViewer(final INodeView viewer) {
@@ -472,7 +453,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public void setHistoryInformation(final HistoryInformationModel historyInformation) {
-		this.historyInformation = historyInformation;
+		content.setHistoryInformation(historyInformation);
 	}
 
 	public void setID(final String value) {
@@ -495,7 +476,7 @@ public class NodeModel implements MutableTreeNode {
 	/**
 	 */
 	public void setMap(final MapModel map) {
-		this.map = map;
+		content.setMap(map);
 		for (final NodeModel child : children) {
 			child.setMap(map);
 		}
@@ -511,26 +492,15 @@ public class NodeModel implements MutableTreeNode {
 
 
 	public final void setText(final String text) {
-		userObject = XmlUtils.makeValidXml(text);
-		xmlText = HtmlUtils.toXhtml(text);
-		if (xmlText != null && !xmlText.startsWith("<")) {
-			userObject = " " + text;
-			xmlText = null;
-		}
+		content.setText(text);
 	}
 
 	public final void setUserObject(final Object data) {
-		if (data instanceof String) {
-			setText(data.toString());
-			return;
-		}
-		userObject = data;
-		xmlText = null;
+		content.setUserObject(data);
 	}
 
 	public final void setXmlText(final String pXmlText) {
-		xmlText = XmlUtils.makeValidXml(pXmlText);
-		userObject = HtmlUtils.toHtml(xmlText);
+		content.setXmlText(pXmlText);
 	}
 
 	@Override
