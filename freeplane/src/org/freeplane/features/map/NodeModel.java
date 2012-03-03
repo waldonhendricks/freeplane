@@ -433,6 +433,10 @@ public class NodeModel implements MutableTreeNode {
 		getViewers().remove(viewer);
 	}
 
+	public void setContent(ContentModel cm) {
+		content = cm;
+	}
+
 	public void setFolded(boolean folded) {
 		if (this.folded == folded) {
 			return;

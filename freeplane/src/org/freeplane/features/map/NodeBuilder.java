@@ -54,6 +54,7 @@ public class NodeBuilder implements IElementDOMHandler {
 	public static final String XML_STYLENODE = "stylenode";
 	public static final String XML_NODE_ADDITIONAL_INFO = "ADDITIONAL_INFO";
 	public static final String XML_NODE_CLASS = "AA_NODE_CLASS";
+	public static final String XML_NODE_CONTENT_ID = "CONTENT_ID";
 	public static final String XML_NODE_ENCRYPTED_CONTENT = "ENCRYPTED_CONTENT";
 	public static final String XML_NODE_HISTORY_CREATED_AT = "CREATED";
 	public static final String XML_NODE_HISTORY_LAST_MODIFIED_AT = "MODIFIED";
@@ -102,6 +103,14 @@ public class NodeBuilder implements IElementDOMHandler {
 	}
 
 	private void registerAttributeHandlers(final ReadManager reader) {
+		reader.addAttributeHandler(NodeBuilder.XML_NODE, NodeBuilder.XML_NODE_CONTENT_ID,
+		    new IAttributeHandler() {
+			    public void setAttribute(final Object userObject, final String value) {
+				    final NodeModel node = (NodeModel) userObject;
+				    final ContentModel content = getMap().getContentForID(value);
+				    node.setContent(content);
+			    }
+		    });
 		reader.addAttributeHandler(NodeBuilder.XML_NODE, NodeBuilder.XML_NODE_ENCRYPTED_CONTENT,
 		    new IAttributeHandler() {
 			    private void createEncryptedNode(final NodeModel node, final String additionalInfo) {
