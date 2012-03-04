@@ -61,6 +61,7 @@ public class NodeModel implements MutableTreeNode {
 	public final static int UNKNOWN_POSITION = 0;
 	static public final Object UNKNOWN_PROPERTY = new Object();
 	public static final String NODE_ICON = "icon";
+	final private FilterInfo filterInfo = new FilterInfo();
 	protected final List<NodeModel> children = new ArrayList<NodeModel>();
 	private boolean folded;
 	private String id;
@@ -230,7 +231,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public FilterInfo getFilterInfo() {
-		return content.getFilterInfo();
+		return filterInfo;
 	}
 
 	public HistoryInformationModel getHistoryInformation() {

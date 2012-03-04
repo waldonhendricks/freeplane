@@ -40,7 +40,6 @@ import org.freeplane.features.icon.MindIcon;
 public class ContentModel {
 	private MapModel map = null;
 	private final ExtensionContainer extensionContainer;
-	final private FilterInfo filterInfo = new FilterInfo();
 	private HistoryInformationModel historyInformation = null;
 	final private NodeIconSetModel icons;
 	private String id;
@@ -118,10 +117,6 @@ public class ContentModel {
 
 	public Map<Class<? extends IExtension>, IExtension> getExtensions() {
 		return extensionContainer.getExtensions();
-	}
-
-	public FilterInfo getFilterInfo() {
-		return filterInfo;
 	}
 
 	public MindIcon getIcon(final int position) {
