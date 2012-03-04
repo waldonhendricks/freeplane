@@ -175,6 +175,7 @@ public class MClipboardController extends ClipboardController {
 			for (int i = 0; i < textLines.length; ++i) {
 				try {
 					final NodeModel newModel = nodeTreeCreator.create(new StringReader(textLines[i]));
+					newModel.copyContent();
 					newModel.removeExtension(FreeNode.class);
 					final boolean wasLeft = newModel.isLeft();
 					mapController.insertNode(newModel, target, asSibling, isLeft, wasLeft != isLeft);
@@ -199,7 +200,6 @@ public class MClipboardController extends ClipboardController {
 			final NodeTreeCreator nodeTreeCreator = mapReader.nodeTreeCreator(target.getMap());
 			nodeTreeCreator.setHint(Hint.MODE, Mode.CLIPBOARD);
 			for (int i = 0; i < textLines.length; ++i) {
-				System.err.println(";;;;;;;;;;;;;;;;; " + textLines[i]);
 				try {
 					final NodeModel newModel = nodeTreeCreator.create(new StringReader(textLines[i]));
 					newModel.removeExtension(FreeNode.class);

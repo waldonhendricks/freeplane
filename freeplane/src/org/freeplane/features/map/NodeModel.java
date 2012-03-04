@@ -111,6 +111,7 @@ public class NodeModel implements MutableTreeNode {
 
 	public void addViewer(final INodeView viewer) {
 		getViewers().add(viewer);
+		content.addViewer(viewer);
 	}
 
 	public boolean areViewsEmpty() {
@@ -134,6 +135,10 @@ public class NodeModel implements MutableTreeNode {
 		return content.containsExtension(clazz);
 	}
 
+	public void copyContent() {
+	    content = content.copy();
+    }
+
 	public String createID() {
 		if (id == null) {
 			id = getMap().registryNode(this);
@@ -142,12 +147,16 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public void fireNodeChanged(final NodeChangeEvent nodeChangeEvent) {
+		content.fireNodeChanged(nodeChangeEvent);
+
 		if (views == null) {
 			return;
 		}
 		final Iterator<INodeView> iterator = views.iterator();
+		INodeView inv;
 		while (iterator.hasNext()) {
-			iterator.next().nodeChanged(nodeChangeEvent);
+			inv = iterator.next();
+			inv.nodeChanged(nodeChangeEvent);
 		}
 	}
 
@@ -208,7 +217,11 @@ public class NodeModel implements MutableTreeNode {
 		return Collections.unmodifiableList(childrenList);
 	}
 
-    public <T extends IExtension> T getExtension(final Class<T> clazz) {
+	public ContentModel getContent() {
+		return content;
+	}
+
+	public <T extends IExtension> T getExtension(final Class<T> clazz) {
 		return content.getExtension(clazz);
 	}
 
@@ -434,6 +447,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public void setContent(ContentModel cm) {
+		if (cm == null) return;
 		content = cm;
 	}
 
@@ -494,7 +508,6 @@ public class NodeModel implements MutableTreeNode {
 		parent = newParent;
 	}
 
-
 	public final void setText(final String text) {
 		content.setText(text);
 	}
@@ -531,4 +544,5 @@ public class NodeModel implements MutableTreeNode {
 		}
 		return node;
 	}
+
 }

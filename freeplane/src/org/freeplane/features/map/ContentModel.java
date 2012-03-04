@@ -20,6 +20,8 @@
 package org.freeplane.features.map;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +46,7 @@ public class ContentModel {
 	private String id;
 	private Object userObject = null;
 	private String xmlText = null;
-	private final Collection<INodeView> views = null;
+	private Collection<INodeView> views = null;
 
 	public ContentModel(final Object userObject, final MapModel map) {
 		setUserObject(userObject);
@@ -57,8 +59,8 @@ public class ContentModel {
 		extensionContainer.addExtension(extension);
 	}
 
-	public IExtension putExtension(final IExtension extension) {
-		return extensionContainer.putExtension(extension);
+	public void addViewer(final INodeView viewer) {
+		getViewers().add(viewer);
 	}
 
 	public void addIcon(final MindIcon icon) {
@@ -77,11 +79,29 @@ public class ContentModel {
 		return extensionContainer.containsExtension(clazz);
 	}
 
+	public ContentModel copy() {
+		ContentModel c = new ContentModel(userObject, map);
+		c.createID();
+	    return c;
+    }
+
 	public String createID() {
 		if (id == null) {
 			id = map.registryContent(this);
 		}
 		return id;
+	}
+
+	public void fireNodeChanged(final NodeChangeEvent nodeChangeEvent) {
+		if (views == null) {
+			return;
+		}
+		final Iterator<INodeView> iterator = views.iterator();
+		INodeView inv;
+		while (iterator.hasNext()) {
+			inv = iterator.next();
+			inv.nodeChanged(nodeChangeEvent);
+		}
 	}
 
 	public HistoryInformationModel getHistoryInformation() {
@@ -128,8 +148,19 @@ public class ContentModel {
 		return userObject;
 	}
 
+	public Collection<INodeView> getViewers() {
+		if (views == null) {
+			views = new LinkedList<INodeView>();
+		}
+		return views;
+	}
+
 	public boolean hasID() {
 		return id != null;
+	}
+
+	public IExtension putExtension(final IExtension extension) {
+		return extensionContainer.putExtension(extension);
 	}
 
 	public <T extends IExtension> T removeExtension(final Class<T> clazz) {
@@ -193,4 +224,5 @@ public class ContentModel {
 		xmlText = XmlUtils.makeValidXml(pXmlText);
 		userObject = HtmlUtils.toHtml(xmlText);
 	}
+
 }

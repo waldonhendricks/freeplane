@@ -100,6 +100,8 @@ class NodeWriter implements IElementWriter, IAttributeWriter {
 		if (saveID) {
 			final String id = node.createID();
 			writer.addAttribute("ID", id);
+			final String contentId = node.getContent().createID();
+			writer.addAttribute(NodeBuilder.XML_NODE_CONTENT_ID, contentId);
 		}
 		if (!mode.equals(Mode.STYLE)
 		        && node.getHistoryInformation() != null
