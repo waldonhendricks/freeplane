@@ -54,7 +54,9 @@ public class NodeBuilder implements IElementDOMHandler {
 	public static final String XML_STYLENODE = "stylenode";
 	public static final String XML_NODE_ADDITIONAL_INFO = "ADDITIONAL_INFO";
 	public static final String XML_NODE_CLASS = "AA_NODE_CLASS";
-	public static final String XML_NODE_CONTENT_ID = "CONTENT_ID";
+	public static final String XML_NODE_ATTR_ID = "ID";
+	public static final String XML_NODE_ATTR_CONTENT_ID = "CONTENT_ID";
+	public static final String XML_NODE_ATTR_FOLDED = "FOLDED";
 	public static final String XML_NODE_ENCRYPTED_CONTENT = "ENCRYPTED_CONTENT";
 	public static final String XML_NODE_HISTORY_CREATED_AT = "CREATED";
 	public static final String XML_NODE_HISTORY_LAST_MODIFIED_AT = "MODIFIED";
@@ -103,7 +105,7 @@ public class NodeBuilder implements IElementDOMHandler {
 	}
 
 	private void registerAttributeHandlers(final ReadManager reader) {
-		reader.addAttributeHandler(NodeBuilder.XML_NODE, NodeBuilder.XML_NODE_CONTENT_ID,
+		reader.addAttributeHandler(NodeBuilder.XML_NODE, NodeBuilder.XML_NODE_ATTR_CONTENT_ID,
 		    new IAttributeHandler() {
 			    public void setAttribute(final Object userObject, final String value) {
 				    final NodeModel node = (NodeModel) userObject;
@@ -148,7 +150,7 @@ public class NodeBuilder implements IElementDOMHandler {
 			public void setAttribute(Object userObject, String value) {
 			}
 		});
-		reader.addAttributeHandler(NodeBuilder.XML_NODE, "FOLDED", new IAttributeHandler() {
+		reader.addAttributeHandler(NodeBuilder.XML_NODE, NodeBuilder.XML_NODE_ATTR_FOLDED, new IAttributeHandler() {
 			public void setAttribute(final Object userObject, final String value) {
 				final NodeModel node = (NodeModel) userObject;
 				final Object mode = mapReader.getCurrentNodeTreeCreator().getHint(Hint.MODE);
@@ -211,12 +213,13 @@ public class NodeBuilder implements IElementDOMHandler {
 		};
 		reader.addAttributeHandler(NodeBuilder.XML_NODE, "POSITION", positionHandler);
 		reader.addAttributeHandler(NodeBuilder.XML_STYLENODE, "POSITION", positionHandler);
-		reader.addAttributeHandler(NodeBuilder.XML_NODE, "ID", new IAttributeHandler() {
+		reader.addAttributeHandler(NodeBuilder.XML_NODE, NodeBuilder.XML_NODE_ATTR_ID, new IAttributeHandler() {
 			public void setAttribute(final Object userObject, final String value) {
 				final NodeModel node = (NodeModel) userObject;
 				final String realId = getMap().generateNodeID(value);
 				node.setID(realId);
 				if (!realId.equals(value)) {
+					node.pushIDIfValid(value);
 					mapReader.getCurrentNodeTreeCreator().substituteNodeID(value, realId);
 				}
 			}

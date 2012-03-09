@@ -30,7 +30,6 @@ import org.freeplane.core.extension.IExtension;
 import org.freeplane.core.extension.SmallExtensionMap;
 import org.freeplane.core.util.HtmlUtils;
 import org.freeplane.core.util.XmlUtils;
-import org.freeplane.features.filter.FilterInfo;
 import org.freeplane.features.icon.MindIcon;
 
 /**

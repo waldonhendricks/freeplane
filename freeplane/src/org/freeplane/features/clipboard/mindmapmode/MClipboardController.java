@@ -110,9 +110,6 @@ public class MClipboardController extends ClipboardController {
 			paste(target);
 		}
 
-		public void pasteClone(Transferable t, NodeModel target, boolean asSibling, boolean isLeft) {
-	        // pass
-        }
 	}
 
 	private class FileListFlavorHandler implements IDataFlavorHandler {
@@ -143,14 +140,10 @@ public class MClipboardController extends ClipboardController {
 			}
 		}
 
-		public void pasteClone(Transferable t, NodeModel target, boolean asSibling, boolean isLeft) {
-			// pass
-        }
 	}
 
 	interface IDataFlavorHandler {
 		void paste(Transferable t, NodeModel target, boolean asSibling, boolean isLeft);
-		void pasteClone(Transferable t, NodeModel target, boolean asSibling, boolean isLeft);
 	}
 
 	private class MindMapNodesFlavorHandler implements IDataFlavorHandler {
@@ -203,6 +196,36 @@ public class MClipboardController extends ClipboardController {
 				try {
 					final NodeModel newModel = nodeTreeCreator.create(new StringReader(textLines[i]));
 					newModel.removeExtension(FreeNode.class);
+					final boolean wasLeft = newModel.isLeft();
+					mapController.insertNode(newModel, target, asSibling, isLeft, wasLeft != isLeft);
+				}
+				catch (final XMLException e) {
+					LogUtils.severe("error on paste", e);
+				}
+			}
+			nodeTreeCreator.finish(target);
+		}
+
+		public void pasteTreeClone(Transferable t, final NodeModel target, final boolean asSibling, final boolean isLeft) {
+			if (textFromClipboard != null) {
+				pasteTreeClone(textFromClipboard, target, asSibling, isLeft);
+			}
+		}
+
+		private void pasteTreeClone(final String text, final NodeModel target, final boolean asSibling, final boolean isLeft) {
+			final String[] textLines = text.split(ClipboardController.NODESEPARATOR);
+			final MMapController mapController = (MMapController) Controller.getCurrentModeController().getMapController();
+			final MapReader mapReader = mapController.getMapReader();
+			final NodeTreeCreator nodeTreeCreator = mapReader.nodeTreeCreator(target.getMap());
+			nodeTreeCreator.setHint(Hint.MODE, Mode.CLIPBOARD);
+			for (int i = 0; i < textLines.length; ++i) {
+				try {
+					final NodeModel newModel = nodeTreeCreator.create(new StringReader(textLines[i]));
+					newModel.removeExtension(FreeNode.class);
+					NodeModel baseNode = newModel.getLastValidIDNode();
+					if (baseNode != null) {
+						baseNode.addClone(newModel);
+					}
 					final boolean wasLeft = newModel.isLeft();
 					mapController.insertNode(newModel, target, asSibling, isLeft, wasLeft != isLeft);
 				}
@@ -287,9 +310,6 @@ public class MClipboardController extends ClipboardController {
 			return textFragments.toArray(new TextFragment[textFragments.size()]);
 		}
 
-		public void pasteClone(Transferable t, NodeModel target, boolean asSibling, boolean isLeft) {
-	        // pass
-        }
 	}
 
 	private class StructuredHtmlFlavorHandler implements IDataFlavorHandler {
@@ -420,9 +440,6 @@ public class MClipboardController extends ClipboardController {
 			return htmlFragments.toArray(new TextFragment[htmlFragments.size()]);
 		}
 
-		public void pasteClone(Transferable t, NodeModel target, boolean asSibling, boolean isLeft) {
-	        // pass
-        }
 	}
 
 	private static class TextFragment {
@@ -510,9 +527,6 @@ public class MClipboardController extends ClipboardController {
             }
         }
 
-		public void pasteClone(Transferable t, NodeModel target, boolean asSibling, boolean isLeft) {
-	        // pass
-        }
     }
 	private static final Pattern HEADER_REGEX = Pattern.compile("h(\\d)", Pattern.CASE_INSENSITIVE);
 	private static final Pattern HREF_PATTERN = Pattern
@@ -558,6 +572,7 @@ public class MClipboardController extends ClipboardController {
 		modeController.addAction(new CutAction());
 		modeController.addAction(new PasteAction());
 		modeController.addAction(new PasteCloneAction());
+		modeController.addAction(new PasteTreeCloneAction());
 		modeController.addAction(new SelectedPasteAction());
 	}
 
@@ -788,10 +803,12 @@ public class MClipboardController extends ClipboardController {
 			return;
 		}
 		final IDataFlavorHandler handler = getFlavorHandler(t);
-		pasteClone(t, handler, target, asSibling, isLeft);
+		if (handler instanceof MindMapNodesFlavorHandler) {
+			pasteClone(t, (MindMapNodesFlavorHandler) handler, target, asSibling, isLeft);
+		}
 	}
 
-	void pasteClone(final Transferable t, final IDataFlavorHandler handler, final NodeModel target, final boolean asSibling, final boolean isLeft) {
+	void pasteClone(final Transferable t, final MindMapNodesFlavorHandler handler, final NodeModel target, final boolean asSibling, final boolean isLeft) {
 		if (handler == null) {
 			return;
 		}
@@ -809,6 +826,60 @@ public class MClipboardController extends ClipboardController {
 			}
 			newNodes.clear();
 			handler.pasteClone(t, target, asSibling, isLeft);
+			final ModeController modeController = Controller.getCurrentModeController();
+			if (!asSibling && modeController.getMapController().isFolded(target)
+			        && ResourceController.getResourceController().getBooleanProperty(RESOURCE_UNFOLD_ON_PASTE)) {
+				modeController.getMapController().setFolded(target, false);
+			}
+			for (final NodeModel child : newNodes) {
+				AttributeController.getController().performRegistrySubtreeAttributes(child);
+			}
+		}
+		finally {
+			Controller.getCurrentController().getViewController().setWaitingCursor(false);
+		}
+	}
+	/**
+	 * @param t
+	 *            the content
+	 * @param target
+	 *            where to add the content
+	 * @param asSibling
+	 *            if true, the content is added beside the target, otherwise as
+	 *            new child
+	 * @param isLeft
+	 *            if something is pasted as a sibling to root, it must be
+	 *            decided on which side of root
+	 * @return true, if successfully executed.
+	 */
+	public void pasteTreeClone(final Transferable t, final NodeModel target, final boolean asSibling, final boolean isLeft) {
+		if (t == null) {
+			return;
+		}
+		final IDataFlavorHandler handler = getFlavorHandler(t);
+		if (handler instanceof MindMapNodesFlavorHandler) {
+			pasteTreeClone(t, (MindMapNodesFlavorHandler) handler, target, asSibling, isLeft);
+		}
+	}
+
+	void pasteTreeClone(final Transferable t, final MindMapNodesFlavorHandler handler, final NodeModel target, final boolean asSibling, final boolean isLeft) {
+		if (handler == null) {
+			return;
+		}
+		final MMapController mapController = (MMapController) Controller.getCurrentModeController().getMapController();
+		if (asSibling && !mapController.isWriteable(target.getParentNode()) || !asSibling
+		        && !mapController.isWriteable(target)) {
+			final String message = TextUtils.getText("node_is_write_protected");
+			UITools.errorMessage(message);
+			return;
+		}
+		try {
+			Controller.getCurrentController().getViewController().setWaitingCursor(true);
+			if (newNodes == null) {
+				newNodes = new LinkedList<NodeModel>();
+			}
+			newNodes.clear();
+			handler.pasteTreeClone(t, target, asSibling, isLeft);
 			final ModeController modeController = Controller.getCurrentModeController();
 			if (!asSibling && modeController.getMapController().isFolded(target)
 			        && ResourceController.getResourceController().getBooleanProperty(RESOURCE_UNFOLD_ON_PASTE)) {

@@ -63,6 +63,9 @@ public class NodeModel implements MutableTreeNode {
 	public static final String NODE_ICON = "icon";
 	final private FilterInfo filterInfo = new FilterInfo();
 	protected final List<NodeModel> children = new ArrayList<NodeModel>();
+	private final List<NodeModel> clones = new ArrayList<NodeModel>();
+	private final List<String> previousValidIDs = new ArrayList<String>();
+	private MapModel map = null;
 	private boolean folded;
 	private String id;
 	private NodeModel parent;
@@ -82,6 +85,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public NodeModel(final Object userObject, final MapModel map) {
+		this.map = map;
 		content = new ContentModel(userObject, map);
 	}
 
@@ -255,7 +259,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public MapModel getMap() {
-		return content.getMap();
+		return map;//content.getMap();
 	}
 
 	public int getNodeLevel(final boolean countHidden) {
@@ -326,6 +330,25 @@ public class NodeModel implements MutableTreeNode {
 		}
 		child.setParent(this);
 		fireNodeInserted(childNode, getIndex(child));
+
+		for (int i = 0; i < clones.size(); i++) {
+			clones.get(i).insertClone(childNode, index);
+		}
+	}
+
+	private void insertClone(NodeModel child, int index) {
+
+		if (!isAccessible()) {
+			throw new IllegalArgumentException("Trying to insert nodes into a ciphered node.");
+		}
+
+		NodeModel newChildClone = new NodeModel(getMap());
+		newChildClone.setContent(child.getContent());
+		newChildClone.addClone(child);
+		children.add(index, (NodeModel) child);
+		preferredChild = newChildClone;
+		newChildClone.setParent(this);
+		fireNodeInserted(newChildClone, getIndex(newChildClone));
 	}
 
 	private boolean isAccessible() {
@@ -411,6 +434,29 @@ public class NodeModel implements MutableTreeNode {
 		node.setParent(null);
 		children.remove(node);
 		fireNodeRemoved((NodeModel) node, index);
+
+		for (int i = 0; i < clones.size(); i++) {
+			clones.get(i).removeClone(node);
+		}
+	}
+
+	private void removeClone(final MutableTreeNode node) {
+		if (node == preferredChild) {
+			final int index = children.indexOf(node);
+			if (children.size() > index + 1) {
+				preferredChild = (children.get(index + 1));
+			}
+			else {
+				preferredChild = (index > 0) ? (NodeModel) (children.get(index - 1)) : null;
+			}
+		}
+		NodeModel childClone = (NodeModel) node;
+		final int index = getIndex(childClone);
+		childClone.setParent(null);
+		children.remove(childClone);
+		clones.remove(childClone);
+		childClone.clones.remove(this);
+		fireNodeRemoved(childClone, index);
 	}
 
 	public <T extends IExtension> T removeExtension(final Class<T> clazz){
@@ -545,5 +591,25 @@ public class NodeModel implements MutableTreeNode {
 		}
 		return node;
 	}
+
+	public void pushIDIfValid(String value) {
+	    if (value == null) return;
+	    if (getMap().getNodeForID(value) == null) return;
+	    previousValidIDs.add(value);
+    }
+
+	public NodeModel getLastValidIDNode() {
+		int s = previousValidIDs.size();
+		if (s > 0) return getMap().getNodeForID(previousValidIDs.get(s-1)); 
+		return null;
+	}
+
+	public void addClone(NodeModel nm) {
+		if (nm.getChildPosition(this) >= 0) return;
+		if (this.getChildPosition(nm) >= 0) return;
+		if (clones.contains(nm) && nm.clones.contains(this)) return;
+		if (!clones.contains(nm)) clones.add(nm);
+		if (!nm.clones.contains(this)) nm.clones.add(this);
+    }
 
 }
