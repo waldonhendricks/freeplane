@@ -31,6 +31,7 @@ import org.freeplane.core.extension.SmallExtensionMap;
 import org.freeplane.core.util.HtmlUtils;
 import org.freeplane.core.util.XmlUtils;
 import org.freeplane.features.icon.MindIcon;
+import org.freeplane.view.swing.map.NodeView;
 
 /**
  * @author Lev Lazar
@@ -96,8 +97,14 @@ public class ContentModel {
 		}
 		final Iterator<INodeView> iterator = views.iterator();
 		INodeView inv;
+		NodeView nv;
+
 		while (iterator.hasNext()) {
 			inv = iterator.next();
+			if (inv instanceof NodeView) {
+				nv = (NodeView) inv;
+				nodeChangeEvent.setSource(nv.getModel());
+			}
 			inv.nodeChanged(nodeChangeEvent);
 		}
 	}

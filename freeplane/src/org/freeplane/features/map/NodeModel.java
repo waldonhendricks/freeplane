@@ -435,8 +435,10 @@ public class NodeModel implements MutableTreeNode {
 		children.remove(node);
 		fireNodeRemoved((NodeModel) node, index);
 
+		if (parent == null || parent.clones.isEmpty()) return;
+
 		for (int i = 0; i < clones.size(); i++) {
-			clones.get(i).removeClone(node);
+//			clones.get(i).removeClone(node);
 		}
 	}
 
