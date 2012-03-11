@@ -21,12 +21,11 @@ package org.freeplane.features.map;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.tree.MutableTreeNode;
 
 import org.freeplane.core.extension.ExtensionContainer;
 import org.freeplane.core.extension.IExtension;
@@ -48,7 +47,7 @@ public class ContentModel {
 	private String id;
 	private Object userObject = null;
 	private String xmlText = null;
-	private Collection<INodeView> views = null;
+	private Map<NodeModel,Collection<INodeView>> views = new HashMap<NodeModel,Collection<INodeView>>();
 	private List<NodeModel> nodes = new ArrayList<NodeModel>();
 
 	public ContentModel(final Object userObject, final MapModel map) {
@@ -62,8 +61,13 @@ public class ContentModel {
 		extensionContainer.addExtension(extension);
 	}
 
-	public void addViewer(final INodeView viewer) {
-		getViewers().add(viewer);
+	public void addViewer(NodeModel node, final INodeView viewer) {
+		Collection<INodeView> nodeViews = views.get(node);
+		if (nodeViews == null) {
+			nodeViews = new LinkedList<INodeView>();
+			views.put(node, nodeViews);
+		}
+		nodeViews.add(viewer);
 	}
 
 	public void addIcon(final MindIcon icon) {
@@ -99,21 +103,31 @@ public class ContentModel {
 		return id;
 	}
 
-	public void fireNodeChanged(final NodeChangeEvent nodeChangeEvent) {
+	public void fireNodeChanged(NodeModel node, final NodeChangeEvent nodeChangeEvent) {
 		if (views == null) {
 			return;
 		}
-		final Iterator<INodeView> iterator = views.iterator();
-		INodeView inv;
-		NodeView nv;
 
-		while (iterator.hasNext()) {
-			inv = iterator.next();
-			if (inv instanceof NodeView) {
-				nv = (NodeView) inv;
-				nodeChangeEvent.setSource(nv.getModel());
+		final Iterator<NodeModel> viewerNodesIter = views.keySet().iterator();
+		NodeModel n;
+		Collection<INodeView> nodeViews;
+		while (viewerNodesIter.hasNext()) {
+			n = viewerNodesIter.next();
+			if (n == node) continue;
+
+			nodeViews = views.get(n);
+			final Iterator<INodeView> iterator = nodeViews.iterator();
+			INodeView inv;
+			NodeView nv;
+
+			while (iterator.hasNext()) {
+				inv = iterator.next();
+				if (inv instanceof NodeView) {
+					nv = (NodeView) inv;
+					nodeChangeEvent.setSource(nv.getModel());
+					inv.nodeChanged(nodeChangeEvent);
+				}
 			}
-			inv.nodeChanged(nodeChangeEvent);
 		}
 	}
 
@@ -161,10 +175,7 @@ public class ContentModel {
 		return userObject;
 	}
 
-	public Collection<INodeView> getViewers() {
-		if (views == null) {
-			views = new LinkedList<INodeView>();
-		}
+	public Map<NodeModel,Collection<INodeView>> getViewers() {
 		return views;
 	}
 
@@ -184,6 +195,9 @@ public class ContentModel {
 		return extensionContainer.removeExtension(extension);
 	}
 
+	public void removeExtensions() {
+		extensionContainer.removeExtensions();
+	}
 	/**
 	 * remove last icon
 	 * 

@@ -20,12 +20,14 @@
 package org.freeplane.features.styles;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.features.map.NodeModel;
 
 /**
  * @author Dimitry Polivaev
  * 28.09.2009
  */
+@NodeExtension
 public class LogicalStyleModel implements IExtension {
 	private IStyle style;
 

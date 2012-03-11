@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Collection;
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.io.ReadManager;
 import org.freeplane.core.io.WriteManager;
 import org.freeplane.core.resources.ResourceController;
@@ -41,6 +42,7 @@ import org.freeplane.features.styles.MapStyleModel;
 /**
  * @author Dimitry Polivaev
  */
+@NodeExtension
 public class NodeStyleController implements IExtension {
 	public static Color standardNodeTextColor = Color.BLACK;
 

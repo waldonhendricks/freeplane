@@ -22,6 +22,7 @@ package org.freeplane.features.styles;
 
 import java.util.Collection;
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.resources.NamedObject;
 import org.freeplane.features.map.MapModel;
 import org.freeplane.features.map.NodeModel;
@@ -33,6 +34,7 @@ import org.freeplane.features.mode.mindmapmode.MModeController;
 import org.freeplane.n3.nanoxml.XMLElement;
 
 @NodeHookDescriptor(hookName = "accessories/plugins/AutomaticLayout.properties")
+@NodeExtension
 public class AutomaticLayoutController extends PersistentNodeHook implements IExtension{
 	/**
 	 *

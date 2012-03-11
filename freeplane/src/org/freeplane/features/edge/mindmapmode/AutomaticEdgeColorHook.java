@@ -21,6 +21,7 @@ package org.freeplane.features.edge.mindmapmode;
 
 import java.awt.Color;
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.ui.components.OptionalDontShowMeAgainDialog;
 import org.freeplane.features.edge.EdgeController;
 import org.freeplane.features.edge.EdgeModel;
@@ -41,6 +42,7 @@ import org.freeplane.n3.nanoxml.XMLElement;
  */
 
 @NodeHookDescriptor(hookName = "AutomaticEdgeColor")
+@NodeExtension
 public class AutomaticEdgeColorHook extends PersistentNodeHook implements IExtension{
 	private class Listener extends AMapChangeListenerAdapter{
 		@Override
@@ -115,6 +117,7 @@ public class AutomaticEdgeColorHook extends PersistentNodeHook implements IExten
     }
 }
 
+@NodeExtension
 class AutomaticEdgeColor implements IExtension{
 	private int colorCount; 
 	int getColorCount() {

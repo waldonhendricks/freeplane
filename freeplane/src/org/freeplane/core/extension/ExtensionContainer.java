@@ -63,4 +63,9 @@ public class ExtensionContainer {
 	public boolean removeExtension(final IExtension extension) {
 		return getExtensions().remove(extension.getClass()) != null;
 	}
+
+	public void removeExtensions() {
+		getExtensions().clear();
+	}
+
 }

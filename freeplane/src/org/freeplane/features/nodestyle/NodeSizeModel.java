@@ -20,12 +20,14 @@
 package org.freeplane.features.nodestyle;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.features.map.NodeModel;
 
 /**
  * @author Dimitry Polivaev
  * Nov 13, 2011
  */
+@NodeExtension
 public class NodeSizeModel implements IExtension {
 	public static final int NOT_SET = -1;
 

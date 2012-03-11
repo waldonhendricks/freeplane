@@ -29,11 +29,13 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.features.map.NodeModel;
 
 /**
  * @author Dimitry Polivaev
  */
+@NodeExtension
 public class NodeAttributeTableModel implements IExtension, IAttributeTableModel, TableModel {
 	private static final int CAPACITY_INCREMENT = 10;
 	public static final NodeAttributeTableModel EMTPY_ATTRIBUTES = new NodeAttributeTableModel(null);

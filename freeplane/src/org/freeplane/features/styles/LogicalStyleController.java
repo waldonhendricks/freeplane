@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.io.IAttributeHandler;
 import org.freeplane.core.io.IAttributeWriter;
 import org.freeplane.core.io.ITreeWriter;
@@ -57,6 +58,7 @@ import org.freeplane.features.styles.ConditionalStyleModel.Item;
  * @author Dimitry Polivaev
  * 28.09.2009
  */
+@NodeExtension
 public class LogicalStyleController implements IExtension {
 // 	final private ModeController modeController;
 	

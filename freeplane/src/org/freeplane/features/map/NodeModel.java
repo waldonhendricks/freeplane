@@ -37,9 +37,11 @@ import org.freeplane.core.extension.IExtension;
 import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.extension.SmallExtensionMap;
 import org.freeplane.core.util.HtmlUtils;
+import org.freeplane.features.edge.EdgeModel;
 import org.freeplane.features.filter.Filter;
 import org.freeplane.features.filter.FilterInfo;
 import org.freeplane.features.icon.MindIcon;
+import org.freeplane.features.nodelocation.LocationModel;
 import org.freeplane.features.ui.INodeViewVisitor;
 
 /**
@@ -128,7 +130,7 @@ public class NodeModel implements MutableTreeNode {
 
 	public void addViewer(final INodeView viewer) {
 		getViewers().add(viewer);
-		content.addViewer(viewer);
+		content.addViewer(this, viewer);
 	}
 
 	public boolean areViewsEmpty() {
@@ -164,7 +166,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public void fireNodeChanged(final NodeChangeEvent nodeChangeEvent) {
-		content.fireNodeChanged(nodeChangeEvent);
+		content.fireNodeChanged(this, nodeChangeEvent);
 
 		if (views == null) {
 			return;
@@ -255,6 +257,7 @@ public class NodeModel implements MutableTreeNode {
 
 	public Map<Class<? extends IExtension>, IExtension> getExtensions() {
 		Map<Class<? extends IExtension>, IExtension> exts = content.getExtensions();
+		extensionContainer.getExtensions();
 		exts.putAll(extensionContainer.getExtensions());
 		return exts;
 	}
@@ -489,12 +492,9 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public void setContent(ContentModel cm) {
-		setContent(cm, true);
-	}
 
-	public void setContent(ContentModel cm, boolean treeClone) {
 		if (cm == null) return;
-		this.treeClone = treeClone; 
+
 		content = cm;
 		content.addNode(this);
 	}
@@ -561,6 +561,7 @@ public class NodeModel implements MutableTreeNode {
 	}
 
 	public final void setTreeClone(final boolean b) {
+
 		treeClone = b;
 	}
 

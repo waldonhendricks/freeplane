@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.util.LogUtils;
 import org.freeplane.features.link.LinkController;
 import org.freeplane.features.map.INodeSelectionListener;
@@ -33,6 +34,7 @@ import org.freeplane.view.swing.map.MapView;
 /**
  * @author foltin
  */
+@NodeExtension
 public class NodeHistory implements IExtension {
 	static public void install(final Controller controller) {
 		controller.addExtension(NodeHistory.class, new NodeHistory(controller));

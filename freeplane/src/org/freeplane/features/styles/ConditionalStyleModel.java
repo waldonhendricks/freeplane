@@ -9,11 +9,13 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.util.TextUtils;
 import org.freeplane.features.filter.condition.ASelectableCondition;
 import org.freeplane.features.map.NodeModel;
 import org.freeplane.n3.nanoxml.XMLElement;
 
+@NodeExtension
 public class ConditionalStyleModel implements IExtension, Iterable<ConditionalStyleModel.Item>{
 	public class Item{
 		private ASelectableCondition condition;

@@ -21,7 +21,9 @@ package org.freeplane.features.edge;
 
 import java.awt.Color;
 import java.util.Collection;
+
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.io.ReadManager;
 import org.freeplane.core.io.WriteManager;
 import org.freeplane.features.map.MapController;
@@ -38,6 +40,7 @@ import org.freeplane.features.styles.MapStyleModel;
 /**
  * @author Dimitry Polivaev
  */
+@NodeExtension
 public class EdgeController implements IExtension {
 	public static final EdgeStyle STANDARD_EDGE_STYLE = EdgeStyle.EDGESTYLE_BEZIER;
 	public static final Color STANDARD_EDGE_COLOR = Color.GRAY;

@@ -20,11 +20,13 @@
 package org.freeplane.features.nodelocation;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.features.map.NodeModel;
 
 /**
  * @author Dimitry Polivaev
  */
+@NodeExtension
 public class LocationModel implements IExtension {
 	public final static int HGAP = 20;
 	public static final LocationModel NULL_LOCATION = new LocationModel() {

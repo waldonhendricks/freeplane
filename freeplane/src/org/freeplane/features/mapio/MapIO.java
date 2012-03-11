@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.features.map.MapController;
 import org.freeplane.features.map.MapModel;
 import org.freeplane.features.mode.ModeController;
@@ -37,6 +38,7 @@ import org.freeplane.n3.nanoxml.XMLParseException;
  * Jan 14, 2012
  */
 @SuppressWarnings("deprecation")
+@NodeExtension
 public class MapIO implements IExtension{
 	final private UrlManager urlManager;
 	final private MapController mapController;

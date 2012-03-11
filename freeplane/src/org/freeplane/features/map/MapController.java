@@ -38,6 +38,7 @@ import java.util.List;
 import javax.swing.Action;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.io.IAttributeHandler;
 import org.freeplane.core.io.ReadManager;
 import org.freeplane.core.io.UnknownElementWriter;
@@ -63,6 +64,7 @@ import org.freeplane.n3.nanoxml.XMLParseException;
 /**
  * @author Dimitry Polivaev
  */
+@NodeExtension
 public class MapController extends SelectionController implements IExtension{
 	public enum Direction {
 		BACK, BACK_N_FOLD, FORWARD, FORWARD_N_FOLD

@@ -20,6 +20,7 @@
 package org.freeplane.features.nodelocation;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.io.ReadManager;
 import org.freeplane.core.io.WriteManager;
 import org.freeplane.features.map.MapController;
@@ -29,6 +30,7 @@ import org.freeplane.features.mode.ModeController;
 /**
  * @author Dimitry Polivaev
  */
+@NodeExtension
 public class LocationController implements IExtension {
 	public static LocationController getController() {
 		final ModeController modeController = Controller.getCurrentModeController();

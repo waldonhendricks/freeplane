@@ -22,12 +22,14 @@ package org.freeplane.features.nodestyle;
 import java.awt.Color;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.util.LogUtils;
 import org.freeplane.features.map.NodeModel;
 
 /**
  * @author Dimitry Polivaev 20.11.2008
  */
+@NodeExtension
 public class NodeStyleModel implements IExtension, Cloneable {
 	public static final String[] NODE_STYLES = new String[] { NodeStyleModel.STYLE_FORK, NodeStyleModel.STYLE_BUBBLE,
 	        NodeStyleModel.SHAPE_AS_PARENT, NodeStyleModel.SHAPE_COMBINED };

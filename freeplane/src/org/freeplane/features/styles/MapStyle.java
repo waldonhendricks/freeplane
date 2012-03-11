@@ -30,6 +30,7 @@ import java.util.Properties;
 import java.util.Vector;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.io.IElementContentHandler;
 import org.freeplane.core.io.IElementDOMHandler;
 import org.freeplane.core.io.IElementHandler;
@@ -67,6 +68,7 @@ import org.freeplane.n3.nanoxml.XMLElement;
  * Mar 9, 2009
  */
 @NodeHookDescriptor(hookName = "MapStyle")
+@NodeExtension
 public class MapStyle extends PersistentNodeHook implements IExtension, IMapLifeCycleListener {
 	private static final String NODE_CONDITIONAL_STYLES = "NodeConditionalStyles";
 	public static final String RESOURCES_BACKGROUND_COLOR = "standardbackgroundcolor";

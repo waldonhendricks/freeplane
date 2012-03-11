@@ -35,6 +35,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListDataListener;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.undo.IUndoHandler;
 import org.freeplane.features.cloud.CloudModel;
 import org.freeplane.features.cloud.CloudModel.Shape;
@@ -54,6 +55,7 @@ import org.freeplane.features.nodestyle.NodeSizeModel;
  * @author Dimitry Polivaev
  * Mar 12, 2009
  */
+@NodeExtension
 public class MapStyleModel implements IExtension {
     public static final IStyle DEFAULT_STYLE = new StyleNamedObject("default");
     public static final IStyle DETAILS_STYLE = new StyleNamedObject("defaultstyle.details");
