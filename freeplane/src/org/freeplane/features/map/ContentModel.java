@@ -1,8 +1,8 @@
 /*
  *  Freeplane - mind map editor
- *  Copyright (C) 2012 levon
+ *  Copyright (C) 2012 Lev Lazar
  *
- *  This file author is levon
+ *  This file author is Lev Lazar
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,11 +19,14 @@
  */
 package org.freeplane.features.map;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.tree.MutableTreeNode;
 
 import org.freeplane.core.extension.ExtensionContainer;
 import org.freeplane.core.extension.IExtension;
@@ -46,6 +49,7 @@ public class ContentModel {
 	private Object userObject = null;
 	private String xmlText = null;
 	private Collection<INodeView> views = null;
+	private List<NodeModel> nodes = new ArrayList<NodeModel>();
 
 	public ContentModel(final Object userObject, final MapModel map) {
 		setUserObject(userObject);
@@ -72,6 +76,10 @@ public class ContentModel {
 	public void addIcon(final MindIcon icon, final int position) {
 		icons.addIcon(icon, position);
 		getMap().getIconRegistry().addIcon(icon);
+	}
+
+	public void addNode(final NodeModel node) {
+		nodes.add(node);
 	}
 
 	public boolean containsExtension(final Class<? extends IExtension> clazz) {
@@ -135,6 +143,10 @@ public class ContentModel {
 
 	public MapModel getMap() {
 		return map;
+	}
+
+	public List<NodeModel> getNodes() {
+		return nodes;
 	}
 
 	public String getText() {
@@ -224,6 +236,38 @@ public class ContentModel {
 	public final void setXmlText(final String pXmlText) {
 		xmlText = XmlUtils.makeValidXml(pXmlText);
 		userObject = HtmlUtils.toHtml(xmlText);
+	}
+
+	public void onNodeInsertChild(NodeModel parent, NodeModel child, int index) {
+
+		NodeModel node, clone;
+
+		for (int i = 0; i < nodes.size(); i++) {
+			node = nodes.get(i);
+			if (node == parent || !node.isTreeClone()) continue;
+			clone = new NodeModel(node.getMap());
+			clone.setContent(child.getContent());
+			node.insert(child, index);
+		}
+    }
+
+	public void onNodeRemoveChild(NodeModel parent, NodeModel child) {
+		
+		NodeModel node, n;
+		List<NodeModel> chnodes;
+
+		for (int i = 0; i < nodes.size(); i++) {
+			node = nodes.get(i);
+			if (node == parent || !node.isTreeClone()) continue;
+			chnodes = child.getContent().getNodes();
+			for (int j = 0; j < chnodes.size(); j++) {
+				n = chnodes.get(i);
+				if (n.getParentNode() == node) {
+					node.remove(n);
+					return;
+				}
+			}
+		}
 	}
 
 }

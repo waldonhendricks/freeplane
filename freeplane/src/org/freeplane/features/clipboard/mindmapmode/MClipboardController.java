@@ -195,6 +195,7 @@ public class MClipboardController extends ClipboardController {
 			for (int i = 0; i < textLines.length; ++i) {
 				try {
 					final NodeModel newModel = nodeTreeCreator.create(new StringReader(textLines[i]));
+					newModel.setTreeClone(false);
 					newModel.removeExtension(FreeNode.class);
 					final boolean wasLeft = newModel.isLeft();
 					mapController.insertNode(newModel, target, asSibling, isLeft, wasLeft != isLeft);
@@ -222,10 +223,6 @@ public class MClipboardController extends ClipboardController {
 				try {
 					final NodeModel newModel = nodeTreeCreator.create(new StringReader(textLines[i]));
 					newModel.removeExtension(FreeNode.class);
-					NodeModel baseNode = newModel.getLastValidIDNode();
-					if (baseNode != null) {
-						baseNode.addClone(newModel);
-					}
 					final boolean wasLeft = newModel.isLeft();
 					mapController.insertNode(newModel, target, asSibling, isLeft, wasLeft != isLeft);
 				}

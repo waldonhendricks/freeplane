@@ -22,8 +22,10 @@ package org.freeplane.features.edge;
 import java.awt.Color;
 
 import org.freeplane.core.extension.IExtension;
+import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.features.map.NodeModel;
 
+@NodeExtension
 public class EdgeModel implements IExtension {
 	public static final int WIDTH_PARENT = -1;
 	public static final int DEFAULT_WIDTH = -1;

@@ -22,6 +22,7 @@ package org.freeplane.core.extension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -73,7 +74,18 @@ public class SmallExtensionMap implements Map<Class<? extends IExtension>, IExte
 	}
 
 	public Set<java.util.Map.Entry<Class<? extends IExtension>, IExtension>> entrySet() {
-		throw new NoSuchMethodError();
+
+		Set<java.util.Map.Entry<Class<? extends IExtension>, IExtension>> eset = new HashSet<java.util.Map.Entry<Class<? extends IExtension>, IExtension>>();
+
+		if (collection != null) {
+			IExtension x;
+			for (int i = 0; i < collection.size(); i++) {
+				x = collection.get(i);
+				eset.add((java.util.Map.Entry<Class<? extends IExtension>, IExtension>) x);
+			}
+		}
+
+		return eset;
 	}
 
 	private int find(final Class<? extends IExtension> clazz) {
