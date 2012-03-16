@@ -23,11 +23,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -37,11 +39,9 @@ import org.freeplane.core.extension.IExtension;
 import org.freeplane.core.extension.NodeExtension;
 import org.freeplane.core.extension.SmallExtensionMap;
 import org.freeplane.core.util.HtmlUtils;
-import org.freeplane.features.edge.EdgeModel;
 import org.freeplane.features.filter.Filter;
 import org.freeplane.features.filter.FilterInfo;
 import org.freeplane.features.icon.MindIcon;
-import org.freeplane.features.nodelocation.LocationModel;
 import org.freeplane.features.ui.INodeViewVisitor;
 
 /**
@@ -84,7 +84,7 @@ public class NodeModel implements MutableTreeNode {
 
 	private Collection<INodeView> views = null;
 	private String xmlText = null;
-	private boolean treeClone = true;
+	private Set<NodeModel> treeClones = new HashSet<NodeModel>();
 
 	public NodeModel(final MapModel map) {
 		this("", map);
@@ -236,8 +236,11 @@ public class NodeModel implements MutableTreeNode {
 		return Collections.unmodifiableList(childrenList);
 	}
 
-	public NodeModel getChildWithContent(ContentModel childContent) {
-		NodeModel ch;
+	public NodeModel getChildByContent(ContentModel childContent) {
+
+	    if (childContent == null) return null;
+
+	    NodeModel ch;
 		for (int i = 0; i < children.size(); i++) {
 			ch = children.get(i);
 			if (ch.getContent() == childContent) return ch;
@@ -349,7 +352,7 @@ public class NodeModel implements MutableTreeNode {
 			throw new IllegalArgumentException("Trying to insert nodes into a ciphered node.");
 		}
 		final NodeModel childNode = (NodeModel) child;
-		if (getChildWithContent(childNode.getContent()) != null) return;
+		if (getChildByContent(childNode.getContent()) != null) return;
 		if (index < 0) {
 			index = getChildCount();
 			children.add(index, (NodeModel) child);
@@ -423,10 +426,10 @@ public class NodeModel implements MutableTreeNode {
 		return getMap().getRootNode() == this;
 	}
 
-	public boolean isTreeClone() {
-		return treeClone;
+	public boolean isTreeCloneOf(NodeModel n) {
+		return treeClones.contains(n);
 	}
-	
+
 	public boolean isVisible() {
 		final Filter filter = getMap().getFilter();
 		return filter == null || filter.isVisible(this);
@@ -560,10 +563,17 @@ public class NodeModel implements MutableTreeNode {
 		content.setText(text);
 	}
 
-	public final void setTreeClone(final boolean b) {
+	public final void addTreeClone(NodeModel n) {
 
-		treeClone = b;
+	    if (n == null) return;
+	    treeClones.add(n);
 	}
+
+	public final void removeTreeClone(NodeModel n) {
+
+        if (n == null) return;
+        treeClones.remove(n);
+    }
 
 	public final void setUserObject(final Object data) {
 		content.setUserObject(data);

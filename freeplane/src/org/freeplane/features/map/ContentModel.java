@@ -79,7 +79,7 @@ public class ContentModel {
 
 	public void addIcon(final MindIcon icon, final int position) {
 		icons.addIcon(icon, position);
-		getMap().getIconRegistry().addIcon(icon);
+		map.getIconRegistry().addIcon(icon);
 	}
 
 	public void addNode(final NodeModel node) {
@@ -226,7 +226,7 @@ public class ContentModel {
 
 	public void setID(final String value) {
 		id = value;
-		getMap().registryID(value, this);
+		map.registryID(value, this);
 	}
 
 	public final void setText(final String text) {
@@ -258,10 +258,10 @@ public class ContentModel {
 
 		for (int i = 0; i < nodes.size(); i++) {
 			node = nodes.get(i);
-			if (node == parent || !node.isTreeClone()) continue;
+			if (node == parent || !node.isTreeCloneOf(parent)) continue;
 			clone = new NodeModel(node.getMap());
 			clone.setContent(child.getContent());
-			node.insert(child, index);
+			node.insert(clone, index);
 		}
     }
 
@@ -272,7 +272,7 @@ public class ContentModel {
 
 		for (int i = 0; i < nodes.size(); i++) {
 			node = nodes.get(i);
-			if (node == parent || !node.isTreeClone()) continue;
+			if (node == parent || !node.isTreeCloneOf(parent)) continue;
 			chnodes = child.getContent().getNodes();
 			for (int j = 0; j < chnodes.size(); j++) {
 				n = chnodes.get(i);
