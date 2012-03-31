@@ -113,19 +113,18 @@ public class ContentModel {
 		Collection<INodeView> nodeViews;
 		while (viewerNodesIter.hasNext()) {
 			n = viewerNodesIter.next();
-			if (n == node) continue;
+			if (n == node || n.getParent() == null) continue;
 
 			nodeViews = views.get(n);
 			final Iterator<INodeView> iterator = nodeViews.iterator();
 			INodeView inv;
-			NodeView nv;
+			NodeChangeEvent nce;
 
 			while (iterator.hasNext()) {
 				inv = iterator.next();
 				if (inv instanceof NodeView) {
-					nv = (NodeView) inv;
-					nodeChangeEvent.setSource(nv.getModel());
-					inv.nodeChanged(nodeChangeEvent);
+					nce = new NodeChangeEvent(n, nodeChangeEvent.getProperty(), nodeChangeEvent.getOldValue(), nodeChangeEvent.getNewValue());
+					inv.nodeChanged(nce);
 				}
 			}
 		}
