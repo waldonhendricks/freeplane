@@ -196,7 +196,7 @@ class StdXMLBuilder implements IXMLBuilder {
 	protected void finalize() throws Throwable {
 		prototype = null;
 		root = null;
-		stack.clear();
+		if (stack != null) stack.clear();
 		stack = null;
 		super.finalize();
 	}
