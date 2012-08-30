@@ -25,6 +25,7 @@ import net.sf.jabref.GUIGlobals;
 import org.docear.plugin.bibtex.ReferencesController;
 import org.docear.plugin.bibtex.jabref.JabrefWrapper;
 import org.docear.plugin.core.ui.MultiLineActionLabel;
+import org.docear.plugin.pdfutilities.PdfUtilitiesController;
 import org.freeplane.core.util.LogUtils;
 import org.freeplane.core.util.TextUtils;
 import org.freeplane.features.mode.Controller;

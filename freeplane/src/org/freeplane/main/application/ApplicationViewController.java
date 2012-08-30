@@ -55,7 +55,7 @@ import org.freeplane.features.mode.Controller;
 import org.freeplane.features.ui.IMapViewManager;
 import org.freeplane.features.ui.ViewController;
 import org.freeplane.features.url.mindmapmode.FileOpener;
-import org.freeplane.view.swing.ui.DefaultMapMouseListener;o
+import org.freeplane.view.swing.ui.DefaultMapMouseListener;
 
 import sun.net.www.ParseUtil;
 
