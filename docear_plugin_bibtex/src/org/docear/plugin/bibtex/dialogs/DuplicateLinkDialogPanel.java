@@ -89,7 +89,12 @@ public class DuplicateLinkDialogPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if("open_uri".equals(e.getActionCommand())) {
 					try {
-						Controller.getCurrentController().getViewController().openDocument(uri);
+                        if ("file".equals(uri.getScheme())) {
+                            PdfUtilitiesController.getController().openPdfOnPage(uri, 0);
+                        }
+                        else {
+                            Controller.getCurrentController().getViewController().openDocument(uri);
+                       }
 					}
 					catch (IOException ex) {
 						LogUtils.warn(ex.getMessage());
