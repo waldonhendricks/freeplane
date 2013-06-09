@@ -110,79 +110,8 @@
 <attribute NAME="action" VALUE="CloudAction"/>
 </node>
 </node>
-<node TEXT="Icons" ID="ID_764034244" CREATED="1370196501369" MODIFIED="1370337081696">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="icons"/>
-<attribute NAME="name_ref" VALUE="menu_iconView"/>
-<node TEXT="Icons by category" ID="ID_781060873" CREATED="1370196501369" MODIFIED="1370337168033">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="icons"/>
-<attribute NAME="name_ref" VALUE="menu_iconByCategory"/>
-<node TEXT="icons_list" ID="ID_589292743" CREATED="1370196501370" MODIFIED="1370196501370">
-<attribute NAME="type" VALUE="category"/>
-<attribute NAME="menu_key" VALUE="main_menu_icons"/>
-<attribute NAME="name" VALUE="icons_list"/>
-</node>
-</node>
-<node TEXT="Remove icons" ID="ID_838633891" CREATED="1370196501370" MODIFIED="1370196501370">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_remove_icons"/>
-<node TEXT="Remove first icon" ID="ID_80559687" CREATED="1370196501370" MODIFIED="1370196501370">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveIcon_0_Action"/>
-</node>
-<node TEXT="Remove Last Icon" ID="ID_10379614" CREATED="1370196501370" MODIFIED="1370196501370">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveIconAction"/>
-</node>
-<node TEXT="Remove all icons" ID="ID_904607174" CREATED="1370196501370" MODIFIED="1370196501370">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveAllIconsAction"/>
-</node>
-</node>
-</node>
-<node TEXT="Node extensions" ID="ID_491471557" CREATED="1370196501375" MODIFIED="1370196501375">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_extensions"/>
-<attribute NAME="name_ref" VALUE="menu_extensions"/>
-<node TEXT="Edit node details in-line" ID="ID_1729079758" CREATED="1370196501376" MODIFIED="1370196501376">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditDetailsAction"/>
-</node>
-<node TEXT="Edit node details in dialog" ID="ID_434330448" CREATED="1370196501376" MODIFIED="1370196501376">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditDetailsInDialogAction"/>
-</node>
-<node TEXT="Remove node details" ID="ID_892624514" CREATED="1370196501376" MODIFIED="1370196501376">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="DeleteDetailsAction"/>
-</node>
-<node TEXT="Edit attribute in-line" ID="ID_1299054924" CREATED="1370196501378" MODIFIED="1370196501378">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="accelerator" VALUE="alt F9"/>
-<attribute NAME="action" VALUE="EditAttributesAction"/>
-</node>
-<node TEXT="Copy attributes" ID="ID_1905479531" CREATED="1370196501379" MODIFIED="1370196501379">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="CopyAttributes"/>
-</node>
-<node TEXT="Paste attributes" ID="ID_1709526524" CREATED="1370196501379" MODIFIED="1370196501379">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="PasteAttributes"/>
-</node>
-</node>
-<node TEXT="notes" ID="ID_1988810122" CREATED="1370196501379" MODIFIED="1370196501379">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="notes"/>
-<attribute NAME="name_ref" VALUE="menu_notes"/>
-<node TEXT="Edit note in dialog" ID="ID_1290550656" CREATED="1370196501379" MODIFIED="1370196501379">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditNoteInDialogAction"/>
-</node>
-<node TEXT="Remove note" ID="ID_1930535271" CREATED="1370196501379" MODIFIED="1370196501379">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveNoteAction"/>
-</node>
+<node TEXT="---" ID="ID_298349927" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
 </node>
 <node TEXT="Undo" ID="ID_641909829" CREATED="1370196501379" MODIFIED="1370196501379">
 <attribute NAME="type" VALUE="action"/>
@@ -209,6 +138,9 @@
 <attribute NAME="action" VALUE="NodeDownAction"/>
 </node>
 </node>
+<node TEXT="---" ID="ID_1405095208" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
 <node TEXT="find" ID="ID_1704489500" CREATED="1370196501384" MODIFIED="1370196501384">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="find"/>
@@ -225,6 +157,94 @@
 <node TEXT="Find previous" ID="ID_1957590634" CREATED="1370196501385" MODIFIED="1370196501385">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="QuickFindAction.BACK"/>
+</node>
+</node>
+</node>
+<node TEXT="Node" ID="ID_1919690805" CREATED="1370196501368" MODIFIED="1370787407206">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="node"/>
+<attribute NAME="name_ref" VALUE="menu_node"/>
+<node TEXT="Icons" ID="ID_751447466" CREATED="1370196501369" MODIFIED="1370785544163">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="icons"/>
+<attribute NAME="name_ref" VALUE="menu_iconView"/>
+<node TEXT="Icons by category" ID="ID_1125141609" CREATED="1370196501369" MODIFIED="1370337168033">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="icons"/>
+<attribute NAME="name_ref" VALUE="menu_iconByCategory"/>
+<node TEXT="icons_list" ID="ID_1894818080" CREATED="1370196501370" MODIFIED="1370196501370">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="menu_key" VALUE="main_menu_icons"/>
+<attribute NAME="name" VALUE="icons_list"/>
+</node>
+</node>
+<node TEXT="Remove icons" ID="ID_1747944774" CREATED="1370196501370" MODIFIED="1370196501370">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="menu_remove_icons"/>
+<node TEXT="Remove first icon" ID="ID_875888613" CREATED="1370196501370" MODIFIED="1370196501370">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveIcon_0_Action"/>
+</node>
+<node TEXT="Remove Last Icon" ID="ID_1445173436" CREATED="1370196501370" MODIFIED="1370196501370">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveIconAction"/>
+</node>
+<node TEXT="Remove all icons" ID="ID_180540364" CREATED="1370196501370" MODIFIED="1370196501370">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveAllIconsAction"/>
+</node>
+</node>
+</node>
+<node TEXT="---" ID="ID_1923895689" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Node extensions" ID="ID_223513132" CREATED="1370196501375" MODIFIED="1370785572576">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="menu_extensions"/>
+<attribute NAME="name_ref" VALUE="menu_extensions"/>
+<node TEXT="Edit node details in-line" ID="ID_1281995476" CREATED="1370196501376" MODIFIED="1370196501376">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditDetailsAction"/>
+</node>
+<node TEXT="Edit node details in dialog" ID="ID_1592768303" CREATED="1370196501376" MODIFIED="1370196501376">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditDetailsInDialogAction"/>
+</node>
+<node TEXT="Remove node details" ID="ID_729565939" CREATED="1370196501376" MODIFIED="1370196501376">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="DeleteDetailsAction"/>
+</node>
+<node TEXT="---" ID="ID_78325794" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Edit attribute in-line" ID="ID_1528187729" CREATED="1370196501378" MODIFIED="1370196501378">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="accelerator" VALUE="alt F9"/>
+<attribute NAME="action" VALUE="EditAttributesAction"/>
+</node>
+<node TEXT="Copy attributes" ID="ID_711290024" CREATED="1370196501379" MODIFIED="1370196501379">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="CopyAttributes"/>
+</node>
+<node TEXT="Paste attributes" ID="ID_1035625842" CREATED="1370196501379" MODIFIED="1370196501379">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="PasteAttributes"/>
+</node>
+</node>
+<node TEXT="---" ID="ID_1794708454" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="notes" ID="ID_1616189993" CREATED="1370196501379" MODIFIED="1370785581130">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="notes"/>
+<attribute NAME="name_ref" VALUE="menu_notes"/>
+<node TEXT="Edit note in dialog" ID="ID_976346535" CREATED="1370196501379" MODIFIED="1370196501379">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditNoteInDialogAction"/>
+</node>
+<node TEXT="Remove note" ID="ID_1960082590" CREATED="1370196501379" MODIFIED="1370196501379">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveNoteAction"/>
 </node>
 </node>
 </node>
@@ -326,31 +346,34 @@
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="format"/>
 <attribute NAME="name_ref" VALUE="menu_format"/>
-<node TEXT="Manage Styles" ID="ID_489169381" CREATED="1370196501470" MODIFIED="1370196501470">
-<attribute NAME="type" VALUE="submenu"/>
+<node TEXT="Manage Styles" ID="ID_489169381" CREATED="1370196501470" MODIFIED="1370785204063">
+<attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="menu_manageStyles"/>
 <attribute NAME="name_ref" VALUE="menu_manageStyles"/>
-<node TEXT="Remove user defined style" ID="ID_1797684812" CREATED="1370196501470" MODIFIED="1370196501470">
+<node TEXT="New style from selection" ID="ID_1487933757" CREATED="1370196501482" MODIFIED="1370196501482">
 <attribute NAME="type" VALUE="action"/>
-<attribute NAME="accelerator" VALUE=""/>
-<attribute NAME="action" VALUE="DeleteUserStyleAction"/>
+<attribute NAME="action" VALUE="NewUserStyleAction"/>
 </node>
 <node TEXT="Add level style" ID="ID_987121524" CREATED="1370196501470" MODIFIED="1370196501470">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="NewLevelStyleAction"/>
 </node>
-<node TEXT="Remove level style" ID="ID_1654784204" CREATED="1370196501470" MODIFIED="1370196501470">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="DeleteLevelStyleAction"/>
-</node>
-<node TEXT="New style from selection" ID="ID_1487933757" CREATED="1370196501482" MODIFIED="1370196501482">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="NewUserStyleAction"/>
-</node>
 <node TEXT="Manage conditional styles for node" ID="ID_1281236150" CREATED="1370196501482" MODIFIED="1370196501482">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="ManageNodeConditionalStylesAction"/>
 </node>
+<node TEXT="Remove user defined style" ID="ID_1797684812" CREATED="1370196501470" MODIFIED="1370196501470">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="accelerator" VALUE=""/>
+<attribute NAME="action" VALUE="DeleteUserStyleAction"/>
+</node>
+<node TEXT="Remove level style" ID="ID_1654784204" CREATED="1370196501470" MODIFIED="1370196501470">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="DeleteLevelStyleAction"/>
+</node>
+</node>
+<node TEXT="---" ID="ID_377863877" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
 </node>
 <node TEXT="Copy format" ID="ID_1256349478" CREATED="1370196501487" MODIFIED="1370196501487">
 <attribute NAME="type" VALUE="action"/>
@@ -429,6 +452,9 @@
 <attribute NAME="action" VALUE="CloudColorAction"/>
 </node>
 </node>
+<node TEXT="---" ID="ID_1732624742" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
 <node TEXT="Edge properties" ID="ID_1540738912" CREATED="1370196501508" MODIFIED="1370337236313">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="EdgeProperties"/>
@@ -500,6 +526,9 @@
 <attribute NAME="action" VALUE="EdgeColorAction"/>
 </node>
 </node>
+<node TEXT="---" ID="ID_1381654885" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
 <node TEXT="Set node width limits" ID="ID_219822382" CREATED="1370196501513" MODIFIED="1370196501513">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="NodeWidthAction"/>
@@ -567,6 +596,17 @@
 <node TEXT="map_popup" POSITION="right" ID="ID_1115053132" CREATED="1370196501528" MODIFIED="1370196501528">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="map_popup"/>
+<node TEXT="New style from selection" ID="ID_651570568" CREATED="1370196501482" MODIFIED="1370196501482">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="NewUserStyleAction"/>
+</node>
+<node TEXT="Add level style" ID="ID_963689271" CREATED="1370196501470" MODIFIED="1370196501470">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="NewLevelStyleAction"/>
+</node>
+<node TEXT="---" ID="ID_1950796283" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
 <node TEXT="Menubar" ID="ID_1888358029" CREATED="1370196501528" MODIFIED="1370196501528">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="ToggleMenubarAction"/>
@@ -618,6 +658,9 @@
 <attribute NAME="accelerator" VALUE="control shift B"/>
 <attribute NAME="action" VALUE="CloudAction"/>
 </node>
+<node TEXT="---" ID="ID_449267290" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
 <node TEXT="New style from selection" ID="ID_1942121087" CREATED="1370196501529" MODIFIED="1370196501529">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="NewUserStyleAction"/>
@@ -625,6 +668,10 @@
 <node TEXT="Remove user defined style" ID="ID_1232163939" CREATED="1370196501529" MODIFIED="1370196501529">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="DeleteUserStyleAction"/>
+</node>
+<node TEXT="Add level style" ID="ID_1352007854" CREATED="1370196501470" MODIFIED="1370196501470">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="NewLevelStyleAction"/>
 </node>
 </node>
 <node TEXT="main_toolbar" POSITION="right" ID="ID_1378903618" CREATED="1370196501536" MODIFIED="1370196501536">
