@@ -33,7 +33,7 @@ import org.freeplane.core.resources.ResourceController;
 public class MenuSplitter{
 	private static final String EXTRA_SUBMENU = MenuBuilder.class.getName()+".extra_submenu";
 	private static final int MAX_MENU_ITEM_COUNT = ResourceController.getResourceController().getIntProperty("max_menu_item_count");
-	
+
 	public static int count = 0;
 	public void addMenuComponent(JMenu menu, final Component component, final int index) {
 	    final JPopupMenu popupMenu = menu.getPopupMenu();
@@ -49,8 +49,6 @@ public class MenuSplitter{
 	        		submenu = (JMenu) lastMenuItem;
 	        	}
                 else {
-	        		if (component instanceof JPopupMenu.Separator)
-	        			return;
 	        		submenu = new JMenu("");
 	        		submenu.putClientProperty(EXTRA_SUBMENU, Boolean.TRUE);
 	        		popupMenu.add(submenu);
@@ -71,19 +69,22 @@ public class MenuSplitter{
 		final Component lastComponent = menu.getComponent(menu.getComponentCount()-1);
 	    return isExtraSubMenu(lastComponent);
     }
-	
+
 	public boolean isExtraSubMenu(final Component c) {
 	    return (c instanceof JMenu) &&  (Boolean.TRUE.equals(((JMenu)c).getClientProperty(EXTRA_SUBMENU)));
     }
 
 	public JMenu getExtraSubMenu(JMenu parentComponent) {
-		final Component lastComponent = parentComponent.getComponent(parentComponent.getComponentCount()-1);
-		if(new MenuSplitter().isExtraSubMenu(lastComponent))
+		int menuComponentCount = parentComponent.getMenuComponentCount();
+		if (menuComponentCount == 0)
+			return null;
+		final Component lastComponent = parentComponent.getMenuComponent(menuComponentCount - 1);
+		if (isExtraSubMenu(lastComponent))
 			return (JMenu) lastComponent;
 		else
 			return null;
     }
 
 
-	
+
 }

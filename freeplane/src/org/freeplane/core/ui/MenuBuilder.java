@@ -100,7 +100,7 @@ public class MenuBuilder extends UIBuilder {
 		 */
 		public void setDisplayedMnemonicIndex(final int mnemoSignIndex) {
 			action.putValue("SwingDisplayedMnemonicIndexKey", mnemoSignIndex);
-			
+
 		}
 
 		/*
@@ -299,7 +299,7 @@ public class MenuBuilder extends UIBuilder {
 					    setDefaultAccelerator(menuPath.key, accelerator);
 					}
 					if (tag.equals("menu_radio_action")) {
-						final JRadioButtonMenuItem item = (JRadioButtonMenuItem) 
+						final JRadioButtonMenuItem item = (JRadioButtonMenuItem)
 						addRadioItem(menuPath.parentKey, menuPath.key, theAction, "true".equals(attributes.getAttribute("selected", "false")));
 						if (buttonGroup == null) {
 							buttonGroup = new ButtonGroup();
@@ -768,10 +768,10 @@ public class MenuBuilder extends UIBuilder {
 		}
 		return super.getChildComponent(parentComponent, index);
 	}
-	
+
 	@Override
 	protected Container getNextParentComponent(Container parentComponent) {
-		if(parentComponent.getComponentCount() > 0 && parentComponent instanceof JMenu)
+		if (parentComponent instanceof JMenu)
 		{
 			return new MenuSplitter().getExtraSubMenu((JMenu)parentComponent);
 		}
@@ -785,7 +785,7 @@ public class MenuBuilder extends UIBuilder {
 				return (Node) element;
 			}
 			element = (DefaultMutableTreeNode) element.getParent();
-		} 
+		}
 		return null;
     }
 
@@ -863,7 +863,7 @@ public class MenuBuilder extends UIBuilder {
 		}
 		else{
 			super.removeChildComponents(parentComponent, node);
-			
+
 		}
 	}
 
