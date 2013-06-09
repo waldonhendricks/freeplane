@@ -1,7 +1,7 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <attribute_registry SHOW_ATTRIBUTES="hide"/>
-<node TEXT="Formula Preferences" ID="ID_647512264" CREATED="1370289419953" MODIFIED="1370289482022"><hook NAME="MapStyle">
+<node TEXT="Formula Preferences" ID="ID_647512264"><hook NAME="MapStyle">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="boolean" LAST="false">
             <attribute_contains_condition ATTRIBUTE="type" VALUE="boolean" MATCH_CASE="true" MATCH_APPROXIMATELY="false"/>
@@ -91,21 +91,21 @@
 </stylenode>
 </map_styles>
 </hook>
-<node TEXT="Plugins" POSITION="right" ID="ID_591627084" CREATED="1370289419953" MODIFIED="1370290599743">
+<node TEXT="Plugins" POSITION="right" ID="ID_591627084">
 <attribute NAME="type" VALUE="tab"/>
 <attribute NAME="name" VALUE="plugins"/>
-<node TEXT="Formula" ID="ID_1783515461" CREATED="1370289419958" MODIFIED="1370290595454">
+<node TEXT="Formula" ID="ID_1783515461">
 <attribute NAME="type" VALUE="separator"/>
 <attribute NAME="name" VALUE="formula"/>
-<node TEXT="Disable Formula evaluation" ID="ID_1117632012" CREATED="1370289419959" MODIFIED="1370290718637">
+<node TEXT="Disable Formula evaluation" ID="ID_1117632012">
 <attribute NAME="type" VALUE="boolean"/>
 <attribute NAME="name" VALUE="formula_disable_plugin"/>
 </node>
-<node TEXT="Disable Formula evaluation caching" ID="ID_662998133" CREATED="1370289419959" MODIFIED="1370290733060">
+<node TEXT="Disable Formula evaluation caching" ID="ID_662998133">
 <attribute NAME="type" VALUE="boolean"/>
 <attribute NAME="name" VALUE="formula_disable_caching"/>
 </node>
-<node TEXT="Highlight Formulas" ID="ID_1584146024" CREATED="1370289419960" MODIFIED="1370290754775">
+<node TEXT="Highlight Formulas" ID="ID_1584146024">
 <attribute NAME="type" VALUE="boolean"/>
 <attribute NAME="name" VALUE="highlight_formulas"/>
 </node>
