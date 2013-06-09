@@ -1,7 +1,7 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <attribute_registry SHOW_ATTRIBUTES="hide"/>
-<node TEXT="Menu for Browser Mode" FOLDED="false" ID="ID_1676259642" CREATED="1370343428335" MODIFIED="1370343443279"><hook NAME="MapStyle">
+<node TEXT="Menu for Browser Mode" ID="ID_1676259642" CREATED="1370343428335" MODIFIED="1370343443279"><hook NAME="MapStyle">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="category" LAST="true">
             <attribute_contains_condition ATTRIBUTE="type" VALUE="category" MATCH_CASE="true" MATCH_APPROXIMATELY="false"/>
@@ -83,7 +83,7 @@
 <node TEXT="menu_bar" POSITION="right" ID="ID_951169932" CREATED="1370343428336" MODIFIED="1370343428336">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="menu_bar"/>
-<node TEXT="File" FOLDED="true" ID="ID_1673593376" CREATED="1370343428351" MODIFIED="1370343566796">
+<node TEXT="File" ID="ID_1673593376" CREATED="1370343428351" MODIFIED="1370343566796">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="file"/>
 <attribute NAME="name_ref" VALUE="file"/>
@@ -122,11 +122,11 @@
 <attribute NAME="menu_key" VALUE="MB_QuitAction"/>
 </node>
 </node>
-<node TEXT="Edit" FOLDED="true" ID="ID_874402336" CREATED="1370343428356" MODIFIED="1370343568635">
+<node TEXT="Edit" ID="ID_874402336" CREATED="1370343428356" MODIFIED="1370343568635">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="edit"/>
 <attribute NAME="name_ref" VALUE="edit"/>
-<node TEXT="menu_extensions" FOLDED="true" ID="ID_1987963521" CREATED="1370343428356" MODIFIED="1370343428356">
+<node TEXT="menu_extensions" ID="ID_1987963521" CREATED="1370343428356" MODIFIED="1370343428356">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="menu_extensions"/>
 <attribute NAME="name_ref" VALUE="menu_extensions"/>
@@ -135,7 +135,7 @@
 <attribute NAME="action" VALUE="SetShortenerStateAction"/>
 </node>
 </node>
-<node TEXT="menu_copy" FOLDED="true" ID="ID_1068748806" CREATED="1370343428356" MODIFIED="1370343428356">
+<node TEXT="menu_copy" ID="ID_1068748806" CREATED="1370343428356" MODIFIED="1370343428356">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="menu_copy"/>
 <attribute NAME="name_ref" VALUE="menu_copy"/>
@@ -150,7 +150,7 @@
 <attribute NAME="action" VALUE="CopySingleAction"/>
 </node>
 </node>
-<node TEXT="find" FOLDED="true" ID="ID_1401379804" CREATED="1370343428358" MODIFIED="1370343428358">
+<node TEXT="find" ID="ID_1401379804" CREATED="1370343428358" MODIFIED="1370343428358">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="find"/>
 <node TEXT="Find ..." ID="ID_577962583" CREATED="1370343428360" MODIFIED="1370343594883">
@@ -169,17 +169,17 @@
 </node>
 </node>
 </node>
-<node TEXT="View" FOLDED="true" ID="ID_1135995959" CREATED="1370343428360" MODIFIED="1370343735457">
+<node TEXT="View" ID="ID_1135995959" CREATED="1370343428360" MODIFIED="1370343735457">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="view"/>
 <attribute NAME="name_ref" VALUE="menu_view"/>
-<node TEXT="Menu_Toolbar_Panel" FOLDED="true" ID="ID_405676964" CREATED="1370343428361" MODIFIED="1370343428361">
+<node TEXT="Menu_Toolbar_Panel" ID="ID_405676964" CREATED="1370343428361" MODIFIED="1370343428361">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="Menu_Toolbar_Panel"/>
-<node TEXT="toolbars" FOLDED="true" ID="ID_268271173" CREATED="1370343428361" MODIFIED="1370343428361">
+<node TEXT="toolbars" ID="ID_268271173" CREATED="1370343428361" MODIFIED="1370343428361">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="toolbars"/>
-<node TEXT="toolbars" FOLDED="true" ID="ID_608640070" CREATED="1370343428361" MODIFIED="1370343428361">
+<node TEXT="toolbars" ID="ID_608640070" CREATED="1370343428361" MODIFIED="1370343428361">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="toolbars"/>
 <attribute NAME="name_ref" VALUE="menu_toolbars"/>
@@ -204,7 +204,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Zoom" FOLDED="true" ID="ID_1940989441" CREATED="1370343428362" MODIFIED="1370343746953">
+<node TEXT="Zoom" ID="ID_1940989441" CREATED="1370343428362" MODIFIED="1370343746953">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="zoom"/>
 <node TEXT="Zoom in" ID="ID_1716346239" CREATED="1370343428362" MODIFIED="1370343750465">
@@ -223,7 +223,7 @@
 <attribute NAME="action" VALUE="CenterSelectedNodeAction"/>
 </node>
 </node>
-<node TEXT="View settings" FOLDED="true" ID="ID_1183206505" CREATED="1370343428363" MODIFIED="1370343822224">
+<node TEXT="View settings" ID="ID_1183206505" CREATED="1370343428363" MODIFIED="1370343822224">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="menu_viewmode"/>
 <attribute NAME="name_ref" VALUE="menu_viewmode"/>
@@ -236,7 +236,7 @@
 <attribute NAME="action" VALUE="ShowSelectionAsRectangleAction"/>
 </node>
 </node>
-<node TEXT="Tool tips" FOLDED="true" ID="ID_845817461" CREATED="1370343428363" MODIFIED="1370343868904">
+<node TEXT="Tool tips" ID="ID_845817461" CREATED="1370343428363" MODIFIED="1370343868904">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="menu_hoverView"/>
 <attribute NAME="name_ref" VALUE="menu_hoverView"/>
@@ -250,10 +250,10 @@
 <attribute NAME="action" VALUE="SetBooleanPropertyAction.show_node_tooltips"/>
 </node>
 </node>
-<node TEXT="AttributeView" FOLDED="true" ID="ID_1304515396" CREATED="1370343428364" MODIFIED="1370343428364">
+<node TEXT="AttributeView" ID="ID_1304515396" CREATED="1370343428364" MODIFIED="1370343428364">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="AttributeView"/>
-<node TEXT="menu_displayAttributes" FOLDED="true" ID="ID_1602004789" CREATED="1370343428364" MODIFIED="1370343428364">
+<node TEXT="menu_displayAttributes" ID="ID_1602004789" CREATED="1370343428364" MODIFIED="1370343428364">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="menu_displayAttributes"/>
 <attribute NAME="name_ref" VALUE="menu_displayAttributes"/>
@@ -272,11 +272,11 @@
 </node>
 </node>
 </node>
-<node TEXT="Navigate" FOLDED="true" ID="ID_69427177" CREATED="1370343428365" MODIFIED="1370344058757">
+<node TEXT="Navigate" ID="ID_69427177" CREATED="1370343428365" MODIFIED="1370344058757">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="navigate"/>
 <attribute NAME="name_ref" VALUE="menu_navigate"/>
-<node TEXT="navigate" FOLDED="true" ID="ID_255652186" CREATED="1370343428366" MODIFIED="1370343428366">
+<node TEXT="navigate" ID="ID_255652186" CREATED="1370343428366" MODIFIED="1370343428366">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="navigate"/>
 <node TEXT="Previous map" ID="ID_1663848870" CREATED="1370343428366" MODIFIED="1370344222196">
@@ -289,7 +289,7 @@
 <attribute NAME="accelerator" VALUE="control TAB"/>
 <attribute NAME="action" VALUE="NavigationNextMapAction"/>
 </node>
-<node TEXT="folding" FOLDED="true" ID="ID_1132523613" CREATED="1370343428366" MODIFIED="1370343428366">
+<node TEXT="folding" ID="ID_1132523613" CREATED="1370343428366" MODIFIED="1370343428366">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="folding"/>
 <node TEXT="(Un)fold" ID="ID_1869882931" CREATED="1370343428366" MODIFIED="1370344256924">
@@ -362,7 +362,7 @@
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="NextPresentationItemAction"/>
 </node>
-<node TEXT="links" FOLDED="true" ID="ID_1317097629" CREATED="1370343428373" MODIFIED="1370343428373">
+<node TEXT="links" ID="ID_1317097629" CREATED="1370343428373" MODIFIED="1370343428373">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="links"/>
 <node TEXT="Follow link" ID="ID_495119895" CREATED="1370343428373" MODIFIED="1370344199572">
@@ -372,14 +372,14 @@
 </node>
 </node>
 </node>
-<node TEXT="Filer" FOLDED="true" ID="ID_645149412" CREATED="1370343428373" MODIFIED="1370344297243">
+<node TEXT="Filer" ID="ID_645149412" CREATED="1370343428373" MODIFIED="1370785034493">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="filter"/>
 <attribute NAME="name_ref" VALUE="menu_filter"/>
-<node TEXT="Filter" FOLDED="true" ID="ID_1749253205" CREATED="1370343428373" MODIFIED="1370343428373">
+<node TEXT="Filter" ID="ID_1749253205" CREATED="1370343428373" MODIFIED="1370343428373">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="Filter"/>
-<node TEXT="DoFilter" FOLDED="true" ID="ID_1805860247" CREATED="1370343428373" MODIFIED="1370343428373">
+<node TEXT="DoFilter" ID="ID_1805860247" CREATED="1370343428373" MODIFIED="1370343428373">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="DoFilter"/>
 <node TEXT="undo filter" ID="ID_660461567" CREATED="1370343428373" MODIFIED="1370344336642">
@@ -415,7 +415,7 @@
 <attribute NAME="action" VALUE="EditFilterAction"/>
 </node>
 </node>
-<node TEXT="FilterCondition" FOLDED="true" ID="ID_434791760" CREATED="1370343428374" MODIFIED="1370343428374">
+<node TEXT="FilterCondition" ID="ID_434791760" CREATED="1370343428374" MODIFIED="1370343428374">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="FilterCondition"/>
 <node TEXT="Applies to filtered nodes" ID="ID_1736398664" CREATED="1370343428374" MODIFIED="1370344453833">
@@ -431,7 +431,7 @@
 <attribute NAME="action" VALUE="ShowDescendantsAction"/>
 </node>
 </node>
-<node TEXT="Find" FOLDED="true" ID="ID_1867800620" CREATED="1370343428375" MODIFIED="1370343428375">
+<node TEXT="Find" ID="ID_1867800620" CREATED="1370343428375" MODIFIED="1370343428375">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="Find"/>
 <node TEXT="Find previous" ID="ID_1014323743" CREATED="1370343428375" MODIFIED="1370344468713">
@@ -445,11 +445,11 @@
 </node>
 </node>
 </node>
-<node TEXT="Extras" FOLDED="true" ID="ID_1169737865" CREATED="1370343428375" MODIFIED="1370344478481">
+<node TEXT="Extras" ID="ID_1169737865" CREATED="1370343428375" MODIFIED="1370344478481">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="extras"/>
 <attribute NAME="name_ref" VALUE="menu_extras"/>
-<node TEXT="Encryption" FOLDED="true" ID="ID_920254780" CREATED="1370343428375" MODIFIED="1370344481577">
+<node TEXT="Encryption" ID="ID_920254780" CREATED="1370343428375" MODIFIED="1370344481577">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="encryption"/>
 <attribute NAME="name_ref" VALUE="menu_encryption"/>
@@ -459,7 +459,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Mindmaps" FOLDED="true" ID="ID_951904015" CREATED="1370343428376" MODIFIED="1370344491177">
+<node TEXT="Mindmaps" ID="ID_951904015" CREATED="1370343428376" MODIFIED="1370344491177">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="mindmaps"/>
 <attribute NAME="name_ref" VALUE="mindmaps"/>
@@ -479,11 +479,11 @@
 <attribute NAME="name" VALUE="mindmaps"/>
 </node>
 </node>
-<node TEXT="Help" FOLDED="true" ID="ID_1277139357" CREATED="1370343428376" MODIFIED="1370344504552">
+<node TEXT="Help" ID="ID_1277139357" CREATED="1370343428376" MODIFIED="1370344504552">
 <attribute NAME="type" VALUE="submenu"/>
 <attribute NAME="name" VALUE="help"/>
 <attribute NAME="name_ref" VALUE="help"/>
-<node TEXT="update" FOLDED="true" ID="ID_972374411" CREATED="1370343428377" MODIFIED="1370343428377">
+<node TEXT="update" ID="ID_972374411" CREATED="1370343428377" MODIFIED="1370343428377">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="update"/>
 <node TEXT="Check for updates" ID="ID_939449405" CREATED="1370343428377" MODIFIED="1370344538000">
@@ -491,7 +491,7 @@
 <attribute NAME="action" VALUE="UpdateCheckAction"/>
 </node>
 </node>
-<node TEXT="Web resources" FOLDED="true" ID="ID_902808063" CREATED="1370343428377" MODIFIED="1370343428377">
+<node TEXT="Web resources" ID="ID_902808063" CREATED="1370343428377" MODIFIED="1370343428377">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="Web resources"/>
 <node TEXT="Freeplane&apos;s Homepage" ID="ID_209820242" CREATED="1370343428377" MODIFIED="1370344554240">
@@ -511,7 +511,7 @@
 <attribute NAME="action" VALUE="RequestFeatureAction"/>
 </node>
 </node>
-<node TEXT="legacy" FOLDED="true" ID="ID_1396731472" CREATED="1370343428377" MODIFIED="1370343428377">
+<node TEXT="legacy" ID="ID_1396731472" CREATED="1370343428377" MODIFIED="1370343428377">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="legacy"/>
 <node TEXT="About" ID="ID_263533215" CREATED="1370343428377" MODIFIED="1370344613175">
@@ -531,7 +531,7 @@
 </node>
 </node>
 </node>
-<node TEXT="map_popup" FOLDED="true" POSITION="right" ID="ID_1830699756" CREATED="1370343428378" MODIFIED="1370343428378">
+<node TEXT="map_popup" POSITION="right" ID="ID_1830699756" CREATED="1370343428378" MODIFIED="1370343428378">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="map_popup"/>
 <node TEXT="Maps" ID="ID_1158260612" CREATED="1370343428378" MODIFIED="1370344735869">
@@ -581,7 +581,7 @@
 <attribute NAME="action" VALUE="GotoNodeAction"/>
 </node>
 </node>
-<node TEXT="node_popup" FOLDED="true" POSITION="right" ID="ID_1003882161" CREATED="1370343428380" MODIFIED="1370343428380">
+<node TEXT="node_popup" POSITION="right" ID="ID_1003882161" CREATED="1370343428380" MODIFIED="1370343428380">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="node_popup"/>
 <node TEXT="Minimize node" ID="ID_1028056187" CREATED="1370343428381" MODIFIED="1370344795333">
@@ -603,10 +603,10 @@
 <attribute NAME="action" VALUE="CopySingleAction"/>
 </node>
 </node>
-<node TEXT="main_toolbar" FOLDED="true" POSITION="right" ID="ID_494709864" CREATED="1370343428382" MODIFIED="1370343428382">
+<node TEXT="main_toolbar" POSITION="right" ID="ID_494709864" CREATED="1370343428382" MODIFIED="1370343428382">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="main_toolbar"/>
-<node TEXT="main" FOLDED="true" ID="ID_656079159" CREATED="1370343428382" MODIFIED="1370343428382">
+<node TEXT="main" ID="ID_656079159" CREATED="1370343428382" MODIFIED="1370343428382">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="main"/>
 <node TEXT="Previous map" ID="ID_1028131476" CREATED="1370343428382" MODIFIED="1370346044199">
@@ -623,7 +623,7 @@
 <attribute NAME="menu_key" VALUE="main_toolbar_zoom"/>
 <attribute NAME="name" VALUE="zoom"/>
 </node>
-<node TEXT="open" FOLDED="true" ID="ID_33481588" CREATED="1370343428382" MODIFIED="1370343428382">
+<node TEXT="open" ID="ID_33481588" CREATED="1370343428382" MODIFIED="1370343428382">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="open"/>
 <node TEXT="Print map ..." ID="ID_1199035754" CREATED="1370343428383" MODIFIED="1370346082383">
@@ -635,7 +635,7 @@
 <attribute NAME="action" VALUE="CloseAction"/>
 </node>
 </node>
-<node TEXT="paste" FOLDED="true" ID="ID_391051952" CREATED="1370343428383" MODIFIED="1370343428383">
+<node TEXT="paste" ID="ID_391051952" CREATED="1370343428383" MODIFIED="1370343428383">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="paste"/>
 <node TEXT="Copy" ID="ID_1465498341" CREATED="1370343428383" MODIFIED="1370346091191">
@@ -643,7 +643,10 @@
 <attribute NAME="action" VALUE="CopyAction"/>
 </node>
 </node>
-<node TEXT="folding" FOLDED="true" ID="ID_209866584" CREATED="1370343428383" MODIFIED="1370343428383">
+<node TEXT="---" ID="ID_217981526" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="folding" ID="ID_209866584" CREATED="1370343428383" MODIFIED="1370343428383">
 <attribute NAME="type" VALUE="category"/>
 <attribute NAME="name" VALUE="folding"/>
 <node TEXT="Unfold one level" ID="ID_1052431770" CREATED="1370343428384" MODIFIED="1370346110055">
@@ -662,6 +665,9 @@
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="FoldAllAction"/>
 </node>
+</node>
+<node TEXT="---" ID="ID_1233166012" CREATED="1370194798943" MODIFIED="1370194798943">
+<attribute NAME="type" VALUE="separator"/>
 </node>
 <node TEXT="url" ID="ID_266919585" CREATED="1370343428386" MODIFIED="1370343428386">
 <attribute NAME="type" VALUE="category"/>
