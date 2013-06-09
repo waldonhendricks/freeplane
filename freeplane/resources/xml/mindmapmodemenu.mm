@@ -262,356 +262,12 @@
 <attribute NAME="accelerator" VALUE="alt shift INSERT"/>
 </node>
 </node>
-<node TEXT="Node group" ID="ID_570938000">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_group"/>
-<attribute NAME="name_ref" VALUE="menu_group"/>
-<node TEXT="Summary node (begin of group)" ID="ID_1010986763">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="FirstGroupNodeAction"/>
-<attribute NAME="accelerator" VALUE="alt shift B"/>
-</node>
-<node TEXT="Summary node (set/reset)" ID="ID_952297453">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SummaryNodeAction"/>
-<attribute NAME="accelerator" VALUE="alt shift S"/>
-</node>
-<node TEXT="Always unfolded node (set/reset)" ID="ID_1073653247">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="AlwaysUnfoldedNodeAction"/>
-</node>
-<node TEXT="Add / remove cloud (default)" ID="ID_294484372">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="CloudAction"/>
-<attribute NAME="accelerator" VALUE="control shift B"/>
-</node>
-</node>
-<node TEXT="Connect" ID="ID_803645535">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="AddConnectorAction"/>
-<attribute NAME="accelerator" VALUE="control L"/>
-</node>
-<node TEXT="Links" ID="ID_1556505118">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="links"/>
-<attribute NAME="name_ref" VALUE="menu_links"/>
-<node TEXT="Add hyperlink (choose)..." ID="ID_1498143382">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SetLinkByFileChooserAction"/>
-<attribute NAME="accelerator" VALUE="control shift K"/>
-</node>
-<node TEXT="Add or modify hyperlink (type)..." ID="ID_861972359">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SetLinkByTextFieldAction"/>
-<attribute NAME="accelerator" VALUE="control K"/>
-</node>
-<node TEXT="Convert link from within text" ID="ID_1382855387">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ExtractLinkFromTextAction"/>
-</node>
-<node TEXT="---" ID="ID_1745866315">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Add local hyperlink" ID="ID_133152604">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="AddLocalLinkAction"/>
-<attribute NAME="accelerator" VALUE="alt shift L"/>
-</node>
-<node TEXT="Add hyperlink to menu item..." ID="ID_361535700">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="AddMenuItemLinkAction"/>
-<attribute NAME="accelerator" VALUE=""/>
-</node>
-<node TEXT="---" ID="ID_219304761">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Set link anchor" ID="ID_263691374">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SetLinkAnchorAction"/>
-<attribute NAME="accelerator" VALUE=""/>
-</node>
-<node TEXT="Make link from anchor" ID="ID_1417288354">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="MakeLinkFromAnchorAction"/>
-<attribute NAME="accelerator" VALUE=""/>
-</node>
-<node TEXT="Make link to anchor" ID="ID_1823067975">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="MakeLinkToAnchorAction"/>
-<attribute NAME="accelerator" VALUE=""/>
-</node>
-<node TEXT="Clear link anchor" ID="ID_17511554">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ClearLinkAnchorAction"/>
-<attribute NAME="accelerator" VALUE=""/>
-</node>
-</node>
-<node TEXT="---" ID="ID_1120284303">
-<attribute NAME="type" VALUE="separator"/>
-</node>
 <node TEXT="Remove node" ID="ID_16716029">
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="DeleteAction"/>
 <attribute NAME="accelerator" VALUE="DELETE"/>
 </node>
 <node TEXT="---" ID="ID_562002085">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Node core" ID="ID_266307790">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_title"/>
-<attribute NAME="name_ref" VALUE="menu_title"/>
-<node TEXT="Edit node core in-line" ID="ID_607901764">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditAction"/>
-<attribute NAME="accelerator" VALUE="F2"/>
-</node>
-<node TEXT="Edit on double click" ID="ID_760123705">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SetBooleanPropertyAction.edit_on_double_click"/>
-</node>
-<node TEXT="Edit node core in dialog" ID="ID_1835607764">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditLongAction"/>
-<attribute NAME="accelerator" VALUE="alt ENTER"/>
-</node>
-<node TEXT="Join nodes" ID="ID_1028352921">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="JoinNodesAction"/>
-<attribute NAME="accelerator" VALUE="control J"/>
-</node>
-<node TEXT="Split node" ID="ID_1163943962">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SplitNode"/>
-</node>
-<node TEXT="Change revisions background color" ID="ID_1486500406">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RevisionPluginAction"/>
-</node>
-<node TEXT="---" ID="ID_99391948">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Image by choice or link..." ID="ID_85819761">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="SetImageByFileChooserAction"/>
-<attribute NAME="accelerator" VALUE="alt shift K"/>
-</node>
-</node>
-<node TEXT="Icons" ID="ID_1377598100">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="icons"/>
-<attribute NAME="name_ref" VALUE="menu_iconView"/>
-<node TEXT="Icon from table..." ID="ID_1220884861">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="IconSelectionPlugin"/>
-<attribute NAME="accelerator" VALUE="control F2"/>
-</node>
-<node TEXT="Icons" ID="ID_690477551">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="icons"/>
-<attribute NAME="name_ref" VALUE="menu_iconByCategory"/>
-<node TEXT="---" ID="ID_988568228">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="icons_list" ID="ID_808165381">
-<attribute NAME="type" VALUE="category"/>
-<attribute NAME="name" VALUE="icons_list"/>
-<attribute NAME="menu_key" VALUE="main_menu_icons"/>
-</node>
-</node>
-<node TEXT="Progress icon (%)" ID="ID_549158740">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="progress"/>
-<attribute NAME="name_ref" VALUE="menu_progress"/>
-<node TEXT="Progress up" ID="ID_102557355">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="IconProgressIconUpAction"/>
-<attribute NAME="accelerator" VALUE="alt LESS"/>
-</node>
-<node TEXT="Progress down" ID="ID_1904205325">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="IconProgressIconDownAction"/>
-<attribute NAME="accelerator" VALUE="alt shift LESS"/>
-</node>
-<node TEXT="---" ID="ID_341944183">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Extended progress 10%" ID="ID_1112275743">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="IconProgressExtended10Action"/>
-</node>
-<node TEXT="Extended progress 25%" ID="ID_1606614895">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="IconProgressExtended25Action"/>
-</node>
-<node TEXT="---" ID="ID_1038107274">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Remove progress" ID="ID_1751494257">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="IconProgressRemoveAction"/>
-</node>
-</node>
-<node TEXT="Show icons hierarchically" ID="ID_1725079351">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="HierarchicalIconsAction"/>
-</node>
-<node TEXT="Show intersection of child icons" ID="ID_1151473440">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="HierarchicalIcons2Action"/>
-</node>
-<node TEXT="Remove icons" ID="ID_1052253050">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_remove_icons"/>
-<node TEXT="Remove first icon" ID="ID_7930582">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveIcon_0_Action"/>
-</node>
-<node TEXT="Remove Last Icon" ID="ID_535299053">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveIconAction"/>
-</node>
-<node TEXT="Remove all icons" ID="ID_114256700">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveAllIconsAction"/>
-</node>
-</node>
-</node>
-<node TEXT="Node extensions" ID="ID_1694240299">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_extensions"/>
-<attribute NAME="name_ref" VALUE="menu_extensions"/>
-<node TEXT="Edit node details in-line" ID="ID_1646950700">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditDetailsAction"/>
-</node>
-<node TEXT="Edit node details in dialog" ID="ID_1478340195">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditDetailsInDialogAction"/>
-</node>
-<node TEXT="Copy extensions from style node" ID="ID_481032468">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="CopyStyleExtensionsAction"/>
-</node>
-<node TEXT="Remove node details" ID="ID_904492783">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="DeleteDetailsAction"/>
-</node>
-<node TEXT="---" ID="ID_1349601166">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Add image..." ID="ID_531292236">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ExternalImageAddAction"/>
-</node>
-<node TEXT="Change image..." ID="ID_1062097964">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ExternalImageChangeAction"/>
-</node>
-<node TEXT="Remove image" ID="ID_1797697627">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ExternalImageRemoveAction"/>
-</node>
-<node TEXT="---" ID="ID_1172032718">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Edit attribute in-line" ID="ID_1208895185">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditAttributesAction"/>
-<attribute NAME="accelerator" VALUE="alt F9"/>
-</node>
-<node TEXT="Add attribute in dialog..." ID="ID_812006901">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="attributes_AddAttributeAction"/>
-</node>
-<node TEXT="Find and replace attributes..." ID="ID_1734577061">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="AssignAttributesAction"/>
-</node>
-<node TEXT="Copy attributes" ID="ID_388733176">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="CopyAttributes"/>
-</node>
-<node TEXT="Paste attributes" ID="ID_296247951">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="PasteAttributes"/>
-</node>
-<node TEXT="Attributes from style" ID="ID_1799464385">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="AddStyleAttributes"/>
-</node>
-<node TEXT="Remove attribute" ID="ID_1170025037">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="menu_removeAttribute"/>
-<attribute NAME="name_ref" VALUE="menu_removeAttribute"/>
-<node TEXT="Remove first attribute" ID="ID_747672780">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="attributes_RemoveFirstAttributeAction"/>
-</node>
-<node TEXT="Remove last attribute" ID="ID_1297735599">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="attributes_RemoveLastAttributeAction"/>
-</node>
-<node TEXT="Remove all attributes" ID="ID_1695452318">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="attributes_RemoveAllAttributesAction"/>
-</node>
-</node>
-<node TEXT="Attribute manager..." ID="ID_781687084">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ShowAttributeDialogAction"/>
-</node>
-<node TEXT="---" ID="ID_1580492073">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Add LaTeX formula..." ID="ID_192550812">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="LatexInsertLatexAction"/>
-<attribute NAME="plugin" VALUE="org.freeplane.plugin.latex"/>
-</node>
-<node TEXT="Edit LaTeX formula..." ID="ID_204716025">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="LatexEditLatexAction"/>
-<attribute NAME="plugin" VALUE="org.freeplane.plugin.latex"/>
-</node>
-<node TEXT="Remove LaTeX formula" ID="ID_1707193002">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="LatexDeleteLatexAction"/>
-<attribute NAME="plugin" VALUE="org.freeplane.plugin.latex"/>
-</node>
-<node TEXT="---" ID="ID_1286298150">
-<attribute NAME="type" VALUE="separator"/>
-</node>
-<node TEXT="Add OpenMaps Location..." ID="ID_825193044">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="OpenMapsAddLocation"/>
-<attribute NAME="plugin" VALUE="org.freeplane.plugin.openmaps"/>
-</node>
-<node TEXT="Remove OpenMaps Location" ID="ID_1841735261">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="OpenMapsRemoveLocation"/>
-<attribute NAME="plugin" VALUE="org.freeplane.plugin.openmaps"/>
-</node>
-<node TEXT="View OpenMaps Location..." ID="ID_1681751583">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="OpenMapsViewLocation"/>
-<attribute NAME="plugin" VALUE="org.freeplane.plugin.openmaps"/>
-</node>
-</node>
-<node TEXT="Notes" ID="ID_847498955">
-<attribute NAME="type" VALUE="submenu"/>
-<attribute NAME="name" VALUE="notes"/>
-<attribute NAME="name_ref" VALUE="menu_notes"/>
-<node TEXT="Edit note in dialog" ID="ID_1125575353">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="EditNoteInDialogAction"/>
-</node>
-<node TEXT="Remove note" ID="ID_400007160">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="RemoveNoteAction"/>
-</node>
-</node>
-<node TEXT="---" ID="ID_342700381">
 <attribute NAME="type" VALUE="separator"/>
 </node>
 <node TEXT="Undo" ID="ID_323454547">
@@ -693,14 +349,6 @@
 <attribute NAME="accelerator" VALUE="control RIGHT"/>
 </node>
 </node>
-<node TEXT="Free positioned node (set/reset)" ID="ID_1170575254">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="FreeNodeAction"/>
-</node>
-<node TEXT="Reset node position" ID="ID_56951123">
-<attribute NAME="type" VALUE="action"/>
-<attribute NAME="action" VALUE="ResetNodeLocationAction"/>
-</node>
 <node TEXT="---" ID="ID_957163489">
 <attribute NAME="type" VALUE="separator"/>
 </node>
@@ -730,6 +378,374 @@
 <attribute NAME="type" VALUE="action"/>
 <attribute NAME="action" VALUE="AllMapsNodeListAction"/>
 </node>
+</node>
+</node>
+<node TEXT="Node" ID="ID_1913056898">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="node"/>
+<attribute NAME="name_ref" VALUE="node"/>
+<node TEXT="Node group" ID="ID_1016833865">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="menu_group"/>
+<attribute NAME="name_ref" VALUE="menu_group"/>
+<node TEXT="Summary node (begin of group)" ID="ID_1654600442">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="FirstGroupNodeAction"/>
+<attribute NAME="accelerator" VALUE="alt shift B"/>
+</node>
+<node TEXT="Summary node (set/reset)" ID="ID_317671036">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SummaryNodeAction"/>
+<attribute NAME="accelerator" VALUE="alt shift S"/>
+</node>
+<node TEXT="Always unfolded node (set/reset)" ID="ID_978992813">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="AlwaysUnfoldedNodeAction"/>
+</node>
+<node TEXT="Add / remove cloud (default)" ID="ID_419401382">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="CloudAction"/>
+<attribute NAME="accelerator" VALUE="control shift B"/>
+</node>
+</node>
+<node TEXT="Connect" ID="ID_758525778">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="AddConnectorAction"/>
+<attribute NAME="accelerator" VALUE="control L"/>
+</node>
+<node TEXT="Links" ID="ID_1096358072">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="links"/>
+<attribute NAME="name_ref" VALUE="menu_links"/>
+<node TEXT="Add hyperlink (choose)..." ID="ID_738827087">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SetLinkByFileChooserAction"/>
+<attribute NAME="accelerator" VALUE="control shift K"/>
+</node>
+<node TEXT="Add or modify hyperlink (type)..." ID="ID_1780543728">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SetLinkByTextFieldAction"/>
+<attribute NAME="accelerator" VALUE="control K"/>
+</node>
+<node TEXT="Convert link from within text" ID="ID_1497022500">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ExtractLinkFromTextAction"/>
+</node>
+<node TEXT="---" ID="ID_1731082301">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Add local hyperlink" ID="ID_1453340097">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="AddLocalLinkAction"/>
+<attribute NAME="accelerator" VALUE="alt shift L"/>
+</node>
+<node TEXT="Add hyperlink to menu item..." ID="ID_599544379">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="AddMenuItemLinkAction"/>
+<attribute NAME="accelerator" VALUE=""/>
+</node>
+<node TEXT="---" ID="ID_1848199549">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Set link anchor" ID="ID_1260189363">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SetLinkAnchorAction"/>
+<attribute NAME="accelerator" VALUE=""/>
+</node>
+<node TEXT="Make link from anchor" ID="ID_990267007">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="MakeLinkFromAnchorAction"/>
+<attribute NAME="accelerator" VALUE=""/>
+</node>
+<node TEXT="Make link to anchor" ID="ID_879971004">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="MakeLinkToAnchorAction"/>
+<attribute NAME="accelerator" VALUE=""/>
+</node>
+<node TEXT="Clear link anchor" ID="ID_1866166903">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ClearLinkAnchorAction"/>
+<attribute NAME="accelerator" VALUE=""/>
+</node>
+</node>
+<node TEXT="---" ID="ID_413520993">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Node core" ID="ID_1362271389">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="menu_title"/>
+<attribute NAME="name_ref" VALUE="menu_title"/>
+<node TEXT="Edit node core in-line" ID="ID_1335838969">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditAction"/>
+<attribute NAME="accelerator" VALUE="F2"/>
+</node>
+<node TEXT="Edit on double click" ID="ID_735024799">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SetBooleanPropertyAction.edit_on_double_click"/>
+</node>
+<node TEXT="Edit node core in dialog" ID="ID_1859579971">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditLongAction"/>
+<attribute NAME="accelerator" VALUE="alt ENTER"/>
+</node>
+<node TEXT="Join nodes" ID="ID_429266292">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="JoinNodesAction"/>
+<attribute NAME="accelerator" VALUE="control J"/>
+</node>
+<node TEXT="Split node" ID="ID_1985755430">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SplitNode"/>
+</node>
+<node TEXT="Change revisions background color" ID="ID_239811319">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RevisionPluginAction"/>
+</node>
+<node TEXT="---" ID="ID_309534736">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Image by choice or link..." ID="ID_1081097856">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="SetImageByFileChooserAction"/>
+<attribute NAME="accelerator" VALUE="alt shift K"/>
+</node>
+</node>
+<node TEXT="Icons" ID="ID_631074080">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="icons"/>
+<attribute NAME="name_ref" VALUE="menu_iconView"/>
+<node TEXT="Icon from table..." ID="ID_1593960451">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="IconSelectionPlugin"/>
+<attribute NAME="accelerator" VALUE="control F2"/>
+</node>
+<node TEXT="Icons" ID="ID_1228348618">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="icons"/>
+<attribute NAME="name_ref" VALUE="menu_iconByCategory"/>
+<node TEXT="---" ID="ID_514858387">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="icons_list" ID="ID_469620525">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="icons_list"/>
+<attribute NAME="menu_key" VALUE="main_menu_icons"/>
+</node>
+</node>
+<node TEXT="Progress icon (%)" ID="ID_1109576393">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="progress"/>
+<attribute NAME="name_ref" VALUE="menu_progress"/>
+<node TEXT="Progress up" ID="ID_1034951513">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="IconProgressIconUpAction"/>
+<attribute NAME="accelerator" VALUE="alt LESS"/>
+</node>
+<node TEXT="Progress down" ID="ID_1609852793">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="IconProgressIconDownAction"/>
+<attribute NAME="accelerator" VALUE="alt shift LESS"/>
+</node>
+<node TEXT="---" ID="ID_1393685691">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Extended progress 10%" ID="ID_1314678492">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="IconProgressExtended10Action"/>
+</node>
+<node TEXT="Extended progress 25%" ID="ID_1602923099">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="IconProgressExtended25Action"/>
+</node>
+<node TEXT="---" ID="ID_1433062656">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Remove progress" ID="ID_1010617357">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="IconProgressRemoveAction"/>
+</node>
+</node>
+<node TEXT="Show icons hierarchically" ID="ID_1752427964">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="HierarchicalIconsAction"/>
+</node>
+<node TEXT="Show intersection of child icons" ID="ID_904750831">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="HierarchicalIcons2Action"/>
+</node>
+<node TEXT="Remove icons" ID="ID_1237688969">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="menu_remove_icons"/>
+<node TEXT="Remove first icon" ID="ID_1071365490">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveIcon_0_Action"/>
+</node>
+<node TEXT="Remove Last Icon" ID="ID_517114489">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveIconAction"/>
+</node>
+<node TEXT="Remove all icons" ID="ID_307344781">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveAllIconsAction"/>
+</node>
+</node>
+</node>
+<node TEXT="Node extensions" ID="ID_173869517">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="menu_extensions"/>
+<attribute NAME="name_ref" VALUE="menu_extensions"/>
+<node TEXT="Edit node details in-line" ID="ID_515112378">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditDetailsAction"/>
+</node>
+<node TEXT="Edit node details in dialog" ID="ID_832461075">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditDetailsInDialogAction"/>
+</node>
+<node TEXT="Copy extensions from style node" ID="ID_1282161946">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="CopyStyleExtensionsAction"/>
+</node>
+<node TEXT="Remove node details" ID="ID_1073418186">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="DeleteDetailsAction"/>
+</node>
+<node TEXT="---" ID="ID_1756377197">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Add image..." ID="ID_1114180795">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ExternalImageAddAction"/>
+</node>
+<node TEXT="Change image..." ID="ID_561556420">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ExternalImageChangeAction"/>
+</node>
+<node TEXT="Remove image" ID="ID_498717129">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ExternalImageRemoveAction"/>
+</node>
+<node TEXT="---" ID="ID_1997071583">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Edit attribute in-line" ID="ID_422744182">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditAttributesAction"/>
+<attribute NAME="accelerator" VALUE="alt F9"/>
+</node>
+<node TEXT="Add attribute in dialog..." ID="ID_465922890">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="attributes_AddAttributeAction"/>
+</node>
+<node TEXT="Find and replace attributes..." ID="ID_973570051">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="AssignAttributesAction"/>
+</node>
+<node TEXT="Copy attributes" ID="ID_835580658">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="CopyAttributes"/>
+</node>
+<node TEXT="Paste attributes" ID="ID_207761199">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="PasteAttributes"/>
+</node>
+<node TEXT="Attributes from style" ID="ID_1112078173">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="AddStyleAttributes"/>
+</node>
+<node TEXT="Remove attribute" ID="ID_1363089401">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="menu_removeAttribute"/>
+<attribute NAME="name_ref" VALUE="menu_removeAttribute"/>
+<node TEXT="Remove first attribute" ID="ID_1868185258">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="attributes_RemoveFirstAttributeAction"/>
+</node>
+<node TEXT="Remove last attribute" ID="ID_476126020">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="attributes_RemoveLastAttributeAction"/>
+</node>
+<node TEXT="Remove all attributes" ID="ID_690868203">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="attributes_RemoveAllAttributesAction"/>
+</node>
+</node>
+<node TEXT="Attribute manager..." ID="ID_32624190">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ShowAttributeDialogAction"/>
+</node>
+<node TEXT="---" ID="ID_1474272622">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="LaTex formula" ID="ID_1209802697">
+<attribute_layout NAME_WIDTH="46" VALUE_WIDTH="115"/>
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="latexFormula"/>
+<attribute NAME="name_ref" VALUE="menu_latex_formula"/>
+<node TEXT="Add LaTeX formula..." ID="ID_1147375320">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="LatexInsertLatexAction"/>
+<attribute NAME="plugin" VALUE="org.freeplane.plugin.latex"/>
+</node>
+<node TEXT="Edit LaTeX formula..." ID="ID_1014189727">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="LatexEditLatexAction"/>
+<attribute NAME="plugin" VALUE="org.freeplane.plugin.latex"/>
+</node>
+<node TEXT="Remove LaTeX formula" ID="ID_1933560004">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="LatexDeleteLatexAction"/>
+<attribute NAME="plugin" VALUE="org.freeplane.plugin.latex"/>
+</node>
+</node>
+<node TEXT="---" ID="ID_927598">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="OpenMaps" ID="ID_93774303">
+<attribute NAME="type" VALUE="submenu"/>
+<attribute NAME="name" VALUE="openmaps"/>
+<attribute NAME="name_ref" VALUE="menu_openmaps"/>
+<node TEXT="Add OpenMaps Location..." ID="ID_924811293">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="OpenMapsAddLocation"/>
+<attribute NAME="plugin" VALUE="org.freeplane.plugin.openmaps"/>
+</node>
+<node TEXT="Remove OpenMaps Location" ID="ID_741591006">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="OpenMapsRemoveLocation"/>
+<attribute NAME="plugin" VALUE="org.freeplane.plugin.openmaps"/>
+</node>
+<node TEXT="View OpenMaps Location..." ID="ID_106631391">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="OpenMapsViewLocation"/>
+<attribute NAME="plugin" VALUE="org.freeplane.plugin.openmaps"/>
+</node>
+</node>
+</node>
+<node TEXT="Notes" ID="ID_1849692997">
+<attribute NAME="type" VALUE="category"/>
+<attribute NAME="name" VALUE="notes"/>
+<attribute NAME="name_ref" VALUE="menu_notes"/>
+<node TEXT="Edit note in dialog" ID="ID_544861865">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="EditNoteInDialogAction"/>
+</node>
+<node TEXT="Remove note" ID="ID_1104872153">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="RemoveNoteAction"/>
+</node>
+</node>
+<node TEXT="---" ID="ID_324434293">
+<attribute NAME="type" VALUE="separator"/>
+</node>
+<node TEXT="Free positioned node (set/reset)" ID="ID_205818913">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="FreeNodeAction"/>
+</node>
+<node TEXT="Reset node position" ID="ID_1479097323">
+<attribute NAME="type" VALUE="action"/>
+<attribute NAME="action" VALUE="ResetNodeLocationAction"/>
 </node>
 </node>
 <node TEXT="View" ID="ID_736872434">
