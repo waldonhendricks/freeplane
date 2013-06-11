@@ -2129,5 +2129,11 @@
 <attribute NAME="action" VALUE="EnterPassword"/>
 </node>
 </node>
+<node TEXT="Instructions" POSITION="left" ID="ID_16954228" LINK="http://freeplane.sourceforge.net/wiki/index.php/How_to_Edit_Preferences_and_Menus">
+<attribute NAME="type" VALUE="--ignore--"/>
+</node>
+<node TEXT="Templates" POSITION="left" ID="ID_457483691" LINK="../../ant/Menu_Prefs_Templates.mm">
+<attribute NAME="type" VALUE="--ignore--"/>
+</node>
 </node>
 </map>
