@@ -25,17 +25,12 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -45,6 +40,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.commons.lang.StringUtils;
+import org.controlsfx.control.PropertySheet;
 import org.freeplane.core.resources.ResourceController;
 import org.freeplane.core.resources.components.IValidator.ValidationResult;
 import org.freeplane.core.ui.components.UITools;
@@ -97,38 +93,17 @@ public class OptionPanel {
 	}
 
 	private StackPane buildCentralPanel() {
-		TabPane tabPane = buildTabPane();
+		PropertySheet propertySheet = buildPropertySheet();
 		BorderPane borderPane = buildProgressPane();
-		StackPane stackPane = buildStackPane(tabPane, borderPane);
-		asynchronouslyLoadTabPane(borderPane, stackPane);
+		StackPane stackPane = buildStackPane(propertySheet, borderPane);
+		asynchronouslyLoadPropertySheet(borderPane, stackPane);
 		return stackPane;
 	}
 
-	private TabPane buildTabPane() {
-		TabPane tabPane = new TabPane();
-		handleTabSelection(tabPane);
-		handleTabChangeListener(tabPane);
-		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		return tabPane;
-	}
-
-	private void handleTabSelection(TabPane tabPane) {
-		if (selectedTab != null) {
-			SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
-			for (Tab tab : tabPane.getTabs()) {
-				if (tab.getText().equals(selectedTab.getText())) {
-					selectionModel.select(tab);
-				}
-			}
-		}
-	}
-
-	private void handleTabChangeListener(TabPane tabPane) {
-		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-			public void changed(ObservableValue<? extends Tab> arg0, Tab oldValue, Tab newValue) {
-				selectedTab = newValue;
-			}
-		});
+	private PropertySheet buildPropertySheet() {
+		PropertySheet propertySheet = new PropertySheet();
+		propertySheet.setPropertyEditorFactory(new FreeplanePropertyEditorFactory());
+		return propertySheet;
 	}
 
 	/**
@@ -140,15 +115,15 @@ public class OptionPanel {
 		return borderPane;
 	}
 
-	private StackPane buildStackPane(TabPane tabPane, BorderPane borderPane) {
+	private StackPane buildStackPane(PropertySheet propertySheet, BorderPane borderPane) {
 		StackPane stackPane = new StackPane();
-		stackPane.getChildren().addAll(tabPane, borderPane);
+		stackPane.getChildren().addAll(propertySheet, borderPane);
 		return stackPane;
 	}
 
-	private void asynchronouslyLoadTabPane(BorderPane borderPane, StackPane stackPane) {
-		OptionPanelTabPaneLoader task = new OptionPanelTabPaneLoader(controls, stackPane);
-		final Thread thread = new Thread(task, "OptionPanelTabPaneLoader");
+	private void asynchronouslyLoadPropertySheet(BorderPane borderPane, StackPane stackPane) {
+		OptionPanelPropertySheetLoader task = new OptionPanelPropertySheetLoader(controls, stackPane);
+		final Thread thread = new Thread(task, "OptionPanelPropertySheetLoader");
 		thread.start();
 		task.setOnSucceeded(workerStateEvent -> {
 			Platform.runLater(new Runnable() {

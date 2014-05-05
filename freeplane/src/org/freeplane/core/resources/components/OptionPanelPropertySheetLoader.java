@@ -21,37 +21,44 @@ package org.freeplane.core.resources.components;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import org.controlsfx.control.PropertySheet;
+import org.controlsfx.control.PropertySheet.Item;
 import org.freeplane.core.util.TextUtils;
 
-public final class OptionPanelTabPaneLoader extends Task<Void> {
+public final class OptionPanelPropertySheetLoader extends Task<Void> {
 	private ArrayList<ArrayList<IPropertyControl>> controls;
 	private StackPane stackPane;
 	int count = 0;
 
-	OptionPanelTabPaneLoader(ArrayList<ArrayList<IPropertyControl>> controls, StackPane stackPane) {
+	OptionPanelPropertySheetLoader(ArrayList<ArrayList<IPropertyControl>> controls, StackPane stackPane) {
 		this.controls = controls;
 		this.stackPane = stackPane;
 	}
 
 	@Override
 	protected Void call() throws Exception {
+		ObservableList<Item> list = FXCollections.observableArrayList();
 		for (ArrayList<IPropertyControl> tabGroup : controls) {
-			GridPane formPane = new GridPane();
-			createSwingNode(tabGroup, formPane);
-			// First element in tabGroup should always be a TabProperty
 			String tabName = TextUtils.getOptionalText(((TabProperty) tabGroup.get(0)).getLabel());
-			Tab newTab = buildTab(tabName, formPane);
-			TabPane tabPane = (TabPane) stackPane.getChildren().get(0);
-			tabPane.getTabs().add(newTab);
+			for (IPropertyControl control : tabGroup) {
+				if (control instanceof TabProperty) {
+					continue;
+				} else if (control instanceof PropertyBean) {
+					list.add(new PropertyBeanFXAdapter(((PropertyBean) control), tabName));
+				}
+			}
+			PropertySheet propertySheet = (PropertySheet) stackPane.getChildren().get(0);
+			propertySheet.getItems().setAll(list);
 		}
 		return null;
 	}
@@ -60,25 +67,7 @@ public final class OptionPanelTabPaneLoader extends Task<Void> {
 		for (IPropertyControl control : tabGroup) {
 			formPane.addColumn(0, new Label(control.getName()), new TextField());
 		}
-		//		SwingUtilities.invokeLater(new Runnable() {
-		//			public void run() {
-		//				FormLayout bottomLayout = new FormLayout(tabGroup.get(0).getDescription(), "");
-		//				final DefaultFormBuilder bottomBuilder = new DefaultFormBuilder(bottomLayout);
-		//				bottomBuilder.setDefaultDialogBorder();
-		//				for (IPropertyControl control : tabGroup) {
-		//					layoutControlOnPanel(bottomBuilder, control);
-		//				}
-		//				swingNode.setContent(bottomBuilder.getPanel());
-		//			}
-		//		});
 	}
-
-	//	private void layoutControlOnPanel(final DefaultFormBuilder bottomBuilder, IPropertyControl control) {
-	//		if (control instanceof TabProperty) {
-	//			return;
-	//		}
-	//		control.layout(bottomBuilder);
-	//	}
 
 	private Tab buildTab(String tabName, GridPane formPane) {
 		Tab newTab = new Tab();

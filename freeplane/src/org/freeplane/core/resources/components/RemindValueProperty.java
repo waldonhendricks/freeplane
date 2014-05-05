@@ -22,6 +22,8 @@ package org.freeplane.core.resources.components;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 
@@ -29,42 +31,72 @@ import org.freeplane.core.util.TextUtils;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 
-/** implementation of <remind> properties. */
+/** Implementation of <remind> properties. */
 public class RemindValueProperty extends PropertyBean implements IPropertyControl {
-	public static final String DON_T_TOUCH_VALUE = "";
-	protected static final int DON_T_TOUCH_VALUE_INT = 2;
-	static public final String FALSE_VALUE = "false";
-	protected static final int FALSE_VALUE_INT = 1;
-	static public final String TRUE_VALUE = "true";
-	protected static final int TRUE_VALUE_INT = 0;
 	JButton mButton = new JButton();
-	int state = 0;
+	RemindValue state = RemindValue.TRUE_VALUE;
 
-    /**
-     */
+	enum RemindValue {
+		DONT_TOUCH_VALUE("", TextUtils.getText("OptionalDontShowMeAgainDialog.ok").replaceFirst("&", "")), FALSE_VALUE(
+		        "false", TextUtils.getText("OptionalDontShowMeAgainDialog.cancel").replaceFirst("&", "")), TRUE_VALUE(
+		        "true", TextUtils.getText("OptionalDontShowMeAgainDialog.ok").replaceFirst("&", ""));
+		private String stringValue;
+		private String translatedStringValue;
+
+		RemindValue(String stringValue, String translatedStringValue) {
+			this.stringValue = stringValue;
+			this.translatedStringValue = translatedStringValue;
+		}
+
+		private String getStringValue() {
+	        return stringValue;
+        }
+
+		private String getTranslatedStringValue() {
+			return translatedStringValue;
+		}
+
+		public static ArrayList<String> getTranslatedStringValues() {
+			ArrayList<String> translatedStrings = new ArrayList<>();
+			for (RemindValue value : RemindValue.values()) {
+				translatedStrings.add(value.getTranslatedStringValue());
+			}
+			return translatedStrings;
+		}
+
+		public static TreeMap<String, String> getTranslationsToOriginals() {
+			TreeMap<String, String> translationsToOriginals = new TreeMap<>();
+			for (RemindValue value : RemindValue.values()) {
+				translationsToOriginals.put(value.getTranslatedStringValue(), value.getStringValue());
+			}
+			return translationsToOriginals;
+		}
+
+		private RemindValue getNext() {
+			return this.ordinal() < RemindValue.values().length - 1 ? RemindValue.values()[this.ordinal() + 1]
+			        : RemindValue.DONT_TOUCH_VALUE;
+		}
+	}
+
     public RemindValueProperty(final String name) {
 		super(name);
 		mButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
-				setState((getState() + 1) % 3);
+				setState(state.getNext());
 				firePropertyChangeEvent();
 			}
 		});
 	}
 
-	private int getState() {
-		return state;
-	}
-
 	@Override
 	public String getValue() {
 		switch (state) {
-			case TRUE_VALUE_INT:
-				return TRUE_VALUE;
-			case FALSE_VALUE_INT:
-				return FALSE_VALUE;
-			case DON_T_TOUCH_VALUE_INT:
-				return DON_T_TOUCH_VALUE;
+			case TRUE_VALUE:
+				return RemindValue.TRUE_VALUE.getStringValue();
+			case FALSE_VALUE:
+				return RemindValue.FALSE_VALUE.getStringValue();
+			case DONT_TOUCH_VALUE:
+				return RemindValue.DONT_TOUCH_VALUE.getStringValue();
 		}
 		return null;
 	}
@@ -77,47 +109,60 @@ public class RemindValueProperty extends PropertyBean implements IPropertyContro
 		mButton.setEnabled(pEnabled);
 	}
 
-	/**
-	 *
-	 */
-	protected void setState(final int newState) {
-        state = newState;
-        String[] strings;
-        strings = new String[3];
-        strings[RemindValueProperty.TRUE_VALUE_INT] = TextUtils.getText("OptionalDontShowMeAgainDialog.ok")
-            .replaceFirst("&", "");
-        strings[RemindValueProperty.FALSE_VALUE_INT] = TextUtils.getText("OptionalDontShowMeAgainDialog.cancel")
-            .replaceFirst("&", "");
-        strings[RemindValueProperty.DON_T_TOUCH_VALUE_INT] = TextUtils.getText("OptionPanel.ask").replaceFirst("&",
-            "");
-        mButton.setText(strings[state]);
-	}
-
 	@Override
 	public void setValue(final String value) {
 		if (value == null
-		        || !(value.toLowerCase().equals(TRUE_VALUE) || value.toLowerCase().equals(FALSE_VALUE) || value
-		            .toLowerCase().equals(DON_T_TOUCH_VALUE))) {
+		        || !(value.toLowerCase().equals(RemindValue.TRUE_VALUE.getStringValue())
+		                || value.toLowerCase().equals(RemindValue.FALSE_VALUE.getStringValue()) || value.toLowerCase()
+		            .equals(RemindValue.DONT_TOUCH_VALUE.getStringValue()))) {
 			throw new IllegalArgumentException("Cannot set a boolean to " + value);
 		}
 		setState(transformString(value));
 	}
 
-	private int transformString(final String string) {
-		if (string == null) {
-			return RemindValueProperty.DON_T_TOUCH_VALUE_INT;
+	protected void setState(final RemindValue newState) {
+        state = newState;
+		switch (state) {
+			case TRUE_VALUE:
+				mButton.setText(RemindValue.TRUE_VALUE.getTranslatedStringValue());
+				break;
+			case FALSE_VALUE:
+				mButton.setText(RemindValue.FALSE_VALUE.getTranslatedStringValue());
+				break;
+			case DONT_TOUCH_VALUE:
+				mButton.setText(RemindValue.DONT_TOUCH_VALUE.getTranslatedStringValue());
+				break;
 		}
-		if (string.toLowerCase().equals(TRUE_VALUE)) {
-			return RemindValueProperty.TRUE_VALUE_INT;
+	}
+
+	private RemindValue transformString(final String string) {
+		if (string == null || string.isEmpty()) {
+			return RemindValue.DONT_TOUCH_VALUE;
 		}
-		if (string.toLowerCase().equals(FALSE_VALUE)) {
-			return RemindValueProperty.FALSE_VALUE_INT;
+		else if (string.toLowerCase().equals(RemindValue.TRUE_VALUE.getStringValue())) {
+			return RemindValue.TRUE_VALUE;
 		}
-		return RemindValueProperty.DON_T_TOUCH_VALUE_INT;
+		else if (string.toLowerCase().equals(RemindValue.FALSE_VALUE.getStringValue())) {
+			return RemindValue.FALSE_VALUE;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
     protected Component[] getComponents() {
 	    return new Component[]{mButton};
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getFXStringValue(Object translatedValue) {
+		return (String) RemindValue.getTranslationsToOriginals().get(translatedValue);
+	}
 }

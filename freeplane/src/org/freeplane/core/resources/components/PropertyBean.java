@@ -81,4 +81,8 @@ public abstract class PropertyBean extends PropertyAdapter implements IPropertyC
 	}
 	
 	protected abstract Component[] getComponents();
+
+	public abstract Object getFXObjectValue(String stringValue);
+
+	public abstract String getFXStringValue(Object objectValue);
 }

@@ -22,9 +22,12 @@ package org.freeplane.core.resources.components;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -36,36 +39,56 @@ import org.freeplane.core.util.TextUtils;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 
 public class ComboProperty extends PropertyBean implements IPropertyControl, ActionListener {
-	static public Vector<String> translate(final String[] possibles) {
-		final Vector<String> possibleTranslations = new Vector<String>(possibles.length);
+	static public ArrayList<String> translate(final String[] possibles) {
+		final ArrayList<String> possibleTranslations = new ArrayList<String>(possibles.length);
 		for (int i = 0; i < possibles.length; i++) {
 			possibleTranslations.add(TextUtils.getText("OptionPanel." + possibles[i]));
 		}
 		return possibleTranslations;
 	}
 
-	final JComboBox mComboBox;
-	private Vector<String> possibleValues;
-
-	public ComboProperty(final String name, final Collection<String> possibles,
-	                     final Collection<String> possibleTranslations) {
-		super(name);
-		fillPossibleValues(possibles);
-		mComboBox = new JComboBox();
-		mComboBox.setModel(new DefaultComboBoxModel(new Vector<String>(possibleTranslations)));
-		mComboBox.addActionListener(this);
-		//mComboBox.setRenderer(ComboBoxSmallFontRenderer.INSTANCE);
-	}
+	private final JComboBox<String> mComboBox = new JComboBox<String>();
+	ArrayList<String> possibleValues = new ArrayList<String>();
+	ArrayList<String> possibleTranslationValues = new ArrayList<String>();
+	TreeMap<String, String> translationsToPossibles = new TreeMap<>();
 
 	public ComboProperty(final String name, final String[] strings) {
 		this(name, Arrays.asList(strings), ComboProperty.translate(strings));
 	}
 
-	/**
-	 */
+	public ComboProperty(final String name, final Collection<String> possibles, final List<String> possibleTranslations) {
+		super(name);
+		fillPossibleValues(possibles);
+		fillPossibleTranslations(possibleTranslations);
+		fillTranslationsToPossibles();
+		buildComboBox(possibleTranslations);
+	}
+
 	private void fillPossibleValues(final Collection<String> possibles) {
-		possibleValues = new Vector<String>();
+		possibleValues.clear();;
 		possibleValues.addAll(possibles);
+	}
+
+	private void fillPossibleTranslations(final Collection<String> possibleTranslations) {
+		possibleTranslationValues.clear();;
+		possibleTranslationValues.addAll(possibleTranslations);
+	}
+
+	private void fillTranslationsToPossibles() {
+		Iterator<String> i1 = possibleTranslationValues.iterator();
+		Iterator<String> i2 = possibleValues.iterator();
+		while (i1.hasNext() && i2.hasNext()) {
+			translationsToPossibles.put(i1.next(), i2.next());
+		}
+		if (i1.hasNext() || i2.hasNext()) {
+			LogUtils
+			    .warn("The number of possibles do not match the number of translations; input may not be properly submitted.");
+		}
+	}
+
+	private void buildComboBox(final List<String> possibleTranslations) {
+		mComboBox.setModel(new DefaultComboBoxModel(new Vector<String>(possibleTranslations)));
+		mComboBox.addActionListener(this);
 	}
 
 	@Override
@@ -79,7 +102,7 @@ public class ComboProperty extends PropertyBean implements IPropertyControl, Act
 		layout(builder, mComboBox);
 	}
 
-	public Vector<String> getPossibleValues() {
+	public ArrayList<String> getPossibleValues() {
 		return possibleValues;
 	}
 
@@ -134,5 +157,19 @@ public class ComboProperty extends PropertyBean implements IPropertyControl, Act
 	    return mComboBox.isEditable();
     }
 
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		return stringValue;
+	}
+
+	@Override
+	public String getFXStringValue(Object translatedValue) {
+		if (translationsToPossibles.containsKey(translatedValue)) {
+			return (String) translationsToPossibles.get(translatedValue);
+		}
+		else {
+			return (String) translatedValue;
+		}
+	}
 
 }

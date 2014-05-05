@@ -29,19 +29,11 @@ import javax.swing.event.ChangeListener;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 
 public class NumberProperty extends PropertyBean implements IPropertyControl {
-//	final private int max;
-//	final private int min;
-//	final private int step;
 	final private JSpinner spinner;
 	final private boolean isDoubleProperty;
 
-	/**
-	 */
 	public NumberProperty(final String name, final int min, final int max, final int step) {
 		super(name);
-//		this.min = min;
-//		this.max = max;
-//		this.step = step;
 		spinner = new JSpinner(new SpinnerNumberModel(min, min, max, step));
 		spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(final ChangeEvent pE) {
@@ -103,4 +95,34 @@ public class NumberProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return spinner.getComponents();
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		Number someValue;
+		if (isDoubleProperty) {
+			try {
+				someValue = Double.parseDouble(stringValue);
+			}
+			catch (final NumberFormatException e) {
+				e.printStackTrace();
+				someValue = 1.0;
+			}
+			return (double) someValue;
+		}
+		else {
+			try {
+				someValue = Integer.parseInt(stringValue);
+			}
+			catch (final NumberFormatException e) {
+				e.printStackTrace();
+				someValue = 100;
+			}
+			return (int) someValue;
+		}
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		return String.valueOf(objectValue);
+	}
 }

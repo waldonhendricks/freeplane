@@ -170,4 +170,16 @@ public class PathProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return new Component[]{filenameField, selectButton};
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

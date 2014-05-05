@@ -24,6 +24,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javafx.scene.text.Font;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
@@ -35,8 +37,6 @@ public class FontProperty extends PropertyBean implements IPropertyControl {
 	final private String[] mAvailableFontFamilyNames;
 	JComboBox mFontComboBox = new JComboBox();
 
-	/**
-	 */
 	public FontProperty(final String name) {
 		super(name);
 		mAvailableFontFamilyNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
@@ -80,4 +80,17 @@ public class FontProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return mFontComboBox.getComponents();
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		Font font = Font.getDefault();
+		double defaultSize = font.getSize();
+		return new Font(stringValue, defaultSize);
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		Font font = (Font) objectValue;
+		return font.getName(); // May have to change to font.getFamily();
+	}
 }
