@@ -26,6 +26,8 @@ import java.util.Properties;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -67,8 +69,7 @@ public class OptionPanel {
 		new OptionPanelBuilder();
 	}
 
-	public void buildPanel(final DefaultMutableTreeNode controlsTree) {
-		initControls(controlsTree);
+	public void buildPanel() {
 		JFXPanel topPanel = new JFXPanel();
 		Platform.runLater(new Runnable() {
 			@Override
@@ -157,13 +158,18 @@ public class OptionPanel {
 		//		MenuBuilder.setLabelAndMnemonic(okButton, TextUtils.getRawText("ok"));
 		okButton.setText(TextUtils.getRawText("ok").replace("&", "_"));
 		okButton.setMnemonicParsing(true);
-		okButton.setOnAction(actionEvent -> {
-			SwingUtilities.invokeLater(() -> {
-				if (validate()) {
-					closeWindow();
-					feedback.writeProperties(getOptionProperties());
-				}
-			});
+		okButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						if (validate()) {
+							closeWindow();
+							feedback.writeProperties(getOptionProperties());
+						}
+					}
+				});
+			}
 		});
 		return okButton;
 	}
@@ -202,7 +208,7 @@ public class OptionPanel {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void initControls(final DefaultMutableTreeNode controlsTree) {
+	public void initControls(final DefaultMutableTreeNode controlsTree) {
 		controls = new ArrayList<>();
 		ArrayList<IPropertyControl> tabGroup = null;
 		for (final Enumeration<DefaultMutableTreeNode> i = controlsTree.preorderEnumeration(); i.hasMoreElements();) {
@@ -237,7 +243,7 @@ public class OptionPanel {
 			for (final IPropertyControl control : tabGroup) {
 				if (control instanceof PropertyBean) {
 					final PropertyBean bean = (PropertyBean) control;
-					final String value = bean.getValue();
+					final String value = bean.getStringValue();
 					if (value != null) {
 						p.setProperty(bean.getName(), value);
 					}
@@ -254,7 +260,7 @@ public class OptionPanel {
 					final PropertyBean bean = (PropertyBean) control;
 					final String name = bean.getName();
 					final String value = ResourceController.getResourceController().getProperty(name);
-					bean.setValue(value);
+					bean.setStringValue(value);
 				}
 			}
 		}

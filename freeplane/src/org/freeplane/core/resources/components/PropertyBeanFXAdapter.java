@@ -19,10 +19,7 @@
  */
 package org.freeplane.core.resources.components;
 
-import java.util.Properties;
-
 import org.controlsfx.control.PropertySheet.Item;
-import org.freeplane.core.resources.ResourceController;
 import org.freeplane.core.util.TextUtils;
 
 public class PropertyBeanFXAdapter implements Item {
@@ -57,34 +54,14 @@ public class PropertyBeanFXAdapter implements Item {
 
 	@Override
 	public Object getValue() {
-		String stringValueOfProperty = getStringValue();
-		Object propertyValue = convertStringValueToObject(stringValueOfProperty);
+		String stringValueOfProperty = bean.getStringValue();
+		Object propertyValue = bean.getFXObjectValue(stringValueOfProperty);
 		return propertyValue;
 	}
 
-	private String getStringValue() {
-	    final String name = bean.getName();
-		final String value = ResourceController.getResourceController().getProperty(name);
-		return value;
-    }
-
-	private Object convertStringValueToObject(String stringValueOfProperty) {
-		return bean.getFXObjectValue(stringValueOfProperty);
-	}
-
 	@Override
-	/**
-	 * Fix later so that it saves when window closes
-	 */
-	public void setValue(Object arg0) {
-		final Properties properties = new Properties();
-		String stringValueOfProperty = getStringValueOfProperty(arg0);
-		if (stringValueOfProperty != null) {
-			properties.setProperty(bean.getName(), stringValueOfProperty);
-		}
-	}
-
-	private String getStringValueOfProperty(Object objectValue) {
-		return bean.getFXStringValue(objectValue);
+	public void setValue(Object objectValue) {
+		String stringValueOfProperty = bean.getFXStringValue(objectValue);
+		bean.setStringValue(stringValueOfProperty);
 	}
 }

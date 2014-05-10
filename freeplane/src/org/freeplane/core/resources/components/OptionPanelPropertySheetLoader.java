@@ -51,7 +51,7 @@ public final class OptionPanelPropertySheetLoader extends Task<Void> {
 		for (ArrayList<IPropertyControl> tabGroup : controls) {
 			String tabName = TextUtils.getOptionalText(((TabProperty) tabGroup.get(0)).getLabel());
 			for (IPropertyControl control : tabGroup) {
-				if (control instanceof TabProperty) {
+				if (control instanceof TabProperty || control instanceof NumberProperty) {
 					continue;
 				} else if (control instanceof PropertyBean) {
 					list.add(new PropertyBeanFXAdapter(((PropertyBean) control), tabName));

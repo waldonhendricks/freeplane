@@ -64,8 +64,9 @@ public class PropertyAction extends AFreeplaneAction {
 		final OptionPanelWindowConfigurationStorage storage = OptionPanelWindowConfigurationStorage.decorateDialog(
 		    marshalled, dialog);
 		setSelectedPanel(options, storage);
-		options.buildPanel(controls);
+		options.initControls(controls);
 		options.setProperties();
+		options.buildPanel();
 		addDialogListeners(dialog, options);
 		setDialogProperties(dialog, storage);
 	}
