@@ -39,9 +39,9 @@ public class ColorFXUtils {
 		if (str.length() != 7 || str.charAt(0) != '#') {
 			throw new NumberFormatException("wrong color format in " + str + ". Expecting #rrggbb");
 		}
-		double red = Integer.parseInt(str.substring(1, 3), 16) / 255;
-		double green = Integer.parseInt(str.substring(3, 5), 16) / 255;
-		double blue = Integer.parseInt(str.substring(5, 7), 16) / 255;
+		double red = (double) Integer.parseInt(str.substring(1, 3), 16) / 255;
+		double green = (double) Integer.parseInt(str.substring(3, 5), 16) / 255;
+		double blue = (double) Integer.parseInt(str.substring(5, 7), 16) / 255;
 		return new Color(red, green, blue, 1);
 	}
 
