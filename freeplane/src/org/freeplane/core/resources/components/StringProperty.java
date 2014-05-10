@@ -30,8 +30,6 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 public class StringProperty extends PropertyBean implements IPropertyControl {
 	final JTextField mTextField;
 
-	/**
-	 */
 	public StringProperty(final String name) {
 		super(name);
 		mTextField = new JTextField();
@@ -65,4 +63,14 @@ public class StringProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return new Component[]{mTextField};
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		return stringValue;
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		return (String) objectValue;
+	}
 }

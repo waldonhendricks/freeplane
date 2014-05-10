@@ -34,6 +34,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import org.freeplane.core.ui.ColorTracker;
 import org.freeplane.core.ui.components.JFreeplaneMenuItem;
 import org.freeplane.core.ui.components.UITools;
+import org.freeplane.core.util.ColorFXUtils;
 import org.freeplane.core.util.ColorUtils;
 import org.freeplane.core.util.TextUtils;
 
@@ -45,17 +46,10 @@ public class ColorProperty extends PropertyBean implements IPropertyControl, Act
 	JButton mButton;
 	final JPopupMenu menu = new JPopupMenu();
 
-	/**
-	 * @param defaultColor
-	 * @param pTranslator
-	 */
 	public ColorProperty(final String name, final String defaultColor) {
 		super(name);
 		this.defaultColor = defaultColor;
 		mButton = new JButton() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			{
 				setUI(BasicButtonUI.createUI(this));
@@ -74,8 +68,6 @@ public class ColorProperty extends PropertyBean implements IPropertyControl, Act
 		}
 	}
 
-	/**
-	 */
 	public Color getColorValue() {
 		return color;
 	}
@@ -111,8 +103,6 @@ public class ColorProperty extends PropertyBean implements IPropertyControl, Act
 		});
 	}
 
-	/**
-	 */
 	public void setColorValue(Color input) {
 		color = input;
 		if (input == null) {
@@ -137,4 +127,14 @@ public class ColorProperty extends PropertyBean implements IPropertyControl, Act
     protected Component[] getComponents() {
 	    return new Component[]{mButton};
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		return ColorFXUtils.stringToColor(stringValue);
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		return ColorFXUtils.colorToString((javafx.scene.paint.Color) objectValue);
+	}
 }

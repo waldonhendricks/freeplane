@@ -45,8 +45,6 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 	JButton mButton = new JButton();
 	private int modifierMask = 0;
 
-	/**
-	 */
 	public KeyProperty(final String name) {
 		super(name);
 	}
@@ -116,4 +114,14 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return new Component[]{mButton};
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		return stringValue;
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		return (String) objectValue;
+	}
 }

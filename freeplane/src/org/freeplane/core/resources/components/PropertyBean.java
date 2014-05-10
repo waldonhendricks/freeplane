@@ -36,6 +36,7 @@ public abstract class PropertyBean extends PropertyAdapter implements IPropertyC
 	
 	final private List<PropertyChangeListener> mPropertyChangeListeners = new Vector<PropertyChangeListener>();
 	private MouseClickListener mouseCliskListener;
+	private String stringValue;
 
 	public PropertyBean(final String name) {
 		super(name);
@@ -81,4 +82,16 @@ public abstract class PropertyBean extends PropertyAdapter implements IPropertyC
 	}
 	
 	protected abstract Component[] getComponents();
+
+	public abstract Object getFXObjectValue(String stringValue);
+
+	public abstract String getFXStringValue(Object objectValue);
+
+	public String getStringValue() {
+		return stringValue;
+	}
+
+	public void setStringValue(String stringValue) {
+		this.stringValue = stringValue;
+	}
 }

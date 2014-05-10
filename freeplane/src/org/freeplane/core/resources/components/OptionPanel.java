@@ -19,38 +19,36 @@ package org.freeplane.core.resources.components;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Properties;
-import java.util.Vector;
 
-import javax.swing.JButton;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.commons.lang.StringUtils;
+import org.controlsfx.control.PropertySheet;
 import org.freeplane.core.resources.ResourceController;
 import org.freeplane.core.resources.components.IValidator.ValidationResult;
-import org.freeplane.core.ui.MenuBuilder;
 import org.freeplane.core.ui.components.UITools;
 import org.freeplane.core.util.LogUtils;
 import org.freeplane.core.util.TextUtils;
 import org.freeplane.features.mode.Controller;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.ButtonBarFactory;
-import com.jgoodies.forms.layout.FormLayout;
 
 public class OptionPanel {
 	public interface IOptionPanelFeedback {
@@ -59,93 +57,130 @@ public class OptionPanel {
 
 	final static private String OPTION_PANEL_RESOURCE_PREFIX = "OptionPanel.";
 	static final String PREFERENCE_STORAGE_PROPERTY = "OptionPanel_Window_Properties";
-	private Vector<IPropertyControl> controls;
+	private ArrayList<ArrayList<IPropertyControl>> controls;
 	final private IOptionPanelFeedback feedback;
-	final private HashMap<String, Integer> tabStringToIndexMap = new HashMap<String, Integer>();
-	final private HashMap<Integer, String> tabIndexToStringMap = new HashMap<Integer, String>();
-	private String selectedPanel;
-	final private JDialog topDialog;
+	private Tab selectedTab;
+	private JDialog topDialog;
 
-	/**
-	 * @throws IOException
-	 */
-	public OptionPanel(final JDialog d, final IOptionPanelFeedback feedback) {
+	public OptionPanel(final JDialog topDialog, final IOptionPanelFeedback feedback) {
 		super();
-		topDialog = d;
+		this.topDialog = topDialog;
 		this.feedback = feedback;
 		new OptionPanelBuilder();
 	}
 
+	public void buildPanel() {
+		JFXPanel topPanel = new JFXPanel();
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				initFX(topPanel);
+			}
+		});
+		topPanel.setLayout(new GridLayout(1, 1));
+		topDialog.getContentPane().add(topPanel, BorderLayout.CENTER);
+	}
+
+	private void initFX(JFXPanel panel) {
+		Scene scene = createScene();
+		panel.setScene(scene);
+	}
+
+	private Scene createScene() {
+		BorderPane pane = new BorderPane();
+		pane.setCenter(buildCentralPanel());
+		pane.setBottom(buildButtonBar());
+		return new Scene(pane);
+	}
+
+	private StackPane buildCentralPanel() {
+		PropertySheet propertySheet = buildPropertySheet();
+		BorderPane borderPane = buildProgressPane();
+		StackPane stackPane = buildStackPane(propertySheet, borderPane);
+		asynchronouslyLoadPropertySheet(borderPane, stackPane);
+		return stackPane;
+	}
+
+	private PropertySheet buildPropertySheet() {
+		PropertySheet propertySheet = new PropertySheet();
+		propertySheet.setPropertyEditorFactory(new FreeplanePropertyEditorFactory());
+		return propertySheet;
+	}
+
 	/**
-	 * This method builds the preferences panel.
-	 * A list of IPropertyControl is iterated through and
-	 * if the IPropertyControl is an instance of TabProperty,
-	 * it creates a new "tab" that can be clicked to reveal the appropriate panel.
-	 * If the previous selected tab was saved on close,
-	 * the appropriate tab is reopened.
-	 *
-	 * @param controlsTree  This is the data that needs to be built
+	 * In the future, this BorderPane would display a progress bar in the center 
+	 * as the loading of the form will take some time.
 	 */
-	public void buildPanel(final DefaultMutableTreeNode controlsTree) {
-		final JPanel centralPanel = new JPanel();
-		centralPanel.setLayout(new GridLayout(1, 1));
-		final JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		FormLayout bottomLayout = null;
-		DefaultFormBuilder bottomBuilder = null;
-		initControls(controlsTree);
-		final Iterator<IPropertyControl> iterator = controls.iterator();
-		int tabIndex = 0;
-		while (iterator.hasNext()) {
-			final IPropertyControl control = iterator.next();
-			if (control instanceof TabProperty) {
-				final TabProperty newTab = (TabProperty) control;
-				bottomLayout = new FormLayout(newTab.getDescription(), "");
-				bottomBuilder = new DefaultFormBuilder(bottomLayout);
-				bottomBuilder.setDefaultDialogBorder();
-				final JScrollPane bottomComponent = new JScrollPane(bottomBuilder.getPanel());
-				UITools.setScrollbarIncrement(bottomComponent);
-				final String tabName = TextUtils.getOptionalText(newTab.getLabel());
-				tabStringToIndexMap.put(tabName, tabIndex);
-				tabIndexToStringMap.put(tabIndex, tabName);
-				tabbedPane.addTab(tabName, bottomComponent);
-				tabIndex++;
-			}
-			else {
-				control.layout(bottomBuilder);
-			}
-		}
-		tabbedPane.addChangeListener(new ChangeListener() {
-			public void stateChanged(final ChangeEvent event) {
-				final JTabbedPane c = (JTabbedPane) event.getSource();
-				selectedPanel = tabIndexToStringMap.get(c.getSelectedIndex());
-			}
-		});
-		centralPanel.add(tabbedPane);
-		if (selectedPanel != null && tabStringToIndexMap.containsKey(selectedPanel)) {
-			// Without the containsKey call the loading of the tab "behaviour"/"behavior" gives a nullpointer exception
-			tabbedPane.setSelectedIndex(tabStringToIndexMap.get(selectedPanel));
-		}
-		topDialog.getContentPane().add(centralPanel, BorderLayout.CENTER);
-		final JButton cancelButton = new JButton();
-		MenuBuilder.setLabelAndMnemonic(cancelButton, TextUtils.getRawText("cancel"));
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent arg0) {
-				closeWindow();
-			}
-		});
-		final JButton okButton = new JButton();
-		MenuBuilder.setLabelAndMnemonic(okButton, TextUtils.getRawText("ok"));
-		okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent arg0) {
-				if (validate()) {
-					closeWindow();
-					feedback.writeProperties(getOptionProperties());
+	private BorderPane buildProgressPane() {
+		BorderPane borderPane = new BorderPane();
+		return borderPane;
+	}
+
+	private StackPane buildStackPane(PropertySheet propertySheet, BorderPane borderPane) {
+		StackPane stackPane = new StackPane();
+		stackPane.getChildren().addAll(propertySheet, borderPane);
+		return stackPane;
+	}
+
+	private void asynchronouslyLoadPropertySheet(BorderPane borderPane, StackPane stackPane) {
+		OptionPanelPropertySheetLoader task = new OptionPanelPropertySheetLoader(controls, stackPane);
+		final Thread thread = new Thread(task, "OptionPanelPropertySheetLoader");
+		thread.start();
+		task.setOnSucceeded(workerStateEvent -> {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					stackPane.getChildren().remove(borderPane);
 				}
+			});
+		});
+	}
+
+	private HBox buildButtonBar() {
+		final Button cancelButton = buildCancelButton();
+		final Button okButton = buildOkButton();
+		final HBox buttonBar = buildButtonBarHBox(cancelButton, okButton);
+		return buttonBar;
+	}
+
+	private Button buildCancelButton() {
+		final Button cancelButton = new Button();
+		//		MenuBuilder.setLabelAndMnemonic(cancelButton, TextUtils.getRawText("cancel"));
+		cancelButton.setText(TextUtils.getRawText("cancel").replace("&", "_"));
+		cancelButton.setMnemonicParsing(true);
+		cancelButton.setOnAction(actionEvent -> {
+			closeWindow();
+		});
+		return cancelButton;
+	}
+
+	private Button buildOkButton() {
+		final Button okButton = new Button();
+		//		MenuBuilder.setLabelAndMnemonic(okButton, TextUtils.getRawText("ok"));
+		okButton.setText(TextUtils.getRawText("ok").replace("&", "_"));
+		okButton.setMnemonicParsing(true);
+		okButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						if (validate()) {
+							closeWindow();
+							feedback.writeProperties(getOptionProperties());
+						}
+					}
+				});
 			}
 		});
-		topDialog.getRootPane().setDefaultButton(okButton);
-		topDialog.getContentPane().add(ButtonBarFactory.buildOKCancelBar(cancelButton, okButton), BorderLayout.SOUTH);
+		return okButton;
+	}
+
+	private HBox buildButtonBarHBox(final Button cancelButton, final Button okButton) {
+		HBox hbox = new HBox();
+		hbox.setAlignment(Pos.CENTER_RIGHT);
+		hbox.setPadding(new Insets(5, 5, 5, 5));
+		hbox.setSpacing(10);
+		hbox.getChildren().addAll(cancelButton, okButton);
+		return hbox;
 	}
 
 	private boolean validate() {
@@ -155,11 +190,12 @@ public class OptionPanel {
 			result.add(validator.validate(properties));
 		}
 		if (!result.isValid()) {
-			UITools.errorMessage(formatErrors("OptionPanel.validation_error", result.getErrors()));
+			UITools.errorMessage(formatErrors(OPTION_PANEL_RESOURCE_PREFIX + "validation_error", result.getErrors()));
 			LogUtils.severe(result.toString());
 		}
 		else if (result.hasWarnings()) {
-			UITools.informationMessage(formatErrors("OptionPanel.validation_warning", result.getWarnings()));
+			UITools.informationMessage(formatErrors(OPTION_PANEL_RESOURCE_PREFIX + "validation_warning",
+			    result.getWarnings()));
 			LogUtils.warn(result.toString());
 		}
 		return result.isValid();
@@ -172,38 +208,45 @@ public class OptionPanel {
 	}
 
 	@SuppressWarnings("unchecked")
-	/**
-	 * This is where the controls are added to the "controls" IProperty Vector
-	 * @param controlsTree This is the tree that gets built
-	 */
-	private void initControls(final DefaultMutableTreeNode controlsTree) {
-		controls = new Vector<IPropertyControl>();
+	public void initControls(final DefaultMutableTreeNode controlsTree) {
+		controls = new ArrayList<>();
+		ArrayList<IPropertyControl> tabGroup = null;
 		for (final Enumeration<DefaultMutableTreeNode> i = controlsTree.preorderEnumeration(); i.hasMoreElements();) {
 			final IPropertyControlCreator creator = (IPropertyControlCreator) i.nextElement().getUserObject();
 			if (creator == null) {
 				continue;
 			}
 			final IPropertyControl control = creator.createControl();
-			controls.add(control);
+			if (control instanceof TabProperty) {
+				tabGroup = new ArrayList<>();
+				tabGroup.add(control);
+				controls.add(tabGroup);
+			}
+			else {
+				tabGroup.add(control);
+			}
 		}
 	}
 
 	public void closeWindow() {
 		final OptionPanelWindowConfigurationStorage storage = new OptionPanelWindowConfigurationStorage();
-		storage.setPanel(OPTION_PANEL_RESOURCE_PREFIX + selectedPanel);
+		storage.setPanel(OPTION_PANEL_RESOURCE_PREFIX + selectedTab.getText());
 		storage.storeDialogPositions(topDialog, OptionPanel.PREFERENCE_STORAGE_PROPERTY);
 		topDialog.setVisible(false);
 		topDialog.dispose();
+		Platform.setImplicitExit(false); // Without this line, the JFXPanel does not show on future openings
 	}
 
 	private Properties getOptionProperties() {
 		final Properties p = new Properties();
-		for (final IPropertyControl control : controls) {
-			if (control instanceof PropertyBean) {
-				final PropertyBean bean = (PropertyBean) control;
-				final String value = bean.getValue();
-				if (value != null) {
-					p.setProperty(bean.getName(), value);
+		for (final ArrayList<IPropertyControl> tabGroup : controls) {
+			for (final IPropertyControl control : tabGroup) {
+				if (control instanceof PropertyBean) {
+					final PropertyBean bean = (PropertyBean) control;
+					final String value = bean.getStringValue();
+					if (value != null) {
+						p.setProperty(bean.getName(), value);
+					}
 				}
 			}
 		}
@@ -211,19 +254,22 @@ public class OptionPanel {
 	}
 
 	public void setProperties() {
-		for (final IPropertyControl control : controls) {
-			if (control instanceof PropertyBean) {
-				final PropertyBean bean = (PropertyBean) control;
-				final String name = bean.getName();
-				final String value = ResourceController.getResourceController().getProperty(name);
-				bean.setValue(value);
+		for (final ArrayList<IPropertyControl> tabGroup : controls) {
+			for (final IPropertyControl control : tabGroup) {
+				if (control instanceof PropertyBean) {
+					final PropertyBean bean = (PropertyBean) control;
+					final String name = bean.getName();
+					final String value = ResourceController.getResourceController().getProperty(name);
+					bean.setStringValue(value);
+				}
 			}
 		}
 	}
 
-	void setSelectedPanel(final String panel) {
-		if (panel.startsWith(OPTION_PANEL_RESOURCE_PREFIX)) {
-			selectedPanel = panel.substring(OPTION_PANEL_RESOURCE_PREFIX.length());
+	void setSelectedPanel(final String panelName) {
+		if (panelName.startsWith(OPTION_PANEL_RESOURCE_PREFIX)) {
+			String panelNameWithoutPrefix = panelName.substring(OPTION_PANEL_RESOURCE_PREFIX.length());
+			selectedTab = new Tab(panelNameWithoutPrefix);
 		}
 	}
 }

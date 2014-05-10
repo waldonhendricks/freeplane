@@ -25,4 +25,14 @@ public class EditablePatternComboProperty extends EditableComboProperty<PatternF
         final PatternFormat selected = getSelected();
         return selected == null ? null : selected.getPattern();
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		return null;
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		return null;
+	}
 }

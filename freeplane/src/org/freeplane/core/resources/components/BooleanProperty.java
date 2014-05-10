@@ -30,8 +30,6 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 public class BooleanProperty extends PropertyBean implements IPropertyControl {
 	JCheckBox mCheckBox = new JCheckBox();
 
-	/**
-	 */
 	public BooleanProperty(final String name) {
 		super(name);
 		mCheckBox.addItemListener(new ItemListener() {
@@ -72,4 +70,16 @@ public class BooleanProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return new Component[]{mCheckBox};
     }
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		final Boolean booleanValue = Boolean.parseBoolean(stringValue);
+		return booleanValue;
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		final String stringValue = String.valueOf((Boolean) objectValue);
+		return stringValue;
+	}
 }
