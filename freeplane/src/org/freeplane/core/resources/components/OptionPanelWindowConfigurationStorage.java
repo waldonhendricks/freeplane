@@ -25,6 +25,8 @@ import org.freeplane.core.resources.WindowConfigurationStorage;
 import org.freeplane.n3.nanoxml.XMLElement;
 
 class OptionPanelWindowConfigurationStorage extends WindowConfigurationStorage {
+	private static final String OPTION_PANEL_DEFAULT_TAB = "OptionPanel.Environment";
+
 	public OptionPanelWindowConfigurationStorage() {
 	    super("option_panel_window_configuration_storage");
     }
@@ -36,7 +38,10 @@ class OptionPanelWindowConfigurationStorage extends WindowConfigurationStorage {
 			storage.panel = xml.getAttribute("panel", null);
 			return storage;
 		}
-		return null;
+		else {
+			storage.panel = OPTION_PANEL_DEFAULT_TAB;
+			return storage;
+		}
 	}
 
 	protected String panel;
