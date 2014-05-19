@@ -20,34 +20,67 @@
 package org.freeplane.core.resources.components;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import org.freeplane.core.util.TextUtils;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.Sizes;
 
 /**
  * @author Dimitry Polivaev
  * 27.12.2008
  */
 public class KeyProperty extends PropertyBean implements IPropertyControl {
-	private static RowSpec rowSpec;
-	private Icon icon;
 	private String labelText;
-	JButton mButton = new JButton();
-	private int modifierMask = 0;
+	private Image javaFXImage;
 
 	public KeyProperty(final String name) {
 		super(name);
 	}
+
+	public void setImageIcon(final Icon icon) {
+		this.javaFXImage = convertIconToFXImage(icon);
+	}
+
+	private WritableImage convertIconToFXImage(final Icon icon) {
+	    BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
+		    BufferedImage.TYPE_INT_RGB);
+		Graphics g = bufferedImage.createGraphics();
+		icon.paintIcon(null, g, 0, 0);
+		WritableImage javaFXImage = new WritableImage(icon.getIconWidth(), icon.getIconHeight());
+		SwingFXUtils.toFXImage(bufferedImage, javaFXImage);
+	    return javaFXImage;
+    }
+
+	public void setLabelText(final String labelText) {
+		this.labelText = labelText;
+	}
+
+	@Override
+	public Object getFXObjectValue(String stringValue) {
+		// TODO Create a new object that holds a label, an icon, and a text input for stringValue
+		return "Label: " + labelText + ", Value: " + stringValue + ", Icon width: " + javaFXImage.getWidth()
+		        + ", Icon height: " + javaFXImage.getHeight();
+	}
+
+	@Override
+	public String getFXStringValue(Object objectValue) {
+		return (String) objectValue;
+	}
+
+	/**
+	 * Unused members for JavaFX property panel
+	 */
+
+	private int modifierMask = 0;
+	JButton mButton = new JButton();
 
 	public void disableModifiers() {
 		modifierMask = KeyEvent.ALT_MASK | KeyEvent.CTRL_MASK | KeyEvent.META_MASK;
@@ -59,49 +92,11 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 	}
 
 	public void layout(final DefaultFormBuilder builder) {
-		mButton.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent arg0) {
-				final GrabKeyDialog keyDialog = new GrabKeyDialog(getValue(), modifierMask);
-				keyDialog.setVisible(true);
-				if (keyDialog.isOK()) {
-					setValue(keyDialog.getShortcut());
-					firePropertyChangeEvent();
-				}
-			}
-		});
-		if (labelText == null) {
-			labelText = TextUtils.getOptionalText(getLabel());
-		}
-		final JLabel label = new JLabel(labelText, icon, JLabel.RIGHT);
-		String tooltip = TextUtils.getOptionalText(getDescription());
-		label.setToolTipText(tooltip);
-		if (KeyProperty.rowSpec == null) {
-			KeyProperty.rowSpec = new RowSpec(RowSpec.FILL, Sizes.dluX(20), 0.0);
-		}
-		if (3 < builder.getColumn()) {
-			builder.appendRelatedComponentsGapRow();
-			builder.appendRow(KeyProperty.rowSpec);
-			builder.nextLine(2);
-		}
-		else {
-			builder.nextColumn(2);
-		}
-		builder.add(label);
-		builder.nextColumn(2);
-		builder.add(mButton);
-		mButton.setToolTipText(tooltip);
+		// No longer needed 
 	}
 
 	public void setEnabled(final boolean pEnabled) {
 		mButton.setEnabled(pEnabled);
-	}
-
-	public void setImageIcon(final Icon icon) {
-		this.icon = icon;
-	}
-
-	public void setLabelText(final String labelText) {
-		this.labelText = labelText;
 	}
 
 	@Override
@@ -114,14 +109,4 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
     protected Component[] getComponents() {
 	    return new Component[]{mButton};
     }
-
-	@Override
-	public Object getFXObjectValue(String stringValue) {
-		return stringValue;
-	}
-
-	@Override
-	public String getFXStringValue(Object objectValue) {
-		return (String) objectValue;
-	}
 }
