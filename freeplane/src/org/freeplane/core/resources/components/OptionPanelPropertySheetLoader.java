@@ -33,6 +33,7 @@ import javafx.scene.layout.StackPane;
 
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.control.PropertySheet.Item;
+import org.controlsfx.control.PropertySheet.Mode;
 import org.freeplane.core.util.TextUtils;
 
 public final class OptionPanelPropertySheetLoader extends Task<Void> {
@@ -58,6 +59,8 @@ public final class OptionPanelPropertySheetLoader extends Task<Void> {
 				}
 			}
 			PropertySheet propertySheet = (PropertySheet) stackPane.getChildren().get(0);
+			propertySheet.modeSwitcherVisibleProperty().setValue(false);
+			propertySheet.setMode(Mode.CATEGORY);
 			propertySheet.getItems().setAll(list);
 		}
 		return null;
