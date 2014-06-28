@@ -38,11 +38,14 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
  * 27.12.2008
  */
 public class KeyProperty extends PropertyBean implements IPropertyControl {
-	private String labelText;
 	private Image javaFXImage;
 
 	public KeyProperty(final String name) {
 		super(name);
+	}
+
+	public KeyProperty(String name, String label) {
+		super(name, label, label);
 	}
 
 	public void setImageIcon(final Icon icon) {
@@ -62,10 +65,6 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 		WritableImage javaFXImage = SwingFXUtils.toFXImage(bufferedImage, null);
 	    return javaFXImage;
     }
-
-	public void setLabelText(final String labelText) {
-		this.labelText = labelText;
-	}
 
 	@Override
 	public Object getFXObjectValue(String stringValue) {
