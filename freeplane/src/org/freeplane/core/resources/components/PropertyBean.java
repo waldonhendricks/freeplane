@@ -25,6 +25,8 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Vector;
 
+import javafx.scene.image.Image;
+
 public abstract class PropertyBean extends PropertyAdapter implements IPropertyControl {
 	
 	private class MouseClickListener extends MouseAdapter{
@@ -37,6 +39,7 @@ public abstract class PropertyBean extends PropertyAdapter implements IPropertyC
 	final private List<PropertyChangeListener> mPropertyChangeListeners = new Vector<PropertyChangeListener>();
 	private MouseClickListener mouseCliskListener;
 	private String stringValue;
+	private Image icon;
 
 	public PropertyBean(final String name) {
 		super(name);
@@ -93,5 +96,9 @@ public abstract class PropertyBean extends PropertyAdapter implements IPropertyC
 
 	public void setStringValue(String stringValue) {
 		this.stringValue = stringValue;
+	}
+
+	public Image getIconFX() {
+		return icon;
 	}
 }

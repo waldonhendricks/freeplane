@@ -48,6 +48,11 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 	public void setImageIcon(final Icon icon) {
 		this.javaFXImage = convertIconToFXImage(icon);
 	}
+	
+	@Override
+	public Image getIconFX() {
+		return javaFXImage;
+	}
 
 	private WritableImage convertIconToFXImage(final Icon icon) {
 	    BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
@@ -65,9 +70,7 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 
 	@Override
 	public Object getFXObjectValue(String stringValue) {
-		// TODO Create a new object that holds a label, an icon, and a text input for stringValue
-		return "Label: " + labelText + ", Value: " + stringValue + ", Icon width: " + javaFXImage.getWidth()
-		        + ", Icon height: " + javaFXImage.getHeight();
+		return stringValue;
 	}
 
 	@Override

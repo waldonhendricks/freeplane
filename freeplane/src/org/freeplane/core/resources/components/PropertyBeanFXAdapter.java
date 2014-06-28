@@ -19,6 +19,8 @@
  */
 package org.freeplane.core.resources.components;
 
+import javafx.scene.image.Image;
+
 import org.controlsfx.control.PropertySheet.Item;
 import org.freeplane.core.util.TextUtils;
 
@@ -45,6 +47,10 @@ public class PropertyBeanFXAdapter implements Item {
 	@Override
 	public String getName() {
 		return TextUtils.getOptionalText(bean.getLabel());
+	}
+	
+	public Image getIcon() {
+		return bean.getIconFX();
 	}
 
 	@Override

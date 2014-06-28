@@ -54,7 +54,7 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
 			return Editors.createFontEditor(item);
 		}
 		if (type == KeyProperty.class) {
-			return createLabelPropertyEditor(item);
+			return Editors.createTextEditor(item);
 		}
 		if (type == NumberProperty.class) {
 			return Editors.createNumericEditor(item);

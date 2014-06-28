@@ -17,6 +17,8 @@
  */
 package org.freeplane.core.resources.components;
 
+import impl.org.controlsfx.skin.CustomPropertySheetSkin;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.text.MessageFormat;
