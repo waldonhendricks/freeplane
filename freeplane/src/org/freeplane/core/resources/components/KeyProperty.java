@@ -56,11 +56,10 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 
 	private WritableImage convertIconToFXImage(final Icon icon) {
 	    BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
-		    BufferedImage.TYPE_INT_RGB);
+		    BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bufferedImage.createGraphics();
 		icon.paintIcon(null, g, 0, 0);
-		WritableImage javaFXImage = new WritableImage(icon.getIconWidth(), icon.getIconHeight());
-		SwingFXUtils.toFXImage(bufferedImage, javaFXImage);
+		WritableImage javaFXImage = SwingFXUtils.toFXImage(bufferedImage, null);
 	    return javaFXImage;
     }
 
