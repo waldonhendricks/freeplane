@@ -46,7 +46,11 @@ public class PropertyBeanFXAdapter implements Item {
 
 	@Override
 	public String getName() {
-		return TextUtils.getOptionalText(bean.getLabel());
+		if (bean instanceof KeyProperty) {
+			return bean.getLabel();
+		} else {
+			return TextUtils.getOptionalText(bean.getLabel());
+		}
 	}
 	
 	public Image getIcon() {

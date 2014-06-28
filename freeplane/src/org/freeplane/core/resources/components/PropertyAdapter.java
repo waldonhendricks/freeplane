@@ -33,13 +33,23 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
  */
 public class PropertyAdapter {
 	private String description;
+	public String getDescription() {
+		return description;
+	}
+	
 	private String label;
+	String getLabel() {
+		return label;
+	}
 	void setLabel(String label) {
     	this.label = label;
     }
 
 	private final String name;
-
+	public String getName() {
+		return name;
+	}
+	
 	public PropertyAdapter(final String name) {
 		this(name, "OptionPanel." + name, "OptionPanel." + name + ".tooltip");
 		if (ResourceController.getResourceController().getText(description, null) == null) {
@@ -54,21 +64,9 @@ public class PropertyAdapter {
 		this.label = label;
 		this.description = description;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public String getName() {
-		return name;
-	}
 	
 	protected void layout(DefaultFormBuilder builder, JComponent component){
-		final JLabel label = builder.append(TextUtils.getOptionalText(getLabel()), component);
+		final JLabel label = builder.append(getLabel(), component);
 		String tooltip = TextUtils.getOptionalText(getDescription());
 		label.setToolTipText(tooltip);
 		component.setToolTipText(tooltip);
