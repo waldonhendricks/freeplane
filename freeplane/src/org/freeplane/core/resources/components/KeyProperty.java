@@ -44,8 +44,8 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 		super(name);
 	}
 
-	public KeyProperty(String name, String label) {
-		super(name, label, label);
+	public KeyProperty(String shortcutKey, String translationKeyLabel) {
+		super(shortcutKey, translationKeyLabel, null);
 	}
 
 	public void setImageIcon(final Icon icon) {

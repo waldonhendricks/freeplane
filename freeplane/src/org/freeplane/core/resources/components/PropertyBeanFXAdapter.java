@@ -41,16 +41,16 @@ public class PropertyBeanFXAdapter implements Item {
 
 	@Override
 	public String getDescription() {
-		return bean.getDescription(); // No purpose for now 5/5/2014
+		return bean.getTooltip(); // No purpose for now 5/5/2014
 	}
 
 	@Override
 	public String getName() {
-		if (bean instanceof KeyProperty) {
-			return bean.getLabel();
-		} else {
-			return TextUtils.getOptionalText(bean.getLabel());
+		String name = TextUtils.getOptionalText(bean.getLabel());
+		if (name == null) {
+			name = "";
 		}
+		return name;
 	}
 	
 	public Image getIcon() {
