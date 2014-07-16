@@ -19,7 +19,8 @@ Bundle-ClassPath: lib/freeplaneviewer.jar,
  lib/substance-7.2.1.jar,
  lib/substance-flamingo-7.2.1.jar,
  lib/substance-swingx-7.2.1.jar,
- lib/trident-7.2.1.jar
+ lib/trident-7.2.1.jar,
+ lib/controlsfx-8.0.7-SNAPSHOT.jar
 Bundle-Activator: org.freeplane.main.osgi.Activator
 Import-Package: org.osgi.framework,
  org.osgi.service.url;version="1.0.0"
