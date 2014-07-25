@@ -135,6 +135,7 @@ public class OptionPanel {
 		});
 	}
 
+	// Mnemonics still need to be implemented (Use TextUtils.getRawText() - ok and cancel)
 	private HBox buildButtonBar() {
 		final Button cancelButton = buildCancelButton();
 		final Button okButton = buildOkButton();
@@ -144,7 +145,6 @@ public class OptionPanel {
 
 	private Button buildCancelButton() {
 		final Button cancelButton = new Button();
-		//		MenuBuilder.setLabelAndMnemonic(cancelButton, TextUtils.getRawText("cancel"));
 		cancelButton.setText(TextUtils.getRawText("cancel").replace("&", "_"));
 		cancelButton.setMnemonicParsing(true);
 		cancelButton.setOnAction(actionEvent -> {
@@ -155,7 +155,6 @@ public class OptionPanel {
 
 	private Button buildOkButton() {
 		final Button okButton = new Button();
-		//		MenuBuilder.setLabelAndMnemonic(okButton, TextUtils.getRawText("ok"));
 		okButton.setText(TextUtils.getRawText("ok").replace("&", "_"));
 		okButton.setMnemonicParsing(true);
 		okButton.setOnAction(new EventHandler<ActionEvent>() {

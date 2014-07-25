@@ -24,11 +24,6 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import org.controlsfx.control.PropertySheet;
@@ -64,23 +59,6 @@ public final class OptionPanelPropertySheetLoader extends Task<Void> {
 			propertySheet.getItems().setAll(list);
 		}
 		return null;
-	}
-
-	private void createSwingNode(ArrayList<IPropertyControl> tabGroup, GridPane formPane) {
-		for (IPropertyControl control : tabGroup) {
-			formPane.addColumn(0, new Label(control.getName()), new TextField());
-		}
-	}
-
-	private Tab buildTab(String tabName, GridPane formPane) {
-		Tab newTab = new Tab();
-		newTab.setText(tabName);
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setContent(formPane);
-		scrollPane.setFitToWidth(true);
-		scrollPane.setFitToHeight(true);
-		newTab.setContent(scrollPane);
-		return newTab;
 	}
 
 }
