@@ -30,10 +30,11 @@ import org.controlsfx.control.PropertySheet.Item;
 import org.freeplane.core.util.TextUtils;
 
 public final class OptionPanelPropertySheetLoader extends Task<ObservableList<Item>> {
-	private ArrayList<ArrayList<IPropertyControl>> controls;
-	private PropertySheet propertySheet;
+	private final ArrayList<ArrayList<IPropertyControl>> controls;
+	private final PropertySheet propertySheet;
 
-	OptionPanelPropertySheetLoader(ArrayList<ArrayList<IPropertyControl>> controls, PropertySheet propertySheet) {
+	OptionPanelPropertySheetLoader(final ArrayList<ArrayList<IPropertyControl>> controls,
+	                               final PropertySheet propertySheet) {
 		this.controls = controls;
 		this.propertySheet = propertySheet;
 	}
@@ -42,31 +43,35 @@ public final class OptionPanelPropertySheetLoader extends Task<ObservableList<It
 	protected ObservableList<Item> call() throws Exception {
 		return buildPropertySheetItems(propertySheet);
 	}
-	private ObservableList<Item> buildPropertySheetItems(PropertySheet propertySheet) {
-		ObservableList<Item> list = FXCollections.observableArrayList();
+
+	private ObservableList<Item> buildPropertySheetItems(final PropertySheet propertySheet) {
+		final ObservableList<Item> list = FXCollections.observableArrayList();
 		int currentProgress = 0;
-		int totalProgress = controls.size();
-		for (ArrayList<IPropertyControl> tabGroup : controls) {
-			String tabName = buildTabName(tabGroup);
+		final int totalProgress = controls.size();
+		for (final ArrayList<IPropertyControl> tabGroup : controls) {
+			final String tabName = buildTabName(tabGroup);
 			createTabPane(list, tabGroup, tabName);
 			currentProgress++;
 			updateProgress(currentProgress, totalProgress);
 		}
 		return list;
 	}
-	private String buildTabName(ArrayList<IPropertyControl> tabGroup) {
-		TabProperty tab = (TabProperty) tabGroup.get(0);
-		String tabName = TextUtils.getOptionalText(tab.getLabel());
+
+	private String buildTabName(final ArrayList<IPropertyControl> tabGroup) {
+		final TabProperty tab = (TabProperty) tabGroup.get(0);
+		final String tabName = TextUtils.getOptionalText(tab.getLabel());
 		return tabName;
 	}
-	private void createTabPane(ObservableList<Item> list,
-			ArrayList<IPropertyControl> tabGroup, String tabName) {
-		for (IPropertyControl control : tabGroup) {
+
+	private void createTabPane(final ObservableList<Item> list, final ArrayList<IPropertyControl> tabGroup,
+	                           final String tabName) {
+		for (final IPropertyControl control : tabGroup) {
 			addControlIfApplicable(list, tabName, control);
 		}
 	}
-	private void addControlIfApplicable(ObservableList<Item> list,
-			String tabName, IPropertyControl control) {
+
+	private void addControlIfApplicable(final ObservableList<Item> list, final String tabName,
+	                                    final IPropertyControl control) {
 		// Implement adapter for number property, then remove this if block
 		if (control instanceof NumberProperty) {
 			return;
@@ -75,11 +80,10 @@ public final class OptionPanelPropertySheetLoader extends Task<ObservableList<It
 			addControl(list, tabName, control);
 		}
 	}
-	private void addControl(ObservableList<Item> list, String tabName,
-			IPropertyControl control) {
-		PropertyBean propertyBean = (PropertyBean) control;
-		PropertyBeanFXAdapter propertyBeanFX = new PropertyBeanFXAdapter(propertyBean, tabName);  
+
+	private void addControl(final ObservableList<Item> list, final String tabName, final IPropertyControl control) {
+		final PropertyBean propertyBean = (PropertyBean) control;
+		final PropertyBeanFXAdapter propertyBeanFX = new PropertyBeanFXAdapter(propertyBean, tabName);
 		list.add(propertyBeanFX);
 	}
-
 }

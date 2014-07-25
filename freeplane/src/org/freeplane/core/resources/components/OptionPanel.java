@@ -26,8 +26,6 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.embed.swing.JFXPanel;
@@ -38,7 +36,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -69,7 +66,7 @@ public class OptionPanel {
 	private ArrayList<ArrayList<IPropertyControl>> controls;
 	final private IOptionPanelFeedback feedback;
 	private Tab selectedTab;
-	private JDialog topDialog;
+	private final JDialog topDialog;
 
 	public OptionPanel(final JDialog topDialog, final IOptionPanelFeedback feedback) {
 		super();
@@ -79,7 +76,7 @@ public class OptionPanel {
 	}
 
 	public void buildPanel() {
-		JFXPanel topPanel = new JFXPanel();
+		final JFXPanel topPanel = new JFXPanel();
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -90,28 +87,28 @@ public class OptionPanel {
 		topDialog.getContentPane().add(topPanel, BorderLayout.CENTER);
 	}
 
-	private void initFX(JFXPanel panel) {
-		Scene scene = createScene();
+	private void initFX(final JFXPanel panel) {
+		final Scene scene = createScene();
 		panel.setScene(scene);
 	}
 
 	private Scene createScene() {
-		BorderPane pane = new BorderPane();
+		final BorderPane pane = new BorderPane();
 		pane.setCenter(buildCentralPanel());
 		pane.setBottom(buildButtonBar());
 		return new Scene(pane);
 	}
 
 	private StackPane buildCentralPanel() {
-		PropertySheet propertySheet = buildPropertySheet();
-		BorderPane borderPane = buildProgressPane();
-		StackPane stackPane = buildStackPane(propertySheet, borderPane);
+		final PropertySheet propertySheet = buildPropertySheet();
+		final BorderPane borderPane = buildProgressPane();
+		final StackPane stackPane = buildStackPane(propertySheet, borderPane);
 		asynchronouslyLoadPropertySheet(stackPane, borderPane, propertySheet);
 		return stackPane;
 	}
-	
+
 	private PropertySheet buildPropertySheet() {
-		PropertySheet propertySheet = new PropertySheet();
+		final PropertySheet propertySheet = new PropertySheet();
 		propertySheet.setPropertyEditorFactory(new FreeplanePropertyEditorFactory());
 		propertySheet.modeSwitcherVisibleProperty().setValue(false);
 		propertySheet.setMode(Mode.CATEGORY);
@@ -119,38 +116,38 @@ public class OptionPanel {
 	}
 
 	private BorderPane buildProgressPane() {
-		BorderPane borderPane = new BorderPane();
-		ProgressBar progressBar = new ProgressBar();
+		final BorderPane borderPane = new BorderPane();
+		final ProgressBar progressBar = new ProgressBar();
 		progressBar.setPrefWidth(200);
 		progressBar.setPrefHeight(20);
 		borderPane.setCenter(progressBar);
 		return borderPane;
 	}
 
-	private StackPane buildStackPane(PropertySheet propertySheet, BorderPane borderPane) {
-		StackPane stackPane = new StackPane();
+	private StackPane buildStackPane(final PropertySheet propertySheet, final BorderPane borderPane) {
+		final StackPane stackPane = new StackPane();
 		stackPane.getChildren().addAll(propertySheet, borderPane);
 		return stackPane;
 	}
 
-	private void asynchronouslyLoadPropertySheet(StackPane stackPane, BorderPane borderPane, PropertySheet propertySheet) {
-		OptionPanelPropertySheetLoader task = new OptionPanelPropertySheetLoader(controls, propertySheet);
+	private void asynchronouslyLoadPropertySheet(final StackPane stackPane, final BorderPane borderPane,
+	                                             final PropertySheet propertySheet) {
+		final OptionPanelPropertySheetLoader task = new OptionPanelPropertySheetLoader(controls, propertySheet);
 		final Thread thread = new Thread(task, "OptionPanelPropertySheetLoader");
 		thread.setDaemon(true);
 		thread.start();
-		
-		ProgressBar progressBar = (ProgressBar) borderPane.getChildren().get(0);
+		final ProgressBar progressBar = (ProgressBar) borderPane.getChildren().get(0);
 		progressBar.progressProperty().bind(task.progressProperty());
-
 		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
-			public void handle(WorkerStateEvent event) {
+			public void handle(final WorkerStateEvent event) {
 				try {
-					ObservableList<Item> list = task.get();
+					final ObservableList<Item> list = task.get();
 					progressBar.progressProperty().unbind();
 					stackPane.getChildren().remove(borderPane);
 					propertySheet.getItems().setAll(list);
-				} catch (InterruptedException | ExecutionException e) {
+				}
+				catch (InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}
 			}
@@ -181,8 +178,9 @@ public class OptionPanel {
 		okButton.setMnemonicParsing(true);
 		okButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent arg0) {
+			public void handle(final ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						if (validate()) {
 							closeWindow();
@@ -196,7 +194,7 @@ public class OptionPanel {
 	}
 
 	private HBox buildButtonBarHBox(final Button cancelButton, final Button okButton) {
-		HBox hbox = new HBox();
+		final HBox hbox = new HBox();
 		hbox.setAlignment(Pos.CENTER_RIGHT);
 		hbox.setPadding(new Insets(5, 5, 5, 5));
 		hbox.setSpacing(10);
@@ -289,7 +287,7 @@ public class OptionPanel {
 
 	void setSelectedPanel(final String panelName) {
 		if (panelName.startsWith(OPTION_PANEL_RESOURCE_PREFIX)) {
-			String panelNameWithoutPrefix = panelName.substring(OPTION_PANEL_RESOURCE_PREFIX.length());
+			final String panelNameWithoutPrefix = panelName.substring(OPTION_PANEL_RESOURCE_PREFIX.length());
 			selectedTab = new Tab(panelNameWithoutPrefix);
 		}
 	}
