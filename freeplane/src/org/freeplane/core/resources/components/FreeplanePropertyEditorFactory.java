@@ -76,8 +76,7 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
 	}
 
 	/**
-	 * Fix implementation later so that it is editable for KeyProperty 
-	 * and then somehow create one for SeparatorProperty
+	 * Fix implementation later to create one for SeparatorProperty
 	 */
 	private PropertyEditor<?> createLabelPropertyEditor(Item item) {
 		return new AbstractPropertyEditor<String, Label>(item, new Label((String) item.getValue()), true) {
