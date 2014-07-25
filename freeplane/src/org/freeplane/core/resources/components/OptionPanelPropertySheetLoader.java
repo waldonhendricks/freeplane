@@ -53,11 +53,11 @@ public final class OptionPanelPropertySheetLoader extends Task<Void> {
 					list.add(new PropertyBeanFXAdapter(((PropertyBean) control), tabName));
 				}
 			}
-			PropertySheet propertySheet = (PropertySheet) stackPane.getChildren().get(0);
-			propertySheet.modeSwitcherVisibleProperty().setValue(false);
-			propertySheet.setMode(Mode.CATEGORY);
-			propertySheet.getItems().setAll(list);
 		}
+		PropertySheet propertySheet = (PropertySheet) stackPane.getChildren().get(0);
+		propertySheet.modeSwitcherVisibleProperty().setValue(false);
+		propertySheet.setMode(Mode.CATEGORY);
+		propertySheet.getItems().setAll(list);
 		return null;
 	}
 
