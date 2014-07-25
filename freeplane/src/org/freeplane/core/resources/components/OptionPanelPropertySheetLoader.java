@@ -43,22 +43,46 @@ public final class OptionPanelPropertySheetLoader extends Task<Void> {
 
 	@Override
 	protected Void call() throws Exception {
-		ObservableList<Item> list = FXCollections.observableArrayList();
-		for (ArrayList<IPropertyControl> tabGroup : controls) {
-			String tabName = TextUtils.getOptionalText(((TabProperty) tabGroup.get(0)).getLabel());
-			for (IPropertyControl control : tabGroup) {
-				if (control instanceof TabProperty || control instanceof NumberProperty) {
-					continue;
-				} else if (control instanceof PropertyBean) {
-					list.add(new PropertyBeanFXAdapter(((PropertyBean) control), tabName));
-				}
-			}
-		}
 		PropertySheet propertySheet = (PropertySheet) stackPane.getChildren().get(0);
 		propertySheet.modeSwitcherVisibleProperty().setValue(false);
 		propertySheet.setMode(Mode.CATEGORY);
-		propertySheet.getItems().setAll(list);
+		addPropertySheetItems(propertySheet);
 		return null;
+	}
+	private void addPropertySheetItems(PropertySheet propertySheet) {
+		ObservableList<Item> list = FXCollections.observableArrayList();
+		for (ArrayList<IPropertyControl> tabGroup : controls) {
+			String tabName = buildTabName(tabGroup);
+			createTabPane(list, tabGroup, tabName);
+		}
+		propertySheet.getItems().setAll(list);
+	}
+	private String buildTabName(ArrayList<IPropertyControl> tabGroup) {
+		TabProperty tab = (TabProperty) tabGroup.get(0);
+		String tabName = TextUtils.getOptionalText(tab.getLabel());
+		return tabName;
+	}
+	private void createTabPane(ObservableList<Item> list,
+			ArrayList<IPropertyControl> tabGroup, String tabName) {
+		for (IPropertyControl control : tabGroup) {
+			addControlIfApplicable(list, tabName, control);
+		}
+	}
+	private void addControlIfApplicable(ObservableList<Item> list,
+			String tabName, IPropertyControl control) {
+		// Implement adapter for number property, then remove this if block
+		if (control instanceof NumberProperty) {
+			return;
+		}
+		if (control instanceof PropertyBean) {
+			addControl(list, tabName, control);
+		}
+	}
+	private void addControl(ObservableList<Item> list, String tabName,
+			IPropertyControl control) {
+		PropertyBean propertyBean = (PropertyBean) control;
+		PropertyBeanFXAdapter propertyBeanFX = new PropertyBeanFXAdapter(propertyBean, tabName);  
+		list.add(propertyBeanFX);
 	}
 
 }
