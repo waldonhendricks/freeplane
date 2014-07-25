@@ -24,38 +24,35 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.scene.layout.StackPane;
 
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.control.PropertySheet.Item;
-import org.controlsfx.control.PropertySheet.Mode;
 import org.freeplane.core.util.TextUtils;
 
-public final class OptionPanelPropertySheetLoader extends Task<Void> {
+public final class OptionPanelPropertySheetLoader extends Task<ObservableList<Item>> {
 	private ArrayList<ArrayList<IPropertyControl>> controls;
-	private StackPane stackPane;
-	int count = 0;
+	private PropertySheet propertySheet;
 
-	OptionPanelPropertySheetLoader(ArrayList<ArrayList<IPropertyControl>> controls, StackPane stackPane) {
+	OptionPanelPropertySheetLoader(ArrayList<ArrayList<IPropertyControl>> controls, PropertySheet propertySheet) {
 		this.controls = controls;
-		this.stackPane = stackPane;
+		this.propertySheet = propertySheet;
 	}
 
 	@Override
-	protected Void call() throws Exception {
-		PropertySheet propertySheet = (PropertySheet) stackPane.getChildren().get(0);
-		propertySheet.modeSwitcherVisibleProperty().setValue(false);
-		propertySheet.setMode(Mode.CATEGORY);
-		addPropertySheetItems(propertySheet);
-		return null;
+	protected ObservableList<Item> call() throws Exception {
+		return buildPropertySheetItems(propertySheet);
 	}
-	private void addPropertySheetItems(PropertySheet propertySheet) {
+	private ObservableList<Item> buildPropertySheetItems(PropertySheet propertySheet) {
 		ObservableList<Item> list = FXCollections.observableArrayList();
+		int currentProgress = 0;
+		int totalProgress = controls.size();
 		for (ArrayList<IPropertyControl> tabGroup : controls) {
 			String tabName = buildTabName(tabGroup);
 			createTabPane(list, tabGroup, tabName);
+			currentProgress++;
+			updateProgress(currentProgress, totalProgress);
 		}
-		propertySheet.getItems().setAll(list);
+		return list;
 	}
 	private String buildTabName(ArrayList<IPropertyControl> tabGroup) {
 		TabProperty tab = (TabProperty) tabGroup.get(0);

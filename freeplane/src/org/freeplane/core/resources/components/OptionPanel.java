@@ -23,8 +23,13 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,6 +37,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -43,6 +50,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.commons.lang.StringUtils;
 import org.controlsfx.control.PropertySheet;
+import org.controlsfx.control.PropertySheet.Item;
+import org.controlsfx.control.PropertySheet.Mode;
 import org.freeplane.core.resources.ResourceController;
 import org.freeplane.core.resources.components.IValidator.ValidationResult;
 import org.freeplane.core.ui.components.UITools;
@@ -97,22 +106,24 @@ public class OptionPanel {
 		PropertySheet propertySheet = buildPropertySheet();
 		BorderPane borderPane = buildProgressPane();
 		StackPane stackPane = buildStackPane(propertySheet, borderPane);
-		asynchronouslyLoadPropertySheet(borderPane, stackPane);
+		asynchronouslyLoadPropertySheet(stackPane, borderPane, propertySheet);
 		return stackPane;
 	}
-
+	
 	private PropertySheet buildPropertySheet() {
 		PropertySheet propertySheet = new PropertySheet();
 		propertySheet.setPropertyEditorFactory(new FreeplanePropertyEditorFactory());
+		propertySheet.modeSwitcherVisibleProperty().setValue(false);
+		propertySheet.setMode(Mode.CATEGORY);
 		return propertySheet;
 	}
 
-	/**
-	 * In the future, this BorderPane would display a progress bar in the center 
-	 * as the loading of the form will take some time.
-	 */
 	private BorderPane buildProgressPane() {
 		BorderPane borderPane = new BorderPane();
+		ProgressBar progressBar = new ProgressBar();
+		progressBar.setPrefWidth(200);
+		progressBar.setPrefHeight(20);
+		borderPane.setCenter(progressBar);
 		return borderPane;
 	}
 
@@ -122,16 +133,27 @@ public class OptionPanel {
 		return stackPane;
 	}
 
-	private void asynchronouslyLoadPropertySheet(BorderPane borderPane, StackPane stackPane) {
-		OptionPanelPropertySheetLoader task = new OptionPanelPropertySheetLoader(controls, stackPane);
+	private void asynchronouslyLoadPropertySheet(StackPane stackPane, BorderPane borderPane, PropertySheet propertySheet) {
+		OptionPanelPropertySheetLoader task = new OptionPanelPropertySheetLoader(controls, propertySheet);
 		final Thread thread = new Thread(task, "OptionPanelPropertySheetLoader");
+		thread.setDaemon(true);
 		thread.start();
-		task.setOnSucceeded(workerStateEvent -> {
-			Platform.runLater(new Runnable() {
-				public void run() {
+		
+		ProgressBar progressBar = (ProgressBar) borderPane.getChildren().get(0);
+		progressBar.progressProperty().bind(task.progressProperty());
+
+		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+				try {
+					ObservableList<Item> list = task.get();
+					progressBar.progressProperty().unbind();
 					stackPane.getChildren().remove(borderPane);
+					propertySheet.getItems().setAll(list);
+				} catch (InterruptedException | ExecutionException e) {
+					e.printStackTrace();
 				}
-			});
+			}
 		});
 	}
 
