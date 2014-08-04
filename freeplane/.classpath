@@ -26,5 +26,6 @@
 	<classpathentry kind="lib" path="lib/commons-codec-1.7.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JOrtho_0.4_freeplane"/>
 	<classpathentry kind="lib" path="lib/controlsfx-8.0.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
