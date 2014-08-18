@@ -64,7 +64,7 @@ public class KeyProperty extends PropertyBean implements IPropertyControl {
 		icon.paintIcon(null, g, 0, 0);
 		WritableImage javaFXImage = SwingFXUtils.toFXImage(bufferedImage, null);
 	    return javaFXImage;
-    }
+	}
 
 	@Override
 	public Object getFXObjectValue(String stringValue) {

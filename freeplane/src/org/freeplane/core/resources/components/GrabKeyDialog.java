@@ -71,9 +71,6 @@ public class GrabKeyDialog extends JDialog {
 	}
 
 	class InputPane extends JTextField {
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		/**
@@ -204,19 +201,15 @@ public class GrabKeyDialog extends JDialog {
 	 *            debug info will be dumped to this buffer (may be null)
 	 * @since jEdit 4.1pre7
 	 */
+	
 	/**
 	 * A jEdit action or macro with its two possible shortcuts.
 	 * 
 	 * @since jEdit 3.2pre8
 	 */
 	public final static String MODIFIER_SEPARATOR = " ";
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 */
 	private static String getText(final String resourceString) {
 		return TextUtils.getText("GrabKeyDialog." + resourceString);
 	}
@@ -335,8 +328,6 @@ public class GrabKeyDialog extends JDialog {
 
 			/**
 			 * Makes the tab key work in Java 1.4.
-			 * 
-			 * @since jEdit 3.2pre4
 			 */
 			@Override
 			public boolean getFocusTraversalKeysEnabled() {
