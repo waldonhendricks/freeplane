@@ -289,10 +289,6 @@ public class GrabKeyDialog extends JDialog {
 	private String getSymbolicName(final int keyCode) {
 		if (keyCode == KeyEvent.VK_UNDEFINED) {
 			return null;
-			/*
-			 * else if(keyCode == KeyEvent.VK_OPEN_BRACKET) return "["; else
-			 * if(keyCode == KeyEvent.VK_CLOSE_BRACKET) return "]";
-			 */
 		}
 		if (keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) {
 			return String.valueOf(Character.toLowerCase((char) keyCode));

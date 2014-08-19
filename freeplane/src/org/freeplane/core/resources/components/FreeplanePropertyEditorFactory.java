@@ -22,10 +22,16 @@ package org.freeplane.core.resources.components;
 import java.time.LocalDate;
 
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Callback;
+import javafx.event.*;
 
 import org.controlsfx.control.PropertySheet.Item;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
 import org.controlsfx.property.editor.AbstractPropertyEditor;
 import org.controlsfx.property.editor.Editors;
 import org.controlsfx.property.editor.PropertyEditor;
@@ -54,7 +60,7 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
 			return Editors.createFontEditor(item);
 		}
 		if (type == KeyProperty.class) {
-			return Editors.createTextEditor(item);
+			return createButtonPropertyEditor(item);
 		}
 		if (type == NumberProperty.class) {
 			return Editors.createNumericEditor(item);
@@ -74,6 +80,37 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
 		
 		return null;
 	}
+	
+	private PropertyEditor<?> createButtonPropertyEditor(Item item) {
+		return new AbstractPropertyEditor<String, Button>(item, new Button((String) item.getValue()), true) {
+			
+            { 
+            	getEditor().setOnAction(new EventHandler<ActionEvent>() {
+            		@Override
+                    public void handle(ActionEvent event) {
+            			GrabKeyFXDialog dialog = new GrabKeyFXDialog(null, "Enter new key", (String) item.getValue());
+            			Action response = dialog.show();
+            			if (response.equals(Dialog.ACTION_OK)) {          			
+            				System.out.println("Ok");
+            				getEditor().setText(dialog.getShortCutKey());
+            				item.setValue(dialog.getShortCutKey());
+            			}
+                    }
+            	});
+            }
+			
+			@Override
+			protected ObservableValue<String> getObservableValue() {
+				return getEditor().textProperty();
+			}
+
+			@Override
+			public void setValue(String value) {
+				getEditor().setText(value);
+			}
+		};
+	}
+
 
 	/**
 	 * Fix implementation later to create one for SeparatorProperty
