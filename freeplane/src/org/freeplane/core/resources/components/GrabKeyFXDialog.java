@@ -19,11 +19,6 @@
  */
 package org.freeplane.core.resources.components;
 
-import java.awt.event.InputEvent;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -35,7 +30,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.input.KeyCode;
 
 import org.controlsfx.dialog.Dialog;
-import org.freeplane.core.util.Compat;
 
 public class GrabKeyFXDialog extends Dialog {
 
@@ -45,6 +39,43 @@ public class GrabKeyFXDialog extends Dialog {
 		super(owner, title);
 		HBox hBox = new HBox(10);
 		shortCutField = new TextField(initialValue);
+		shortCutField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+            public void handle(KeyEvent event) {
+				event.consume();
+				if (event.getCode().isModifierKey()) {
+					return;
+				} else {
+					final StringBuilder keyStringBuilder = new StringBuilder();
+					if (event.isControlDown()) {
+						keyStringBuilder.append("control").append(" ");
+					}
+					if (event.isAltDown()) {
+						keyStringBuilder.append("alt").append(" ");
+					}
+					if (event.isMetaDown()) {
+						keyStringBuilder.append("meta").append(" ");
+					}
+					if (event.isShiftDown()) {
+						keyStringBuilder.append("shift").append(" ");
+					}
+					final KeyCode keyCode = event.getCode();
+					if (keyCode.isDigitKey()) {
+						keyStringBuilder.append(keyCode.name().substring(5));
+					} else {
+						keyStringBuilder.append(keyCode.name());						
+					}
+					final String keyString = keyStringBuilder.toString();
+					shortCutField.setText(keyString);
+				}
+            }
+		});
+		shortCutField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+			@Override
+            public void handle(KeyEvent event) {
+				event.consume();
+            }
+		});
 		
 		Button clearButton = new Button("Clear");
 		clearButton.setOnAction(new EventHandler<ActionEvent>() {
