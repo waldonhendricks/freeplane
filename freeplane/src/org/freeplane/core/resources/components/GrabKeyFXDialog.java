@@ -31,6 +31,9 @@ import javafx.scene.input.KeyCode;
 
 import org.controlsfx.dialog.Dialog;
 
+/**
+ * TODO: Implement check on close!
+ */
 public class GrabKeyFXDialog extends Dialog {
 
 	private TextField shortCutField;
