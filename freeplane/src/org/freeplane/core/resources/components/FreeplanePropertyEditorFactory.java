@@ -23,7 +23,6 @@ import java.time.LocalDate;
 
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Callback;
@@ -44,8 +43,6 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
 		if (type == LocalDate.class) {
 			return Editors.createDateEditor(item);
 		}
-		
-
 		if (type == BooleanProperty.class) {
 			return Editors.createCheckEditor(item);
 		}
@@ -88,7 +85,7 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
             	getEditor().setOnAction(new EventHandler<ActionEvent>() {
             		@Override
                     public void handle(ActionEvent event) {
-            			GrabKeyFXDialog dialog = new GrabKeyFXDialog(null, "Enter new key", (String) item.getValue());
+            			GrabKeyFXDialogForKeyProperty dialog = new GrabKeyFXDialogForKeyProperty(null, "Enter new key", (String) item.getValue());
             			Action response = dialog.show();
             			if (response.equals(Dialog.ACTION_OK)) {
             				String shortCutKey = dialog.getShortCutKey();

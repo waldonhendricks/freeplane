@@ -19,6 +19,7 @@
  */
 package org.freeplane.core.resources.components;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -32,14 +33,17 @@ import javafx.scene.input.KeyCode;
 import org.controlsfx.dialog.Dialog;
 
 /**
- * TODO: Implement check on close!
+ * The GrabKey Dialog for the KeyProperty. 
+ * For every other time you need to get a "custom key shortcut" from the user, use the GrabKeyDialog class.
+ * In the future, generalize this dialog to perform the functionality of GrabKeyDialog.
+ * This dialog must be opened from the JavaFX Application Thread.
  */
-public class GrabKeyFXDialog extends Dialog {
+public class GrabKeyFXDialogForKeyProperty extends Dialog {
 
 	private TextField shortCutField;
 	private Button clearButton;
 	
-	public GrabKeyFXDialog(Object owner, String title, String initialValue) {
+	public GrabKeyFXDialogForKeyProperty(Object owner, String title, String initialValue) {
 		super(owner, title);
 		shortCutField = buildShortCutField(initialValue);
 		clearButton = buildClearButton(shortCutField);
@@ -57,15 +61,6 @@ public class GrabKeyFXDialog extends Dialog {
 					return;
 				} else {
 					final StringBuilder keyStringBuilder = new StringBuilder();
-					if (event.isControlDown()) {
-						keyStringBuilder.append("control").append(" ");
-					}
-					if (event.isAltDown()) {
-						keyStringBuilder.append("alt").append(" ");
-					}
-					if (event.isMetaDown()) {
-						keyStringBuilder.append("meta").append(" ");
-					}
 					if (event.isShiftDown()) {
 						keyStringBuilder.append("shift").append(" ");
 					}
@@ -85,6 +80,12 @@ public class GrabKeyFXDialog extends Dialog {
             public void handle(KeyEvent event) {
 				event.consume();
             }
+		});
+		Platform.runLater(new Runnable() {
+		     @Override
+		     public void run() {
+		 		shortCutField.requestFocus();
+		     }
 		});
 	    return shortCutField;
     }
