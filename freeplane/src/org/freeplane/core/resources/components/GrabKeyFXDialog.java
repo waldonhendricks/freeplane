@@ -37,11 +37,18 @@ import org.controlsfx.dialog.Dialog;
 public class GrabKeyFXDialog extends Dialog {
 
 	private TextField shortCutField;
-
+	private Button clearButton;
+	
 	public GrabKeyFXDialog(Object owner, String title, String initialValue) {
 		super(owner, title);
-		HBox hBox = new HBox(10);
-		shortCutField = new TextField(initialValue);
+		shortCutField = buildShortCutField(initialValue);
+		clearButton = buildClearButton(shortCutField);
+		HBox hBox = buildContentHBox(shortCutField, clearButton);
+		setContent(hBox);
+		getActions().addAll(Dialog.ACTION_OK, Dialog.ACTION_CANCEL);
+	}
+	private TextField buildShortCutField(String initialValue) {
+	    TextField shortCutField = new TextField(initialValue);
 		shortCutField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
             public void handle(KeyEvent event) {
@@ -79,21 +86,26 @@ public class GrabKeyFXDialog extends Dialog {
 				event.consume();
             }
 		});
-		
-		Button clearButton = new Button("Clear");
+	    return shortCutField;
+    }
+	private Button buildClearButton(final TextField shortCutField) {
+	    Button clearButton = new Button("Clear");
 		clearButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				shortCutField.clear();
 			}
 		});
+	    return clearButton;
+    }
+	private HBox buildContentHBox(TextField shortCutField, Button clearButton) {
+	    HBox hBox = new HBox(10);
 		hBox.getChildren().addAll(shortCutField, clearButton);
 		hBox.setPadding(new Insets(10, 10, 10, 10));
 		hBox.setAlignment(Pos.CENTER);
-		setContent(hBox);
-		getActions().addAll(Dialog.ACTION_OK, Dialog.ACTION_CANCEL);
-	}
-
+	    return hBox;
+    }
+	
 	public String getShortCutKey() {
 		return shortCutField.getText();
 	}
