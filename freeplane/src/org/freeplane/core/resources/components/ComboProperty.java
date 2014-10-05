@@ -51,6 +51,7 @@ public class ComboProperty extends PropertyBean implements IPropertyControl, Act
 	ArrayList<String> possibleValues = new ArrayList<String>();
 	ArrayList<String> possibleTranslationValues = new ArrayList<String>();
 	TreeMap<String, String> translationsToPossibles = new TreeMap<>();
+	TreeMap<String, String> possiblesToTranslations = new TreeMap<>();
 
 	public ComboProperty(final String name, final String[] strings) {
 		this(name, Arrays.asList(strings), ComboProperty.translate(strings));
@@ -78,11 +79,13 @@ public class ComboProperty extends PropertyBean implements IPropertyControl, Act
 		Iterator<String> i1 = possibleTranslationValues.iterator();
 		Iterator<String> i2 = possibleValues.iterator();
 		while (i1.hasNext() && i2.hasNext()) {
-			translationsToPossibles.put(i1.next(), i2.next());
+			String nextTranslation = i1.next();
+			String nextPossible = i2.next();
+			translationsToPossibles.put(nextTranslation, nextPossible);
+			possiblesToTranslations.put(nextPossible, nextTranslation);
 		}
 		if (i1.hasNext() || i2.hasNext()) {
-			LogUtils
-			    .warn("The number of possibles do not match the number of translations; input may not be properly submitted.");
+			LogUtils.warn("The number of possibles do not match the number of translations; input may not be properly submitted.");
 		}
 	}
 
@@ -159,7 +162,13 @@ public class ComboProperty extends PropertyBean implements IPropertyControl, Act
 
 	@Override
 	public Object getFXObjectValue(String stringValue) {
-		return stringValue;
+		if (possiblesToTranslations.containsKey(stringValue)) {
+			return (String) possiblesToTranslations.get(stringValue);
+		}
+		else {
+			LogUtils.warn("Untranslatable value has been parsed: " + stringValue);
+			return stringValue;
+		}
 	}
 
 	@Override
@@ -168,6 +177,7 @@ public class ComboProperty extends PropertyBean implements IPropertyControl, Act
 			return (String) translationsToPossibles.get(translatedValue);
 		}
 		else {
+			LogUtils.warn("Untranslatable value has been chosen: " + translatedValue.toString());
 			return (String) translatedValue;
 		}
 	}
