@@ -90,10 +90,10 @@ public class FreeplanePropertyEditorFactory implements Callback<Item, PropertyEd
                     public void handle(ActionEvent event) {
             			GrabKeyFXDialog dialog = new GrabKeyFXDialog(null, "Enter new key", (String) item.getValue());
             			Action response = dialog.show();
-            			if (response.equals(Dialog.ACTION_OK)) {          			
-            				System.out.println("Ok");
-            				getEditor().setText(dialog.getShortCutKey());
-            				item.setValue(dialog.getShortCutKey());
+            			if (response.equals(Dialog.ACTION_OK)) {
+            				String shortCutKey = dialog.getShortCutKey();
+            				getEditor().setText(shortCutKey);
+            				item.setValue(shortCutKey);
             			}
                     }
             	});
