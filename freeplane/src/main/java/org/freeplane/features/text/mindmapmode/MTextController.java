@@ -108,7 +108,6 @@ import com.lightdev.app.shtm.TextResources;
  */
 public class MTextController extends TextController {
 	
-	private static final String PARSE_DATA_PROPERTY = "parse_data";
     public static final String NODE_TEXT = "NodeText";
 	private static Pattern FORMATTING_PATTERN = null;
 	private EditNodeBase mCurrentEditDialog = null;
@@ -365,7 +364,7 @@ public class MTextController extends TextController {
 	}
 
     public Object guessObject(final Object text, final String oldFormat) {
-        if (parseData() && text instanceof String) {
+        if (/*parseData()*/true  && text instanceof String) {
             if (PatternFormat.getIdentityPatternFormat().getPattern().equals(oldFormat))
                 return text;
             final Object parseResult = ScannerController.getController().parse((String) text);

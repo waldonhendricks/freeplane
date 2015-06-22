@@ -55,6 +55,7 @@ import org.freeplane.features.styles.MapStyleModel;
  * @author Dimitry Polivaev
  */
 public class TextController implements IExtension {
+	protected static final String PARSE_DATA_PROPERTY = "parse_data";
 	public static final String DETAILS_HIDDEN = "DETAILS_HIDDEN";
 	public static final String FILTER_NODE = "filter_node";
 	public static final String FILTER_ANYTEXT = "filter_any_text";
@@ -106,7 +107,8 @@ public class TextController implements IExtension {
 		modeController.addAction(new ToggleDetailsAction());
 		modeController.addAction(new SetShortenerStateAction());
 //		modeController.addAction(new ToggleNodeNumberingAction());
-		addTextTransformer(new FormatContentTransformer(this, 50));
+		addTextTransformer(new ConditionalContentTransformer(//
+				new FormatContentTransformer(this, 50), PARSE_DATA_PROPERTY));
 		registerDetailsTooltip();
 		registerNodeTextTooltip();
 	}
@@ -128,7 +130,7 @@ public class TextController implements IExtension {
 	}
 	
 	public Object getTransformedObject(Object object, final NodeModel nodeModel, Object extension) throws TransformationException{
-		if(object instanceof String && ResourceController.getResourceController().getBooleanProperty("parse_data")){
+		if(object instanceof String){
 			String string = (String) object;
 			if(string.length() > 0 && string.charAt(0) == '\''){
 				if(isTextFormattingDisabled(nodeModel))
@@ -352,7 +354,7 @@ public class TextController implements IExtension {
 				return format;
 			}
         }
-        return parseData() ? PatternFormat.STANDARD_FORMAT_PATTERN : PatternFormat.IDENTITY_PATTERN;
+        return /*parseData()*/true ? PatternFormat.STANDARD_FORMAT_PATTERN : PatternFormat.IDENTITY_PATTERN;
     }
 
 	public boolean parseData() {
